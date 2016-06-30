@@ -16,22 +16,22 @@ void parseArguments(int argc, char* args[], bool *fullScreen) {
 }
 
 int main(int argc, char* args[]) {
-	Game* g = new Game();
+	Game g;
 	bool fullScreen;
 
 	parseArguments(argc, args, &fullScreen);
 
-	if (!g->init("My first window", 100, 100, 640, 480, fullScreen)) {
+	if (!g.init("My first window", 100, 100, 640, 480, fullScreen)) {
 		return 1;
 	}
 
-	while (g->isRunning()) {
-		g->handleEvents();
-		g->update();
-		g->render();
+	while (g.isRunning()) {
+		g.handleEvents();
+		g.update();
+		g.render();
 	}
 
-	g->clean();
+	g.clean();
 
 	return 0;
 }
