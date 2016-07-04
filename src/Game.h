@@ -6,6 +6,15 @@ class Game {
 	SDL_Window* m_pWindow;
 	SDL_Renderer* m_pRenderer;
 
+	bool _initSDL(
+		const char* title,
+		const int x,
+		const int y,
+		const int w,
+		const int h,
+		const bool fullScreen
+	);
+
 	public:
 	Game();
 	~Game();

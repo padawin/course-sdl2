@@ -10,13 +10,13 @@ Game::~Game() {
 
 }
 
-bool Game::init(
+bool Game::_initSDL(
 	const char* title,
 	const int x,
 	const int y,
 	const int w,
 	const int h,
-	bool fullScreen
+	const bool fullScreen
 ) {
 	bool l_bReturn = true;
 	int flags = 0;
@@ -47,6 +47,21 @@ bool Game::init(
 		}
 	}
 
+	return l_bReturn;
+}
+
+bool Game::init(
+	const char* title,
+	const int x,
+	const int y,
+	const int w,
+	const int h,
+	const bool fullScreen
+) {
+	bool l_bReturn = true;
+
+	l_bReturn &= _initSDL(title, x, y, w, h, fullScreen);
+	l_bReturn &= _loadResources();
 	m_bRunning = l_bReturn;
 	return l_bReturn;
 }
