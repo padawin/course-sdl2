@@ -85,6 +85,7 @@ void Game::handleEvents() {
 }
 
 void Game::update() {
+	m_iCurrentFrame = int(((SDL_GetTicks() / 100) % 6));
 }
 
 void Game::render() {
@@ -97,6 +98,12 @@ void Game::render() {
 	m_textureManager.draw(
 		"animate",
 		0, 0, 128, 142,
+		m_pRenderer
+	);
+	m_textureManager.drawFrame(
+		"animate",
+		0, 142, 128, 142,
+		1, m_iCurrentFrame,
 		m_pRenderer
 	);
 	// show the window

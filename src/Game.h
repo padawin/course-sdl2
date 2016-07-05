@@ -9,6 +9,7 @@ class Game {
 	bool m_bRunning;
 	SDL_Window* m_pWindow;
 	SDL_Renderer* m_pRenderer;
+	int m_iCurrentFrame;
 	TextureManager m_textureManager;
 
 	bool _initSDL(
