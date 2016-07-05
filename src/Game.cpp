@@ -50,6 +50,11 @@ bool Game::_initSDL(
 	return l_bReturn;
 }
 
+bool Game::_loadResources() {
+	m_textureManager.load("resources/char9.bmp", "animate", m_pRenderer);
+	return true;
+}
+
 bool Game::init(
 	const char* title,
 	const int x,
