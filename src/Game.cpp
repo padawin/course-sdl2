@@ -94,6 +94,11 @@ void Game::render() {
 	SDL_SetRenderDrawColor(m_pRenderer, 0, 0, 0, 255);
 	// clear the window to black
 	SDL_RenderClear(m_pRenderer);
+	m_textureManager.draw(
+		"animate",
+		0, 0, 128, 142,
+		m_pRenderer
+	);
 	// show the window
 	SDL_RenderPresent(m_pRenderer);
 }
