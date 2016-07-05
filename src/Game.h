@@ -1,3 +1,6 @@
+#ifndef __Game__
+#define __Game__
+
 #include <SDL2/SDL.h>
 
 class Game {
@@ -34,3 +37,5 @@ class Game {
 
 	bool isRunning();
 };
+
+#endif /* defined(__Game__) */
