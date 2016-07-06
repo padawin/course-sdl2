@@ -7,7 +7,7 @@ Game::Game() {
 }
 
 Game::~Game() {
-
+	TextureManager::free();
 }
 
 bool Game::_initSDL(
@@ -51,7 +51,7 @@ bool Game::_initSDL(
 }
 
 bool Game::_loadResources() {
-	m_textureManager.load("resources/char9.bmp", "animate", m_pRenderer);
+	m_textureManager->load("resources/char9.bmp", "animate", m_pRenderer);
 	return true;
 }
 
@@ -64,6 +64,7 @@ bool Game::init(
 	const bool fullScreen
 ) {
 	bool l_bReturn = true;
+	m_textureManager = TextureManager::Instance();
 
 	l_bReturn &= _initSDL(title, x, y, w, h, fullScreen);
 	l_bReturn &= _loadResources();
@@ -95,12 +96,12 @@ void Game::render() {
 	SDL_SetRenderDrawColor(m_pRenderer, 0, 0, 0, 255);
 	// clear the window to black
 	SDL_RenderClear(m_pRenderer);
-	m_textureManager.draw(
+	m_textureManager->draw(
 		"animate",
 		0, 0, 128, 142,
 		m_pRenderer
 	);
-	m_textureManager.drawFrame(
+	m_textureManager->drawFrame(
 		"animate",
 		0, 142, 128, 142,
 		1, m_iCurrentFrame,

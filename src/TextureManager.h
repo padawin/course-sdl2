@@ -9,6 +9,7 @@
 class TextureManager {
 	private:
 	std::map<std::string, SDL_Texture*> m_textureMap;
+	TextureManager();
 
 	public:
 	bool load(std::string fileName,std::string id, SDL_Renderer* pRenderer);
@@ -25,6 +26,9 @@ class TextureManager {
 		int currentRow, int currentFrame,
 		SDL_Renderer* pRenderer, SDL_RendererFlip flip = SDL_FLIP_NONE
 	);
+
+	static TextureManager* Instance();
+	static void free();
 };
 
 #endif /* defined(__TextureManager__) */
