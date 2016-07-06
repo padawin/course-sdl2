@@ -1,5 +1,6 @@
 #include "Game.h"
 #include <iostream>
+#include <errno.h>
 
 Game::Game() {
 	m_pWindow = 0;
@@ -51,7 +52,21 @@ bool Game::_initSDL(
 }
 
 bool Game::_loadResources() {
-	m_textureManager->load("resources/char9.bmp", "animate", m_pRenderer);
+	const char* fileName = "resources/char9.bmp";
+	const char* errorPattern = "An error occured while loading the file %s\n%s\n";
+	char errorMessage[strlen(fileName) + strlen(errorPattern) - 2];
+	bool textureLoaded = m_textureManager->load(
+		fileName,
+		"animate",
+		m_pRenderer
+	);
+
+	if (!textureLoaded) {
+		sprintf(errorMessage, errorPattern, fileName, strerror(errno));
+		std::cout << errorMessage;
+		return false;
+	}
+
 	return true;
 }
 
