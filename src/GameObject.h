@@ -1,4 +1,5 @@
 #include <string>
+#include <SDL2/SDL.h>
 
 class GameObject {
 	private:
@@ -16,6 +17,6 @@ class GameObject {
 	void setTexture(const std::string textureID, int nbFrames);
 	void setTextureRow(const int currentRow);
 	void update();
-	void render();
+	void render(SDL_Renderer* pRenderer);
 	void clean();
 };
