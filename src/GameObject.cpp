@@ -19,7 +19,7 @@ void GameObject::setTextureRow(const int currentRow) {
 }
 
 void GameObject::update() {
-
+	m_iCurrentFrame = int(((SDL_GetTicks() / 100) % m_iNbFrames));
 }
 
 void GameObject::render() {
