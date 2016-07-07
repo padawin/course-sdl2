@@ -84,6 +84,12 @@ bool Game::init(
 	l_bReturn &= _initSDL(title, x, y, w, h, fullScreen);
 	l_bReturn &= _loadResources();
 	m_bRunning = l_bReturn;
+
+	if (l_bReturn) {
+		m_player.load(0, 0, 128, 142);
+		m_player.setTexture("animate", 6);
+	}
+
 	return l_bReturn;
 }
 
@@ -101,7 +107,7 @@ void Game::handleEvents() {
 }
 
 void Game::update() {
-	m_iCurrentFrame = int(((SDL_GetTicks() / 100) % 6));
+	m_player.update();
 }
 
 void Game::render() {
@@ -111,17 +117,7 @@ void Game::render() {
 	SDL_SetRenderDrawColor(m_pRenderer, 0, 0, 0, 255);
 	// clear the window to black
 	SDL_RenderClear(m_pRenderer);
-	m_textureManager->draw(
-		"animate",
-		0, 0, 128, 142,
-		m_pRenderer
-	);
-	m_textureManager->drawFrame(
-		"animate",
-		0, 142, 128, 142,
-		1, m_iCurrentFrame,
-		m_pRenderer
-	);
+	m_player.render(m_pRenderer);
 	// show the window
 	SDL_RenderPresent(m_pRenderer);
 }
