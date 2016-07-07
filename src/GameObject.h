@@ -6,6 +6,7 @@ class GameObject {
 	int m_iHeight;
 
 	public:
+	void load(const int x, const int y, const int width, const int height);
 	void update();
 	void render();
 	void clean();
