@@ -7,6 +7,13 @@ void GameObject::load(const int x, const int y, const int width, const int heigh
 	m_iHeight = height;
 }
 
+void GameObject::setTexture(const std::string textureID, int nbFrames) {
+	m_iCurrentRow = 1;
+	m_iCurrentFrame = 1;
+	m_iNbFrames = nbFrames;
+	m_sTextureID = textureID;
+}
+
 void GameObject::update() {
 
 }
