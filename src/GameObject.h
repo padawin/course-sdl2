@@ -2,7 +2,7 @@
 #include <SDL2/SDL.h>
 
 class GameObject {
-	private:
+	protected:
 	std::string m_sTextureID;
 	int m_iNbFrames;
 	int m_iCurrentFrame;
