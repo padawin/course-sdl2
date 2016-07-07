@@ -3,14 +3,16 @@
 
 #include <SDL2/SDL.h>
 #include "TextureManager.h"
+#include "Player.h"
 
 class Game {
 	private:
 	bool m_bRunning;
 	SDL_Window* m_pWindow;
 	SDL_Renderer* m_pRenderer;
-	int m_iCurrentFrame;
 	TextureManager* m_textureManager;
+
+	Player m_player;
 
 	bool _initSDL(
 		const char* title,
