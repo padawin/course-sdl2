@@ -14,6 +14,7 @@ class GameObject {
 	public:
 	void load(const int x, const int y, const int width, const int height);
 	void setTexture(const std::string textureID, int nbFrames);
+	void setTextureRow(const int currentRow);
 	void update();
 	void render();
 	void clean();

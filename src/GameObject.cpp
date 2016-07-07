@@ -14,6 +14,10 @@ void GameObject::setTexture(const std::string textureID, int nbFrames) {
 	m_sTextureID = textureID;
 }
 
+void GameObject::setTextureRow(const int currentRow) {
+	m_iCurrentRow = currentRow;
+}
+
 void GameObject::update() {
 
 }
