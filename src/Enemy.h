@@ -1,9 +1,9 @@
 #ifndef __Enemy__
 #define __Enemy__
 
-#include "GameObject.h"
+#include "SDLDrawable.h"
 
-class Enemy : public GameObject {
+class Enemy : public SDLDrawable {
 	public:
 	void update();
 };
