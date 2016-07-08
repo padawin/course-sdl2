@@ -16,12 +16,13 @@ class GameObject {
 	int m_iHeight;
 
 	public:
-	void load(const int x, const int y, const int width, const int height);
-	void setTexture(const std::string textureID, int nbFrames);
-	void setTextureRow(const int currentRow);
-	void update();
-	void render(SDL_Renderer* pRenderer);
-	void clean();
+	virtual ~GameObject();
+	virtual void load(const int x, const int y, const int width, const int height);
+	virtual void setTexture(const std::string textureID, int nbFrames);
+	virtual void setTextureRow(const int currentRow);
+	virtual void update();
+	virtual void render(SDL_Renderer* pRenderer);
+	virtual void clean();
 };
 
 #endif
