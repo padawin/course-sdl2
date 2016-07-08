@@ -2,6 +2,7 @@
 #define __Game__
 
 #include <SDL2/SDL.h>
+#include <vector>
 #include "TextureManager.h"
 #include "Player.h"
 
@@ -12,7 +13,8 @@ class Game {
 	SDL_Renderer* m_pRenderer;
 	TextureManager* m_textureManager;
 
-	Player m_player;
+	std::vector<GameObject*> m_gameObjects;
+	GameObject* m_player;
 
 	bool _initSDL(
 		const char* title,
@@ -23,6 +25,8 @@ class Game {
 		const bool fullScreen
 	);
 	bool _loadResources();
+	void _initActors();
+	void _cleanActors();
 
 	public:
 	Game();
