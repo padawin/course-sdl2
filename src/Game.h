@@ -5,6 +5,7 @@
 #include <vector>
 #include "TextureManager.h"
 #include "Player.h"
+#include "Enemy.h"
 
 class Game {
 	private:
@@ -14,6 +15,7 @@ class Game {
 	TextureManager* m_textureManager;
 
 	std::vector<GameObject*> m_gameObjects;
+	std::vector<GameObject*> m_enemies;
 	GameObject* m_player;
 
 	bool _initSDL(
