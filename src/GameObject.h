@@ -16,7 +16,7 @@ class GameObject {
 	int m_iHeight;
 
 	public:
-	virtual ~GameObject() = 0;
+	virtual ~GameObject() {}
 	virtual void load(const int x, const int y, const int width, const int height);
 	virtual void setTexture(const std::string textureID, int nbFrames);
 	virtual void setTextureRow(const int currentRow);

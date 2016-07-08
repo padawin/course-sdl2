@@ -1,8 +1,6 @@
 #include "GameObject.h"
 #include "TextureManager.h"
 
-GameObject::~GameObject() {}
-
 void GameObject::load(const int x, const int y, const int width, const int height) {
 	m_iX = x;
 	m_iY = y;
