@@ -70,6 +70,29 @@ bool Game::_loadResources() {
 	return true;
 }
 
+void Game::_initActors() {
+	m_player = new Player();
+	m_gameObjects.push_back(m_player);
+	m_player->load(0, 0, 128, 142);
+	m_player->setTexture("animate", 6);
+
+	int l_iNbEnemies = 4;
+	for (int e = 0; e < l_iNbEnemies; ++e) {
+		m_enemies.push_back(new Enemy());
+		m_gameObjects.push_back(m_enemies[e]);
+		m_enemies[e]->load(0, 142 * (e + 1), 128, 142);
+		m_enemies[e]->setTexture("animate", 6);
+	}
+}
+
+void Game::_cleanActors() {
+	for (std::vector<GameObject*>::size_type i = 0; i != m_gameObjects.size(); i++) {
+		delete m_gameObjects[i];
+	}
+
+	m_gameObjects.clear();
+}
+
 bool Game::init(
 	const char* title,
 	const int x,
@@ -86,8 +109,7 @@ bool Game::init(
 	m_bRunning = l_bReturn;
 
 	if (l_bReturn) {
-		m_player.load(0, 0, 128, 142);
-		m_player.setTexture("animate", 6);
+		_initActors();
 	}
 
 	return l_bReturn;
@@ -107,7 +129,9 @@ void Game::handleEvents() {
 }
 
 void Game::update() {
-	m_player.update();
+	for (std::vector<GameObject*>::size_type i = 0; i != m_gameObjects.size(); i++) {
+		m_gameObjects[i]->update();
+	}
 }
 
 void Game::render() {
@@ -117,7 +141,10 @@ void Game::render() {
 	SDL_SetRenderDrawColor(m_pRenderer, 0, 0, 0, 255);
 	// clear the window to black
 	SDL_RenderClear(m_pRenderer);
-	m_player.render(m_pRenderer);
+
+	for (std::vector<GameObject*>::size_type i = 0; i != m_gameObjects.size(); i++) {
+		m_gameObjects[i]->render(m_pRenderer);
+	}
 	// show the window
 	SDL_RenderPresent(m_pRenderer);
 }
@@ -127,6 +154,7 @@ void Game::clean() {
 	SDL_DestroyRenderer(m_pRenderer);
 	// clean up SDL
 	SDL_Quit();
+	_cleanActors();
 }
 
 bool Game::isRunning() {
