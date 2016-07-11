@@ -16,8 +16,8 @@ class Game {
 
 	std::vector<GameObject*> m_gameObjects;
 	std::vector<SDLDrawable*> m_renderableObjects;
-	std::vector<GameObject*> m_enemies;
-	GameObject* m_player;
+	std::vector<Enemy*> m_enemies;
+	Player* m_player;
 
 	bool _initSDL(
 		const char* title,
