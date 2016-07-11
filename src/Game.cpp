@@ -90,6 +90,7 @@ void Game::_initActors() {
 void Game::_cleanActors() {
 	for (std::vector<GameObject*>::size_type i = 0; i != m_gameObjects.size(); i++) {
 		delete m_gameObjects[i];
+		m_gameObjects[i] = NULL;
 	}
 
 	m_gameObjects.clear();
