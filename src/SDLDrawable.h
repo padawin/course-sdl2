@@ -26,4 +26,3 @@ class SDLDrawable : public GameObject {
 };
 
 #endif
-

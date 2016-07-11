@@ -34,4 +34,3 @@ void SDLDrawable::render(SDL_Renderer* pRenderer) {
 		pRenderer
 	);
 }
-
