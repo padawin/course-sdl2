@@ -73,6 +73,7 @@ bool Game::_loadResources() {
 void Game::_initActors() {
 	m_player = new Player();
 	m_gameObjects.push_back(m_player);
+	m_renderableObjects.push_back(m_player);
 	m_player->load(0, 0, 128, 142);
 	m_player->setTexture("animate", 6);
 
@@ -80,6 +81,7 @@ void Game::_initActors() {
 	for (int e = 0; e < l_iNbEnemies; ++e) {
 		m_enemies.push_back(new Enemy());
 		m_gameObjects.push_back(m_enemies[e]);
+		m_renderableObjects.push_back(m_enemies[e]);
 		m_enemies[e]->load(0, 142 * (e + 1), 128, 142);
 		m_enemies[e]->setTexture("animate", 6);
 	}
@@ -142,8 +144,8 @@ void Game::render() {
 	// clear the window to black
 	SDL_RenderClear(m_pRenderer);
 
-	for (std::vector<GameObject*>::size_type i = 0; i != m_gameObjects.size(); i++) {
-		m_gameObjects[i]->render(m_pRenderer);
+	for (std::vector<GameObject*>::size_type i = 0; i != m_renderableObjects.size(); i++) {
+		m_renderableObjects[i]->render(m_pRenderer);
 	}
 	// show the window
 	SDL_RenderPresent(m_pRenderer);

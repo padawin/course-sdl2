@@ -15,6 +15,7 @@ class Game {
 	TextureManager* m_textureManager;
 
 	std::vector<GameObject*> m_gameObjects;
+	std::vector<SDLDrawable*> m_renderableObjects;
 	std::vector<GameObject*> m_enemies;
 	GameObject* m_player;
 
