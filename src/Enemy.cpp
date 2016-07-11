@@ -1,7 +1,7 @@
 #include "Enemy.h"
 
 void Enemy::update() {
-	GameObject::update();
+	SDLDrawable::update();
 	m_iX += 3;
 }
 

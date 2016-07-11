@@ -1,9 +1,9 @@
 #ifndef __Player__
 #define __Player__
 
-#include "GameObject.h"
+#include "SDLDrawable.h"
 
-class Player : public GameObject {
+class Player : public SDLDrawable {
 	public:
 	void update();
 };

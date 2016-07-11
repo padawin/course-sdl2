@@ -4,6 +4,7 @@
 #include <SDL2/SDL.h>
 #include <vector>
 #include "TextureManager.h"
+#include "GameObject.h"
 #include "Player.h"
 #include "Enemy.h"
 
@@ -15,8 +16,9 @@ class Game {
 	TextureManager* m_textureManager;
 
 	std::vector<GameObject*> m_gameObjects;
-	std::vector<GameObject*> m_enemies;
-	GameObject* m_player;
+	std::vector<SDLDrawable*> m_renderableObjects;
+	std::vector<Enemy*> m_enemies;
+	Player* m_player;
 
 	bool _initSDL(
 		const char* title,
