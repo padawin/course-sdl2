@@ -14,6 +14,8 @@ class Vector2D {
 	void setX(const float x);
 	void setY(const float y);
 
+	void normalize();
+
 	// Vector operations
 	Vector2D operator+(const Vector2D& v2) const;
 	Vector2D operator-(const Vector2D& v2) const;

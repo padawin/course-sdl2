@@ -25,6 +25,13 @@ void Vector2D::setY(const float y) {
 	m_iY = y;
 }
 
+void Vector2D::normalize() {
+	float l = getLength();
+	if (l > 0) { // we never want to attempt to divide by 0
+		(*this) *= 1 / l;
+	}
+}
+
 // Vector operations
 
 Vector2D Vector2D::operator+(const Vector2D& v2) const {
