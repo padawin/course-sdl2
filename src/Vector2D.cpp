@@ -25,3 +25,44 @@ void Vector2D::setY(const float y) {
 	m_iY = y;
 }
 
+// Vector operations
+
+Vector2D Vector2D::operator+(const Vector2D& v2) const {
+	return Vector2D(m_iX + v2.m_iX, m_iY + v2.m_iY);
+}
+
+Vector2D Vector2D::operator-(const Vector2D& v2) const {
+	return Vector2D(m_iX - v2.m_iX, m_iY - v2.m_iY);
+}
+
+Vector2D Vector2D::operator*(float scalar) {
+	return Vector2D(m_iX * scalar, m_iY * scalar);
+}
+
+Vector2D Vector2D::operator/(float scalar) {
+	return Vector2D(m_iX / scalar, m_iY / scalar);
+}
+
+Vector2D& operator+=(Vector2D& v1, const Vector2D& v2) {
+	v1.m_iX += v2.m_iX;
+	v1.m_iY += v2.m_iY;
+	return v1;
+}
+
+Vector2D& operator-=(Vector2D& v1, const Vector2D& v2) {
+	v1.m_iX -= v2.m_iX;
+	v1.m_iY -= v2.m_iY;
+	return v1;
+}
+
+Vector2D& operator*=(Vector2D& v1, float scalar) {
+	v1.m_iX *= scalar;
+	v1.m_iY *= scalar;
+	return v1;
+}
+
+Vector2D& operator/=(Vector2D& v1, float scalar) {
+	v1.m_iX /= scalar;
+	v1.m_iY /= scalar;
+	return v1;
+}
