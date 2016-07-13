@@ -7,6 +7,7 @@ class Vector2D {
 	float m_iY;
 
 	public:
+	Vector2D();
 	Vector2D(const float x, const float y);
 	float getLength();
 	float getX();
