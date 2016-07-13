@@ -28,7 +28,7 @@ void SDLDrawable::update() {
 void SDLDrawable::render(SDL_Renderer* pRenderer) {
 	TextureManager::Instance()->drawFrame(
 		m_sTextureID,
-		m_position.getX(), m_position.getY(),
+		(int) m_position.getX(), (int) m_position.getY(),
 		m_iWidth, m_iHeight,
 		m_iCurrentRow, m_iCurrentFrame,
 		pRenderer
