@@ -4,6 +4,7 @@
 #include <string>
 #include <SDL2/SDL.h>
 #include "GameObject.h"
+#include "Vector2D.h"
 
 class SDLDrawable : public GameObject {
 	protected:
@@ -11,8 +12,9 @@ class SDLDrawable : public GameObject {
 	int m_iNbFrames;
 	int m_iCurrentFrame;
 	int m_iCurrentRow;
-	int m_iX;
-	int m_iY;
+
+	Vector2D m_position;
+
 	int m_iWidth;
 	int m_iHeight;
 

@@ -4,8 +4,8 @@
 SDLDrawable::SDLDrawable() {}
 
 void SDLDrawable::load(const int x, const int y, const int width, const int height) {
-	m_iX = x;
-	m_iY = y;
+	m_position.setX(x);
+	m_position.setY(y);
 	m_iWidth = width;
 	m_iHeight = height;
 }
@@ -28,7 +28,7 @@ void SDLDrawable::update() {
 void SDLDrawable::render(SDL_Renderer* pRenderer) {
 	TextureManager::Instance()->drawFrame(
 		m_sTextureID,
-		m_iX, m_iY,
+		m_position.getX(), m_position.getY(),
 		m_iWidth, m_iHeight,
 		m_iCurrentRow, m_iCurrentFrame,
 		pRenderer
