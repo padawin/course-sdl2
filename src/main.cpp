@@ -2,6 +2,9 @@
 #include <unistd.h>
 #include "Game.h"
 
+const int FPS = 60;
+const int DELAY_TIME = 1000.0f / FPS;
+
 void parseArguments(int argc, char* args[], bool *fullScreen) {
 	int c;
 	while ((c = getopt (argc, args, "f")) != -1) {
@@ -18,6 +21,7 @@ void parseArguments(int argc, char* args[], bool *fullScreen) {
 int main(int argc, char* args[]) {
 	Game g;
 	bool fullScreen;
+	Uint32 frameStart, frameTime;
 
 	parseArguments(argc, args, &fullScreen);
 
@@ -26,11 +30,15 @@ int main(int argc, char* args[]) {
 	}
 
 	while (g.isRunning()) {
+		frameStart = SDL_GetTicks();
 		g.handleEvents();
 		g.update();
 		g.render();
 
-		SDL_Delay(10);
+		frameTime = SDL_GetTicks() - frameStart;
+		if (frameTime< DELAY_TIME) {
+			SDL_Delay((int) (DELAY_TIME - frameTime));
+		}
 	}
 
 	g.clean();
