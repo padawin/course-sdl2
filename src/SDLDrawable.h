@@ -14,6 +14,7 @@ class SDLDrawable : public GameObject {
 	int m_iCurrentRow;
 
 	Vector2D m_position;
+	Vector2D m_velocity;
 
 	int m_iWidth;
 	int m_iHeight;
