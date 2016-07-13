@@ -1,6 +1,11 @@
 #include "Vector2D.h"
 #include <math.h>
 
+Vector2D::Vector2D() {
+	m_iX = 0;
+	m_iY = 0;
+}
+
 Vector2D::Vector2D(const float x, const float y) {
 	m_iX = x;
 	m_iY = y;

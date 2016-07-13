@@ -2,5 +2,5 @@
 
 void Enemy::update() {
 	SDLDrawable::update();
-	m_iX += 3;
+	m_position.setX(m_position.getX() + 3);
 }
