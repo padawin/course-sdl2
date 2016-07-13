@@ -14,6 +14,7 @@ class SDLDrawable : public GameObject {
 	int m_iCurrentRow;
 
 	Vector2D m_position;
+	Vector2D m_velocity;
 
 	int m_iWidth;
 	int m_iHeight;
@@ -23,6 +24,7 @@ class SDLDrawable : public GameObject {
 	virtual void load(const int x, const int y, const int width, const int height);
 	virtual void setTexture(const std::string textureID, int nbFrames);
 	virtual void setTextureRow(const int currentRow);
+	virtual void setVelocity(const Vector2D velocity);
 	virtual void update();
 	virtual void render(SDL_Renderer* pRenderer);
 };
