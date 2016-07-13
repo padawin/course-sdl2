@@ -21,6 +21,10 @@ void SDLDrawable::setTextureRow(const int currentRow) {
 	m_iCurrentRow = currentRow;
 }
 
+void SDLDrawable::setVelocity(const Vector2D velocity) {
+	m_velocity = velocity;
+}
+
 void SDLDrawable::update() {
 	m_iCurrentFrame = int(((SDL_GetTicks() / 100) % m_iNbFrames));
 }
