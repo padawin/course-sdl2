@@ -25,8 +25,13 @@ void SDLDrawable::setVelocity(const Vector2D velocity) {
 	m_velocity = velocity;
 }
 
+void SDLDrawable::setAcceleration(const Vector2D acceleration) {
+	m_acceleration = acceleration;
+}
+
 void SDLDrawable::update() {
 	m_iCurrentFrame = int(((SDL_GetTicks() / 100) % m_iNbFrames));
+	m_velocity += m_acceleration;
 	m_position += m_velocity;
 }
 
