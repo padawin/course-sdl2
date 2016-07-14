@@ -8,6 +8,7 @@ class InputHandler {
 	public:
 	static InputHandler* Instance();
 	static void free();
+	bool update();
 };
 
 #endif

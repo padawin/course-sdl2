@@ -12,6 +12,12 @@ InputHandler *InputHandler::Instance() {
 	return s_pInstance;
 }
 
+bool InputHandler::update() {
+	bool ret = true;
+
+	return ret;
+}
+
 void InputHandler::free() {
 	delete s_pInstance;
 	s_pInstance = 0;
