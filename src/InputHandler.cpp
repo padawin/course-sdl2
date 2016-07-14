@@ -21,6 +21,10 @@ bool InputHandler::update() {
 		if (event.type == SDL_QUIT) {
 			ret = false;
 		}
+		else if (event.type == SDL_JOYAXISMOTION) {
+			int whichOne = event.jaxis.which;
+			std::cout << "Joystick " << whichOne << " manipulated\n";
+		}
 	}
 
 	return ret;
