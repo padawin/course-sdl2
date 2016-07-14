@@ -16,6 +16,12 @@ InputHandler *InputHandler::Instance() {
 
 bool InputHandler::update() {
 	bool ret = true;
+	SDL_Event event;
+	while (SDL_PollEvent(&event)) {
+		if (event.type == SDL_QUIT) {
+			ret = false;
+		}
+	}
 
 	return ret;
 }
