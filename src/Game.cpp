@@ -1,5 +1,6 @@
 #include "Game.h"
 #include "Vector2D.h"
+#include "InputHandler.h"
 #include <iostream>
 #include <errno.h>
 
@@ -10,6 +11,7 @@ Game::Game() {
 
 Game::~Game() {
 	TextureManager::free();
+	InputHandler::free();
 }
 
 bool Game::_initSDL(
@@ -117,6 +119,7 @@ bool Game::init(
 
 	if (l_bReturn) {
 		_initActors();
+		InputHandler::Instance()->initialiseJoysticks();
 	}
 
 	return l_bReturn;
@@ -162,6 +165,7 @@ void Game::clean() {
 	// clean up SDL
 	SDL_Quit();
 	_cleanActors();
+	InputHandler::Instance()->clean();
 }
 
 bool Game::isRunning() {
