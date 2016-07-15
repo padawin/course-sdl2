@@ -9,6 +9,11 @@ class InputHandler {
 	InputHandler();
 	std::vector<SDL_Joystick*> m_joysticks;
 	bool m_bJoysticksInitialised;
+	const int M_JOYSTICK_DEADZONE = 10000;
+	const int M_LEFT_STICK_X_AXIS = 0;
+	const int M_LEFT_STICK_Y_AXIS = 1;
+	const int M_RIGHT_STICK_X_AXIS = 3;
+	const int M_RIGHT_STICK_Y_AXIS = 4;
 
 	public:
 	static InputHandler* Instance();
