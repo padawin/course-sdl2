@@ -24,6 +24,12 @@ bool InputHandler::update() {
 		else if (event.type == SDL_JOYAXISMOTION) {
 			handleStickEvent(event);
 		}
+		else if (event.type == SDL_JOYBUTTONDOWN) {
+			handleButtonEvent(event, true);
+		}
+		else if (event.type == SDL_JOYBUTTONUP) {
+			handleButtonEvent(event, false);
+		}
 	}
 
 	return ret;
@@ -47,6 +53,11 @@ void InputHandler::handleStickEvent(const SDL_Event event) {
 	if (event.jaxis.axis == M_RIGHT_STICK_Y_AXIS) {
 		setJoystickValue(event.jaxis.value, &m_joystickAxisValues[whichOne].second, VECTOR_Y);
 	}
+}
+
+void InputHandler::handleButtonEvent(const SDL_Event event, const bool isDown) {
+	int whichOne = event.jaxis.which;
+	m_buttonStates[whichOne][event.jbutton.button] = isDown;
 }
 
 void InputHandler::setJoystickValue(const int value, Vector2D* axisVector, Vector2DCoord coord) {
