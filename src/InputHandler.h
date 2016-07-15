@@ -1,6 +1,7 @@
 #ifndef __InputHandler__
 #define __InputHandler__
 
+#include <SDL2/SDL.h>
 #include <SDL2/SDL_joystick.h>
 #include <vector>
 #include "Vector2D.h"
@@ -20,6 +21,7 @@ class InputHandler {
 	const int M_RIGHT_STICK_Y_AXIS = 4;
 
 	void setJoystickValue(const int value, Vector2D* axisVector, Vector2DCoord coord);
+	void handleStickEvent(const SDL_Event event);
 
 	public:
 	static InputHandler* Instance();
