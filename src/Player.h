@@ -4,6 +4,11 @@
 #include "SDLDrawable.h"
 
 class Player : public SDLDrawable {
+	private:
+	void handleInput();
+
+	public:
+	void update();
 };
 
 #endif
