@@ -149,3 +149,7 @@ int InputHandler::stickYValue(const int joy, const JoystickControl stick) {
 	}
 	return 0;
 }
+
+bool InputHandler::getButtonState(int joy, int buttonNumber) {
+	return m_buttonStates[joy][buttonNumber];
+}
