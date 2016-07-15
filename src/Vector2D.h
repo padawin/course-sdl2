@@ -1,6 +1,8 @@
 #ifndef __Vector2D__
 #define __Vector2D__
 
+enum Vector2DCoord {VECTOR_X, VECTOR_Y};
+
 class Vector2D {
 	protected:
 	float m_iX;
