@@ -43,6 +43,11 @@ void InputHandler::initialiseJoysticks() {
 			SDL_Joystick* joy = SDL_JoystickOpen(i);
 			if (joy) {
 				m_joysticks.push_back(joy);
+				// for each joystick store their stick axises values
+				m_joystickAxisValues.push_back(std::make_pair(
+					Vector2D(0,0),
+					Vector2D(0,0)
+				));
 			}
 			else {
 				std::cout << SDL_GetError();
@@ -59,6 +64,7 @@ void InputHandler::clean() {
 		for (int i = 0; i < SDL_NumJoysticks(); i++){
 			SDL_JoystickClose(m_joysticks[i]);
 		}
+		m_joystickAxisValues.clear();
 
 		std::cout << "Cleaned "<< m_joysticks.size() << " joystick(s)\n";
 	}
