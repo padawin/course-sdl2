@@ -79,6 +79,11 @@ void InputHandler::initialiseJoysticks() {
 					Vector2D(0,0),
 					Vector2D(0,0)
 				));
+				std::vector<bool> tempButtons;
+				for (int j = 0; j < SDL_JoystickNumButtons(joy); j++) {
+					tempButtons.push_back(false);
+				}
+				m_buttonStates.push_back(tempButtons);
 			}
 			else {
 				std::cout << SDL_GetError();

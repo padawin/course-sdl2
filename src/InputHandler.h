@@ -13,6 +13,7 @@ class InputHandler {
 	InputHandler();
 	std::vector<SDL_Joystick*> m_joysticks;
 	std::vector<std::pair<Vector2D, Vector2D>> m_joystickAxisValues;
+	std::vector<std::vector<bool>> m_buttonStates;
 	bool m_bJoysticksInitialised;
 	const int M_JOYSTICK_DEADZONE = 10000;
 	const int M_LEFT_STICK_X_AXIS = 0;
