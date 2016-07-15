@@ -3,16 +3,21 @@
 #include <iostream>
 
 void Player::handleInput() {
-	int xAxisValue, yAxisValue;
+	int xAxisValue, yAxisValue, velocityBasis = 1;
 	InputHandler* handlerInstance = InputHandler::Instance();
-	if(handlerInstance->joysticksInitialised()) {
-		xAxisValue = handlerInstance->xValue(0, LEFT_STICK);
-		yAxisValue = handlerInstance->yValue(0, LEFT_STICK);
+
+	if (handlerInstance->joysticksInitialised()) {
+		if (handlerInstance->getButtonState(0, 1)) {
+			velocityBasis = 2.5;
+		}
+
+		xAxisValue = handlerInstance->stickXValue(0, LEFT_STICK);
+		yAxisValue = handlerInstance->stickYValue(0, LEFT_STICK);
 		if (xAxisValue > 0 || xAxisValue < 0) {
-			m_velocity.setX(1 * xAxisValue);
+			m_velocity.setX(velocityBasis * xAxisValue);
 		}
 		if (yAxisValue > 0 || yAxisValue < 0) {
-			m_velocity.setY(1 * yAxisValue);
+			m_velocity.setY(velocityBasis * yAxisValue);
 		}
 	}
 }
