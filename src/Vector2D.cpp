@@ -30,6 +30,15 @@ void Vector2D::setY(const float y) {
 	m_iY = y;
 }
 
+void Vector2D::set(Vector2DCoord coord, const float value) {
+	if (coord == VECTOR_X) {
+		setX(value);
+	}
+	else {
+		setY(value);
+	}
+}
+
 void Vector2D::normalize() {
 	float l = getLength();
 	if (l > 0) { // we never want to attempt to divide by 0

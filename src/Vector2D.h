@@ -14,6 +14,7 @@ class Vector2D {
 	float getLength();
 	float getX();
 	float getY();
+	void set(Vector2DCoord coord, const float value);
 	void setX(const float x);
 	void setY(const float y);
 
