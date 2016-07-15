@@ -6,8 +6,8 @@ void Player::handleInput() {
 	int xAxisValue, yAxisValue;
 	InputHandler* handlerInstance = InputHandler::Instance();
 	if(handlerInstance->joysticksInitialised()) {
-		xAxisValue = handlerInstance->xValue(0, LEFT_STICK);
-		yAxisValue = handlerInstance->yValue(0, LEFT_STICK);
+		xAxisValue = handlerInstance->stickXValue(0, LEFT_STICK);
+		yAxisValue = handlerInstance->stickYValue(0, LEFT_STICK);
 		if (xAxisValue > 0 || xAxisValue < 0) {
 			m_velocity.setX(1 * xAxisValue);
 		}

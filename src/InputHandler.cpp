@@ -106,7 +106,7 @@ void InputHandler::free() {
 	s_pInstance = 0;
 }
 
-int InputHandler::xValue(const int joy, const JoystickControl stick) {
+int InputHandler::stickXValue(const int joy, const JoystickControl stick) {
 	if (m_joystickAxisValues.size() > 0) {
 		if (stick == LEFT_STICK) {
 			return m_joystickAxisValues[joy].first.getX();
@@ -118,7 +118,7 @@ int InputHandler::xValue(const int joy, const JoystickControl stick) {
 	return 0;
 }
 
-int InputHandler::yValue(const int joy, const JoystickControl stick) {
+int InputHandler::stickYValue(const int joy, const JoystickControl stick) {
 	if (m_joystickAxisValues.size() > 0) {
 		if (stick == LEFT_STICK) {
 			return m_joystickAxisValues[joy].first.getY();

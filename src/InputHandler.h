@@ -28,8 +28,8 @@ class InputHandler {
 	void clean();
 	void initialiseJoysticks();
 	bool joysticksInitialised();
-	int xValue(const int joy, const JoystickControl stick);
-	int yValue(const int joy, const JoystickControl stick);
+	int stickXValue(const int joy, const JoystickControl stick);
+	int stickYValue(const int joy, const JoystickControl stick);
 };
 
 #endif
