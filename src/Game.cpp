@@ -1,5 +1,6 @@
 #include "Game.h"
 #include "Vector2D.h"
+#include "InputHandler.h"
 #include <iostream>
 #include <errno.h>
 
@@ -10,6 +11,7 @@ Game::Game() {
 
 Game::~Game() {
 	TextureManager::free();
+	InputHandler::free();
 }
 
 bool Game::_initSDL(
@@ -77,8 +79,6 @@ void Game::_initActors() {
 	m_renderableObjects.push_back(m_player);
 	m_player->load(0, 0, 128, 142);
 	m_player->setTexture("animate", 6);
-	//m_player->setVelocity(Vector2D(5.0, 0.0));
-	m_player->setAcceleration(Vector2D(0.1, 0.0));
 
 	int l_iNbEnemies = 4;
 	for (int e = 0; e < l_iNbEnemies; ++e) {
@@ -87,7 +87,6 @@ void Game::_initActors() {
 		m_renderableObjects.push_back(m_enemies[e]);
 		m_enemies[e]->load(0, 142 * (e + 1), 128, 142);
 		m_enemies[e]->setTexture("animate", 6);
-		m_enemies[e]->setVelocity(Vector2D(3.0, 0.0));
 	}
 }
 
@@ -117,21 +116,16 @@ bool Game::init(
 
 	if (l_bReturn) {
 		_initActors();
+		InputHandler::Instance()->initialiseJoysticks();
 	}
 
 	return l_bReturn;
 }
 
 void Game::handleEvents() {
-	SDL_Event event;
-	if (SDL_PollEvent(&event)) {
-		switch (event.type) {
-			case SDL_QUIT:
-				m_bRunning = false;
-				break;
-			default:
-				break;
-		}
+	bool keepRunning = InputHandler::Instance()->update();
+	if (!keepRunning) {
+		m_bRunning = false;
 	}
 }
 
@@ -162,6 +156,7 @@ void Game::clean() {
 	// clean up SDL
 	SDL_Quit();
 	_cleanActors();
+	InputHandler::Instance()->clean();
 }
 
 bool Game::isRunning() {

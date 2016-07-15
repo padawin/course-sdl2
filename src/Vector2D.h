@@ -1,6 +1,8 @@
 #ifndef __Vector2D__
 #define __Vector2D__
 
+enum Vector2DCoord {VECTOR_X, VECTOR_Y};
+
 class Vector2D {
 	protected:
 	float m_iX;
@@ -12,6 +14,7 @@ class Vector2D {
 	float getLength();
 	float getX();
 	float getY();
+	void set(Vector2DCoord coord, const float value);
 	void setX(const float x);
 	void setY(const float y);
 

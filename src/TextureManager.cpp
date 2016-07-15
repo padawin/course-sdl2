@@ -89,5 +89,5 @@ TextureManager *TextureManager::Instance() {
 
 void TextureManager::free() {
 	delete s_pInstance;
-	s_pInstance = NULL;
+	s_pInstance = 0;
 }
