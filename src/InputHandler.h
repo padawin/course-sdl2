@@ -17,6 +17,8 @@ class InputHandler {
 	const int M_RIGHT_STICK_X_AXIS = 3;
 	const int M_RIGHT_STICK_Y_AXIS = 4;
 
+	void setJoystickValue(const int value, Vector2D* axisVector, Vector2DCoord coord);
+
 	public:
 	static InputHandler* Instance();
 	static void free();

@@ -24,10 +24,38 @@ bool InputHandler::update() {
 		else if (event.type == SDL_JOYAXISMOTION) {
 			int whichOne = event.jaxis.which;
 			std::cout << "Joystick " << whichOne << " manipulated\n";
+			// left stick move left or right
+			if (event.jaxis.axis == M_LEFT_STICK_X_AXIS) {
+				setJoystickValue(event.jaxis.value, &m_joystickAxisValues[whichOne].first, VECTOR_X);
+			}
+			// left stick move up or down
+			if (event.jaxis.axis == M_LEFT_STICK_Y_AXIS) {
+				setJoystickValue(event.jaxis.value, &m_joystickAxisValues[whichOne].first, VECTOR_Y);
+			}
+			// right stick move left or right
+			if (event.jaxis.axis == M_RIGHT_STICK_X_AXIS) {
+				setJoystickValue(event.jaxis.value, &m_joystickAxisValues[whichOne].second, VECTOR_X);
+			}
+			// right stick move up or down
+			if (event.jaxis.axis == M_RIGHT_STICK_Y_AXIS) {
+				setJoystickValue(event.jaxis.value, &m_joystickAxisValues[whichOne].second, VECTOR_Y);
+			}
 		}
 	}
 
 	return ret;
+}
+
+void InputHandler::setJoystickValue(const int value, Vector2D* axisVector, Vector2DCoord coord) {
+	if (value > M_JOYSTICK_DEADZONE) {
+		axisVector->set(coord, 1);
+	}
+	else if (value < -M_JOYSTICK_DEADZONE) {
+		axisVector->set(coord, -1);
+	}
+	else {
+		axisVector->set(coord, 0);
+	}
 }
 
 void InputHandler::initialiseJoysticks() {
