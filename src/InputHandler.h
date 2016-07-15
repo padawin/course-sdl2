@@ -5,6 +5,8 @@
 #include <vector>
 #include "Vector2D.h"
 
+enum JoystickControl {LEFT_STICK, RIGHT_STICK};
+
 class InputHandler {
 	private:
 	InputHandler();
@@ -26,8 +28,8 @@ class InputHandler {
 	void clean();
 	void initialiseJoysticks();
 	bool joysticksInitialised();
-	int xValue(int joy, int stick);
-	int yValue(int joy, int stick);
+	int xValue(const int joy, const JoystickControl stick);
+	int yValue(const int joy, const JoystickControl stick);
 };
 
 #endif
