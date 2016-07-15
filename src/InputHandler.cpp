@@ -23,7 +23,6 @@ bool InputHandler::update() {
 		}
 		else if (event.type == SDL_JOYAXISMOTION) {
 			int whichOne = event.jaxis.which;
-			std::cout << "Joystick " << whichOne << " manipulated\n";
 			// left stick move left or right
 			if (event.jaxis.axis == M_LEFT_STICK_X_AXIS) {
 				setJoystickValue(event.jaxis.value, &m_joystickAxisValues[whichOne].first, VECTOR_X);
