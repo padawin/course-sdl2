@@ -78,3 +78,27 @@ void InputHandler::free() {
 	delete s_pInstance;
 	s_pInstance = 0;
 }
+
+int InputHandler::xValue(int joy, int stick) {
+	if (m_joystickAxisValues.size() > 0) {
+		if (stick == 1) {
+			return m_joystickAxisValues[joy].first.getX();
+		}
+		else if (stick == 2) {
+			return m_joystickAxisValues[joy].second.getX();
+		}
+	}
+	return 0;
+}
+
+int InputHandler::yValue(int joy, int stick) {
+	if (m_joystickAxisValues.size() > 0) {
+		if (stick == 1) {
+			return m_joystickAxisValues[joy].first.getY();
+		}
+		else if (stick == 2) {
+			return m_joystickAxisValues[joy].second.getY();
+		}
+	}
+	return 0;
+}

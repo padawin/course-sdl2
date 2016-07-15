@@ -24,6 +24,8 @@ class InputHandler {
 	void clean();
 	void initialiseJoysticks();
 	bool joysticksInitialised();
+	int xValue(int joy, int stick);
+	int yValue(int joy, int stick);
 };
 
 #endif
