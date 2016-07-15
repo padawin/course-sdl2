@@ -79,8 +79,6 @@ void Game::_initActors() {
 	m_renderableObjects.push_back(m_player);
 	m_player->load(0, 0, 128, 142);
 	m_player->setTexture("animate", 6);
-	//m_player->setVelocity(Vector2D(5.0, 0.0));
-	m_player->setAcceleration(Vector2D(0.1, 0.0));
 
 	int l_iNbEnemies = 4;
 	for (int e = 0; e < l_iNbEnemies; ++e) {
@@ -89,7 +87,6 @@ void Game::_initActors() {
 		m_renderableObjects.push_back(m_enemies[e]);
 		m_enemies[e]->load(0, 142 * (e + 1), 128, 142);
 		m_enemies[e]->setTexture("animate", 6);
-		m_enemies[e]->setVelocity(Vector2D(3.0, 0.0));
 	}
 }
 
