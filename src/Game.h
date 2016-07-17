@@ -20,6 +20,9 @@ class Game {
 	std::vector<Enemy*> m_enemies;
 	Player* m_player;
 
+	Game();
+	~Game();
+
 	bool _initSDL(
 		const char* title,
 		const int x,
@@ -33,8 +36,8 @@ class Game {
 	void _cleanActors();
 
 	public:
-	Game();
-	~Game();
+	static Game* Instance();
+	static void free();
 
 	bool init(
 		const char* title,

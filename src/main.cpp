@@ -19,21 +19,22 @@ void parseArguments(int argc, char* args[], bool *fullScreen) {
 }
 
 int main(int argc, char* args[]) {
-	Game g;
+	Game* g;
 	bool fullScreen;
 	Uint32 frameStart, frameTime;
 
 	parseArguments(argc, args, &fullScreen);
 
-	if (!g.init("My first window", 100, 100, 640, 480, fullScreen)) {
+	g = Game::Instance();
+	if (!g->init("My first window", 100, 100, 640, 480, fullScreen)) {
 		return 1;
 	}
 
-	while (g.isRunning()) {
+	while (g->isRunning()) {
 		frameStart = SDL_GetTicks();
-		g.handleEvents();
-		g.update();
-		g.render();
+		g->handleEvents();
+		g->update();
+		g->render();
 
 		frameTime = SDL_GetTicks() - frameStart;
 		if (frameTime< DELAY_TIME) {
@@ -41,7 +42,8 @@ int main(int argc, char* args[]) {
 		}
 	}
 
-	g.clean();
+	g->clean();
+	Game::free();
 
 	return 0;
 }

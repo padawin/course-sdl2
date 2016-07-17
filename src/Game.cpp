@@ -4,6 +4,8 @@
 #include <iostream>
 #include <errno.h>
 
+static Game* s_pInstance;
+
 Game::Game() {
 	m_pWindow = 0;
 	m_pRenderer = 0;
@@ -12,6 +14,19 @@ Game::Game() {
 Game::~Game() {
 	TextureManager::free();
 	InputHandler::free();
+}
+
+Game *Game::Instance() {
+	if (s_pInstance == 0) {
+		s_pInstance = new Game();
+	}
+
+	return s_pInstance;
+}
+
+void Game::free() {
+	delete s_pInstance;
+	s_pInstance = 0;
 }
 
 bool Game::_initSDL(
