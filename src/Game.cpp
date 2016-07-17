@@ -14,8 +14,13 @@ Game::Game() {
 }
 
 Game::~Game() {
-	TextureManager::free();
+	InputHandler::Instance()->clean();
 	InputHandler::free();
+	TextureManager::free();
+	SDL_DestroyWindow(m_pWindow);
+	SDL_DestroyRenderer(m_pRenderer);
+	// clean up SDL
+	SDL_Quit();
 }
 
 Game *Game::Instance() {
@@ -162,13 +167,6 @@ void Game::render() {
 	SDL_RenderPresent(m_pRenderer);
 }
 
-void Game::clean() {
-	SDL_DestroyWindow(m_pWindow);
-	SDL_DestroyRenderer(m_pRenderer);
-	// clean up SDL
-	SDL_Quit();
-	InputHandler::Instance()->clean();
-}
 
 bool Game::isRunning() {
 	return m_bRunning;
