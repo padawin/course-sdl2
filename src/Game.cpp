@@ -17,6 +17,7 @@ Game::~Game() {
 	InputHandler::Instance()->clean();
 	InputHandler::free();
 	TextureManager::free();
+	_cleanGameMachine();
 	SDL_DestroyWindow(m_pWindow);
 	SDL_DestroyRenderer(m_pRenderer);
 	// clean up SDL
