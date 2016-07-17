@@ -176,6 +176,7 @@ void Game::update() {
 	for (std::vector<GameObject*>::size_type i = 0; i != m_gameObjects.size(); i++) {
 		m_gameObjects[i]->update();
 	}
+	m_pGameStateMachine->update();
 }
 
 void Game::render() {
@@ -189,6 +190,7 @@ void Game::render() {
 	for (std::vector<GameObject*>::size_type i = 0; i != m_renderableObjects.size(); i++) {
 		m_renderableObjects[i]->render(m_pRenderer);
 	}
+	m_pGameStateMachine->render();
 	// show the window
 	SDL_RenderPresent(m_pRenderer);
 }

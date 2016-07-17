@@ -14,6 +14,9 @@ class GameStateMachine {
 	bool popState();
 	void clean();
 	GameState* getCurrentState();
+
+	void update();
+	void render();
 };
 
 #endif
