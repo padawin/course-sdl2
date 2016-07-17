@@ -1,6 +1,7 @@
 #include "Game.h"
 #include "Vector2D.h"
 #include "InputHandler.h"
+#include "MenuState.h"
 #include <iostream>
 #include <errno.h>
 
@@ -114,6 +115,17 @@ void Game::_cleanActors() {
 	m_gameObjects.clear();
 }
 
+void Game::_initGameMachine() {
+	m_pGameStateMachine = new GameStateMachine();
+	m_pGameStateMachine->changeState(new MenuState());
+}
+
+void Game::_cleanGameMachine() {
+	m_pGameStateMachine->clean();
+	delete m_pGameStateMachine;
+	m_pGameStateMachine = NULL;
+}
+
 bool Game::init(
 	const char* title,
 	const int x,
@@ -132,6 +144,7 @@ bool Game::init(
 	if (l_bReturn) {
 		_initActors();
 		InputHandler::Instance()->initialiseJoysticks();
+		_initGameMachine();
 	}
 
 	return l_bReturn;

@@ -3,6 +3,7 @@
 
 #include <SDL2/SDL.h>
 #include <vector>
+#include "GameStateMachine.h"
 #include "TextureManager.h"
 #include "GameObject.h"
 #include "Player.h"
@@ -14,6 +15,8 @@ class Game {
 	SDL_Window* m_pWindow;
 	SDL_Renderer* m_pRenderer;
 	TextureManager* m_textureManager;
+
+	GameStateMachine* m_pGameStateMachine;
 
 	std::vector<GameObject*> m_gameObjects;
 	std::vector<SDLDrawable*> m_renderableObjects;
@@ -33,7 +36,9 @@ class Game {
 	);
 	bool _loadResources();
 	void _initActors();
+	void _initGameMachine();
 	void _cleanActors();
+	void _cleanGameMachine();
 
 	public:
 	static Game* Instance();
