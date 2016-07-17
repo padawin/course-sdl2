@@ -100,6 +100,7 @@ void Game::_initGameMachine() {
 	else {
 		initialState = new MenuState();
 	}
+
 	m_pGameStateMachine->changeState(initialState);
 }
 
