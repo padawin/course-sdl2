@@ -14,8 +14,14 @@ Game::Game() {
 }
 
 Game::~Game() {
-	TextureManager::free();
+	InputHandler::Instance()->clean();
 	InputHandler::free();
+	TextureManager::free();
+	_cleanGameMachine();
+	SDL_DestroyWindow(m_pWindow);
+	SDL_DestroyRenderer(m_pRenderer);
+	// clean up SDL
+	SDL_Quit();
 }
 
 Game *Game::Instance() {
@@ -29,6 +35,29 @@ Game *Game::Instance() {
 void Game::free() {
 	delete s_pInstance;
 	s_pInstance = 0;
+}
+
+bool Game::init(
+	const char* title,
+	const int x,
+	const int y,
+	const int w,
+	const int h,
+	const bool fullScreen
+) {
+	bool l_bReturn = true;
+	m_textureManager = TextureManager::Instance();
+
+	l_bReturn &= _initSDL(title, x, y, w, h, fullScreen);
+	l_bReturn &= _loadResources();
+	m_bRunning = l_bReturn;
+
+	if (l_bReturn) {
+		InputHandler::Instance()->initialiseJoysticks();
+		_initGameMachine();
+	}
+
+	return l_bReturn;
 }
 
 bool Game::_initSDL(
@@ -104,35 +133,6 @@ void Game::_initGameMachine() {
 	m_pGameStateMachine->changeState(initialState);
 }
 
-void Game::_cleanGameMachine() {
-	m_pGameStateMachine->clean();
-	delete m_pGameStateMachine;
-	m_pGameStateMachine = NULL;
-}
-
-bool Game::init(
-	const char* title,
-	const int x,
-	const int y,
-	const int w,
-	const int h,
-	const bool fullScreen
-) {
-	bool l_bReturn = true;
-	m_textureManager = TextureManager::Instance();
-
-	l_bReturn &= _initSDL(title, x, y, w, h, fullScreen);
-	l_bReturn &= _loadResources();
-	m_bRunning = l_bReturn;
-
-	if (l_bReturn) {
-		InputHandler::Instance()->initialiseJoysticks();
-		_initGameMachine();
-	}
-
-	return l_bReturn;
-}
-
 void Game::handleEvents() {
 	bool keepRunning = InputHandler::Instance()->update();
 	if (!keepRunning) {
@@ -162,12 +162,10 @@ void Game::render() {
 	SDL_RenderPresent(m_pRenderer);
 }
 
-void Game::clean() {
-	SDL_DestroyWindow(m_pWindow);
-	SDL_DestroyRenderer(m_pRenderer);
-	// clean up SDL
-	SDL_Quit();
-	InputHandler::Instance()->clean();
+void Game::_cleanGameMachine() {
+	m_pGameStateMachine->clean();
+	delete m_pGameStateMachine;
+	m_pGameStateMachine = NULL;
 }
 
 bool Game::isRunning() {

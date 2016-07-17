@@ -42,7 +42,6 @@ int main(int argc, char* args[]) {
 		}
 	}
 
-	g->clean();
 	Game::free();
 
 	return 0;
