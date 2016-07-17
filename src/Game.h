@@ -58,6 +58,7 @@ class Game {
 	void clean();
 
 	bool isRunning();
+	SDL_Renderer* getRenderer();
 };
 
 #endif /* defined(__Game__) */

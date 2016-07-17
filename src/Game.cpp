@@ -205,3 +205,7 @@ void Game::clean() {
 bool Game::isRunning() {
 	return m_bRunning;
 }
+
+SDL_Renderer* Game::getRenderer() {
+	return m_pRenderer;
+}
