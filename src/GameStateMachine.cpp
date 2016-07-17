@@ -34,3 +34,7 @@ bool GameStateMachine::popState() {
 void GameStateMachine::clean() {
 	while (popState()) {}
 }
+
+GameState* GameStateMachine::getCurrentState() {
+	return m_gameStates.back();
+}

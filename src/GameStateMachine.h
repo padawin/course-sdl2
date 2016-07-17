@@ -13,6 +13,7 @@ class GameStateMachine {
 	void changeState(GameState* pState);
 	bool popState();
 	void clean();
+	GameState* getCurrentState();
 };
 
 #endif
