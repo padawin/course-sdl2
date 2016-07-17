@@ -2,6 +2,7 @@
 #include "Vector2D.h"
 #include "InputHandler.h"
 #include "MenuState.h"
+#include "NoJoystickState.h"
 #include "PlayState.h"
 #include <iostream>
 #include <errno.h>
@@ -118,7 +119,15 @@ void Game::_cleanActors() {
 
 void Game::_initGameMachine() {
 	m_pGameStateMachine = new GameStateMachine();
-	m_pGameStateMachine->changeState(new MenuState());
+
+	GameState* initialState;
+	if (!InputHandler::Instance()->joysticksInitialised()) {
+		initialState = new NoJoystickState();
+	}
+	else {
+		initialState = new MenuState();
+	}
+	m_pGameStateMachine->changeState(initialState);
 }
 
 void Game::_cleanGameMachine() {
