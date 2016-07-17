@@ -2,8 +2,15 @@
 #define __GameState__
 
 #include <string>
+#include <vector>
+#include "GameObject.h"
+#include "SDLDrawable.h"
 
 class GameState {
+	protected:
+	std::vector<GameObject*> m_gameObjects;
+	std::vector<SDLDrawable*> m_renderableObjects;
+
 	public:
 	virtual	~GameState() {}
 	virtual void update() = 0;
