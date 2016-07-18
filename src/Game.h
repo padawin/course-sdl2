@@ -30,6 +30,7 @@ class Game {
 		const bool fullScreen
 	);
 	bool _loadResources();
+	void _cleanResources();
 	void _initGameMachine();
 	void _cleanGameMachine();
 

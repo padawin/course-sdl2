@@ -20,6 +20,7 @@ Game::Game() {
 Game::~Game() {
 	InputHandler::Instance()->clean();
 	InputHandler::free();
+	_cleanResources();
 	TextureManager::free();
 	_cleanGameMachine();
 	SDL_DestroyWindow(m_pWindow);
@@ -177,6 +178,14 @@ void Game::_cleanGameMachine() {
 	m_pGameStateMachine->clean();
 	delete m_pGameStateMachine;
 	m_pGameStateMachine = NULL;
+}
+
+void Game::_cleanResources() {
+	std::cout << "Clean resources\n";
+	for (int i = 0; i < nbFiles; ++i) {
+		std::cout << "Clean resource " << fileNames[i].second << "\n";
+		TextureManager::Instance()->clearFromTextureMap(fileNames[i].first);
+	}
 }
 
 bool Game::isRunning() {
