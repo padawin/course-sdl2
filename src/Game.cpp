@@ -2,7 +2,6 @@
 #include "InputHandler.h"
 #include "MenuState.h"
 #include "NoJoystickState.h"
-#include "PlayState.h"
 #include <iostream>
 #include <errno.h>
 
@@ -11,11 +10,16 @@ static Game* s_pInstance;
 Game::Game() {
 	m_pWindow = 0;
 	m_pRenderer = 0;
+
+	fileNames.push_back(std::make_pair("animate", "resources/char9.bmp"));
+	fileNames.push_back(std::make_pair("mainmenu", "resources/menu-buttons.png"));
+	nbFiles = 2;
 }
 
 Game::~Game() {
 	InputHandler::Instance()->clean();
 	InputHandler::free();
+	_cleanResources();
 	TextureManager::free();
 	_cleanGameMachine();
 	SDL_DestroyWindow(m_pWindow);
@@ -101,19 +105,26 @@ bool Game::_initSDL(
 }
 
 bool Game::_loadResources() {
-	const char* fileName = "resources/char9.bmp";
 	const char* errorPattern = "An error occured while loading the file %s\n%s\n";
-	char errorMessage[strlen(fileName) + strlen(errorPattern) - 2];
-	bool textureLoaded = m_textureManager->load(
-		fileName,
-		"animate",
-		m_pRenderer
-	);
 
-	if (!textureLoaded) {
-		sprintf(errorMessage, errorPattern, fileName, strerror(errno));
-		std::cout << errorMessage;
-		return false;
+	std::cout << "Load resources \n";
+	for (int i = 0; i < nbFiles; ++i) {
+		char errorMessage[strlen(fileNames[i].second) + strlen(errorPattern) - 2];
+		std::cout << "Load resource " << fileNames[i].second << "\n";
+		bool textureLoaded = m_textureManager->load(
+			fileNames[i].second,
+			fileNames[i].first,
+			m_pRenderer
+		);
+
+		if (!textureLoaded) {
+			sprintf(errorMessage, errorPattern, fileNames[i].second, strerror(errno));
+			std::cout << errorMessage;
+			return false;
+		}
+		else {
+			std::cout << "Resource " << fileNames[i].second << " loaded\n";
+		}
 	}
 
 	return true;
@@ -137,11 +148,6 @@ void Game::handleEvents() {
 	bool keepRunning = InputHandler::Instance()->update();
 	if (!keepRunning) {
 		m_bRunning = false;
-	}
-	else {
-		if (InputHandler::Instance()->getButtonState(0, 0)) {
-			m_pGameStateMachine->changeState(new PlayState());
-		}
 	}
 }
 
@@ -168,10 +174,26 @@ void Game::_cleanGameMachine() {
 	m_pGameStateMachine = NULL;
 }
 
+void Game::_cleanResources() {
+	std::cout << "Clean resources\n";
+	for (int i = 0; i < nbFiles; ++i) {
+		std::cout << "Clean resource " << fileNames[i].second << "\n";
+		TextureManager::Instance()->clearFromTextureMap(fileNames[i].first);
+	}
+}
+
 bool Game::isRunning() {
 	return m_bRunning;
 }
 
 SDL_Renderer* Game::getRenderer() {
 	return m_pRenderer;
+}
+
+void Game::quit() {
+	m_bRunning = false;
+}
+
+GameStateMachine* Game::getStateMachine() {
+	return m_pGameStateMachine;
 }

@@ -2,6 +2,7 @@
 #define __Game__
 
 #include <SDL2/SDL.h>
+#include <vector>
 #include "GameStateMachine.h"
 #include "TextureManager.h"
 
@@ -11,6 +12,9 @@ class Game {
 	SDL_Window* m_pWindow;
 	SDL_Renderer* m_pRenderer;
 	TextureManager* m_textureManager;
+
+	std::vector<std::pair<const char*, const char*>> fileNames;
+	int nbFiles;
 
 	GameStateMachine* m_pGameStateMachine;
 
@@ -26,6 +30,7 @@ class Game {
 		const bool fullScreen
 	);
 	bool _loadResources();
+	void _cleanResources();
 	void _initGameMachine();
 	void _cleanGameMachine();
 
@@ -48,6 +53,9 @@ class Game {
 
 	bool isRunning();
 	SDL_Renderer* getRenderer();
+
+	void quit();
+	GameStateMachine* getStateMachine();
 };
 
 #endif /* defined(__Game__) */

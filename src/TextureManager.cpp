@@ -91,3 +91,7 @@ void TextureManager::free() {
 	delete s_pInstance;
 	s_pInstance = 0;
 }
+
+void TextureManager::clearFromTextureMap(const char* id) {
+	m_textureMap.erase(id);
+}
