@@ -46,15 +46,13 @@ bool Game::init(
 	const int h,
 	const bool fullScreen
 ) {
-	bool l_bReturn = true;
+	bool l_bReturn = false;
 	m_textureManager = TextureManager::Instance();
 
-	l_bReturn &= _initSDL(title, x, y, w, h, fullScreen);
-	l_bReturn &= _loadResources();
-	m_bRunning = l_bReturn;
-
-	if (l_bReturn) {
+	if (_initSDL(title, x, y, w, h, fullScreen) && _loadResources()) {
 		_initGameMachine();
+		l_bReturn = true;
+		m_bRunning = true;
 	}
 
 	return l_bReturn;
