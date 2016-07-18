@@ -1,6 +1,5 @@
 #include "Player.h"
 #include "InputHandler.h"
-#include <iostream>
 
 void Player::handleInput() {
 	int xAxisValue, yAxisValue, velocityBasis = 1;
