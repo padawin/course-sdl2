@@ -29,11 +29,13 @@ void MenuState::update() {
 		}
 	}
 }
+
 void MenuState::render() {
 	for (std::vector<GameObject*>::size_type i = 0; i != m_renderableObjects.size(); i++) {
 		m_renderableObjects[i]->render(Game::Instance()->getRenderer());
 	}
 }
+
 bool MenuState::onEnter() {
 	std::cout << "entering MenuState\n";
 	m_menuBeingChanged = false;
@@ -50,6 +52,7 @@ bool MenuState::onEnter() {
 	}
 	return true;
 }
+
 bool MenuState::onExit() {
 	std::cout << "exiting MenuState\n";
 	return true;
