@@ -5,6 +5,8 @@
 const int FPS = 60;
 const int DELAY_TIME = 1000 / FPS;
 
+void parseArguments(int argc, char* args[], bool *fullScreen);
+
 void parseArguments(int argc, char* args[], bool *fullScreen) {
 	int c;
 	while ((c = getopt (argc, args, "f")) != -1) {
