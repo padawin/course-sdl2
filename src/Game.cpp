@@ -103,7 +103,9 @@ bool Game::_loadResources() {
 
 	std::cout << "Load resources \n";
 	for (int i = 0; i < nbFiles; ++i) {
-		char errorMessage[strlen(errorPattern) + strlen(fileNames[i].second)];
+		char* errorMessage = (char*) calloc(
+			strlen(errorPattern) + strlen(fileNames[i].second), sizeof(char)
+		);
 		std::cout << "Load resource " << fileNames[i].second << "\n";
 		bool textureLoaded = m_textureManager->load(
 			fileNames[i].second,
@@ -120,6 +122,7 @@ bool Game::_loadResources() {
 		else {
 			std::cout << "Resource " << fileNames[i].second << " loaded\n";
 		}
+		free(errorMessage);
 	}
 
 	return true;
