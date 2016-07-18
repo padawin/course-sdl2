@@ -111,6 +111,7 @@ void InputHandler::clean() {
 		int nbJoysticks = m_joysticks.size();
 		for (int i = 0; i < nbJoysticks; i++){
 			SDL_JoystickClose(m_joysticks[i]);
+			m_joysticks[i] = NULL;
 		}
 		m_joystickAxisValues.clear();
 
