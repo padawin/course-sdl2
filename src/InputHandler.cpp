@@ -111,9 +111,13 @@ void InputHandler::clean() {
 			SDL_JoystickClose(m_joysticks[i]);
 			m_joysticks[i] = NULL;
 		}
-		m_joystickAxisValues.clear();
 
 		std::cout << "Cleaned "<< m_joysticks.size() << " joystick(s)\n";
+		m_joysticks.clear();
+		m_buttonStates.clear();
+		m_joystickAxisValues.clear();
+
+		m_bJoysticksInitialised = false;
 	}
 }
 
