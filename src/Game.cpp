@@ -102,9 +102,10 @@ bool Game::_initSDL(
 
 bool Game::_loadResources() {
 	const char* fileNames[][2] = {
-		{"animate", "resources/char9.bmp"}
+		{"animate", "resources/char9.bmp"},
+		{"mainmenu", "resources/menu-buttons.png"}
 	};
-	int nbFiles = 1;
+	int nbFiles = 2;
 
 	const char* errorPattern = "An error occured while loading the file %s\n%s\n";
 
