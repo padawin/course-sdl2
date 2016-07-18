@@ -29,6 +29,7 @@ class TextureManager {
 
 	static TextureManager* Instance();
 	static void free();
+	void clearFromTextureMap(const char* id);
 };
 
 #endif /* defined(__TextureManager__) */
