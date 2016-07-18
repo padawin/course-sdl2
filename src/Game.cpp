@@ -99,7 +99,7 @@ bool Game::_initSDL(
 }
 
 bool Game::_loadResources() {
-	const char* errorPattern = "An error occured while loading the file %s";
+	const char errorPattern[] = "An error occured while loading the file %s";
 
 	std::cout << "Load resources \n";
 	for (int i = 0; i < nbFiles; ++i) {
