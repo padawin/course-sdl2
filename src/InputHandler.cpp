@@ -33,6 +33,9 @@ bool InputHandler::update() {
 		else if (event.type == SDL_JOYBUTTONUP) {
 			handleButtonEvent(event, false);
 		}
+		else if (event.type == SDL_JOYDEVICEADDED) {
+			initialiseJoystick(event.cdevice.which);
+		}
 	}
 
 	return ret;
@@ -75,34 +78,27 @@ void InputHandler::setJoystickValue(const int value, Vector2D* axisVector, Vecto
 	}
 }
 
-void InputHandler::initialiseJoysticks() {
+void InputHandler::initialiseJoystick(const int indexJoystick) {
 	if (SDL_WasInit(SDL_INIT_JOYSTICK) == 0) {
 		SDL_InitSubSystem(SDL_INIT_JOYSTICK);
 	}
 
-	if (SDL_NumJoysticks() == 0) {
-		m_bJoysticksInitialised = false;
+	SDL_Joystick* joy = SDL_JoystickOpen(indexJoystick);
+	if (!joy) {
+		std::cout << SDL_GetError();
 	}
 	else {
-		for (int i = 0; i < SDL_NumJoysticks(); i++) {
-			SDL_Joystick* joy = SDL_JoystickOpen(i);
-			if (joy) {
-				m_joysticks.push_back(joy);
-				// for each joystick store their stick axises values
-				m_joystickAxisValues.push_back(std::make_pair(
-					Vector2D(0,0),
-					Vector2D(0,0)
-				));
-				std::vector<bool> tempButtons;
-				for (int j = 0; j < SDL_JoystickNumButtons(joy); j++) {
-					tempButtons.push_back(false);
-				}
-				m_buttonStates.push_back(tempButtons);
-			}
-			else {
-				std::cout << SDL_GetError();
-			}
+		m_joysticks.push_back(joy);
+		// for each joystick store their stick axises values
+		m_joystickAxisValues.push_back(std::make_pair(
+			Vector2D(0,0),
+			Vector2D(0,0)
+		));
+		std::vector<bool> tempButtons;
+		for (int j = 0; j < SDL_JoystickNumButtons(joy); j++) {
+			tempButtons.push_back(false);
 		}
+		m_buttonStates.push_back(tempButtons);
 		m_bJoysticksInitialised = true;
 		std::cout << "Initialised "<< m_joysticks.size() << " joystick(s)\n";
 	}

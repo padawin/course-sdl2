@@ -30,7 +30,7 @@ class InputHandler {
 	static void free();
 	bool update();
 	void clean();
-	void initialiseJoysticks();
+	void initialiseJoystick(const int index);
 	bool joysticksInitialised();
 	int stickXValue(const int joy, const JoystickControl stick);
 	int stickYValue(const int joy, const JoystickControl stick);

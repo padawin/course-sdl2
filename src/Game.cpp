@@ -57,7 +57,6 @@ bool Game::init(
 	m_bRunning = l_bReturn;
 
 	if (l_bReturn) {
-		InputHandler::Instance()->initialiseJoysticks();
 		_initGameMachine();
 	}
 
