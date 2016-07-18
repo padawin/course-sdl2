@@ -189,3 +189,11 @@ bool Game::isRunning() {
 SDL_Renderer* Game::getRenderer() {
 	return m_pRenderer;
 }
+
+void Game::quit() {
+	m_bRunning = false;
+}
+
+GameStateMachine* Game::getStateMachine() {
+	return m_pGameStateMachine;
+}

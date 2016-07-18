@@ -53,6 +53,9 @@ class Game {
 
 	bool isRunning();
 	SDL_Renderer* getRenderer();
+
+	void quit();
+	GameStateMachine* getStateMachine();
 };
 
 #endif /* defined(__Game__) */
