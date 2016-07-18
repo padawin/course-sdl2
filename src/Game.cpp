@@ -2,7 +2,6 @@
 #include "InputHandler.h"
 #include "MenuState.h"
 #include "NoJoystickState.h"
-#include "PlayState.h"
 #include <iostream>
 #include <errno.h>
 
@@ -149,11 +148,6 @@ void Game::handleEvents() {
 	bool keepRunning = InputHandler::Instance()->update();
 	if (!keepRunning) {
 		m_bRunning = false;
-	}
-	else {
-		if (InputHandler::Instance()->getButtonState(0, 0)) {
-			m_pGameStateMachine->changeState(new PlayState());
-		}
 	}
 }
 
