@@ -35,6 +35,8 @@ class Game {
 	void _cleanGameMachine();
 
 	public:
+	Game(Game const&) = delete;
+	void operator=(Game const&) = delete;
 	static Game* Instance();
 	static void free();
 

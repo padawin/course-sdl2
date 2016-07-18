@@ -12,6 +12,8 @@ class TextureManager {
 	TextureManager();
 
 	public:
+	TextureManager(TextureManager const&) = delete;
+	void operator=(TextureManager const&) = delete;
 	bool load(std::string fileName,std::string id, SDL_Renderer* pRenderer);
 	void draw(
 		std::string id,
