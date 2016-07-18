@@ -139,27 +139,29 @@ void InputHandler::free() {
 }
 
 int InputHandler::stickXValue(const int joyIndex, const JoystickControl stick) {
+	int value = 0;
 	if (m_joystickAxisValues.size() > 0) {
 		if (stick == LEFT_STICK) {
-			return (int) m_joystickAxisValues[m_joysticks[joyIndex].first].first.getX();
+			value = (int) m_joystickAxisValues[m_joysticks[joyIndex].first].first.getX();
 		}
 		else if (stick == RIGHT_STICK) {
-			return (int) m_joystickAxisValues[m_joysticks[joyIndex].first].second.getX();
+			value = (int) m_joystickAxisValues[m_joysticks[joyIndex].first].second.getX();
 		}
 	}
-	return 0;
+	return value;
 }
 
 int InputHandler::stickYValue(const int joyIndex, const JoystickControl stick) {
+	int value = 0;
 	if (m_joystickAxisValues.size() > 0) {
 		if (stick == LEFT_STICK) {
-			return (int) m_joystickAxisValues[m_joysticks[joyIndex].first].first.getY();
+			value = (int) m_joystickAxisValues[m_joysticks[joyIndex].first].first.getY();
 		}
 		else if (stick == RIGHT_STICK) {
-			return (int) m_joystickAxisValues[m_joysticks[joyIndex].first].second.getY();
+			value = (int) m_joystickAxisValues[m_joysticks[joyIndex].first].second.getY();
 		}
 	}
-	return 0;
+	return value;
 }
 
 bool InputHandler::getButtonState(int joyIndex, int buttonNumber) {
