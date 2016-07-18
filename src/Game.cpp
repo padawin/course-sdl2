@@ -8,9 +8,6 @@
 static Game* s_pInstance;
 
 Game::Game() {
-	m_pWindow = 0;
-	m_pRenderer = 0;
-
 	fileNames.push_back(std::make_pair("animate", "resources/char9.bmp"));
 	fileNames.push_back(std::make_pair("mainmenu", "resources/menu-buttons.png"));
 	nbFiles = 2;

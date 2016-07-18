@@ -5,7 +5,6 @@
 static InputHandler* s_pInstance;
 
 InputHandler::InputHandler() {
-	m_bJoysticksInitialised = false;
 	SDL_JoystickEventState(SDL_ENABLE);
 }
 

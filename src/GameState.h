@@ -8,8 +8,8 @@
 
 class GameState {
 	protected:
-	std::vector<GameObject*> m_gameObjects;
-	std::vector<SDLDrawable*> m_renderableObjects;
+	std::vector<GameObject*> m_gameObjects = {};
+	std::vector<SDLDrawable*> m_renderableObjects = {};
 
 	public:
 	virtual	~GameState() {}

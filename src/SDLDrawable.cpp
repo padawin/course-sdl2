@@ -1,7 +1,10 @@
 #include "SDLDrawable.h"
 #include "TextureManager.h"
 
-SDLDrawable::SDLDrawable() {}
+SDLDrawable::SDLDrawable() :
+	m_position(Vector2D()),
+	m_velocity(Vector2D()),
+	m_acceleration(Vector2D()) {}
 
 void SDLDrawable::load(const float x, const float y, const int width, const int height) {
 	m_position.setX(x);

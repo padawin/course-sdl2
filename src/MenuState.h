@@ -8,10 +8,10 @@
 class MenuState : public GameState {
 	private:
 	static const std::string s_menuID;
-	std::vector<MenuButton*> m_buttons;
-	int m_nbButtons;
-	bool m_activeButtonIndex;
-	bool m_menuBeingChanged;
+	std::vector<MenuButton*> m_buttons = {};
+	int m_nbButtons = 0;
+	bool m_activeButtonIndex = 0;
+	bool m_menuBeingChanged = false;
 
 	public:
 	virtual void update();

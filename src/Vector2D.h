@@ -5,8 +5,8 @@ enum Vector2DCoord {VECTOR_X, VECTOR_Y};
 
 class Vector2D {
 	protected:
-	float m_iX;
-	float m_iY;
+	float m_iX = 0.0;
+	float m_iY = 0.0;
 
 	public:
 	Vector2D();
