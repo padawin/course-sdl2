@@ -3,7 +3,7 @@
 
 SDLDrawable::SDLDrawable() {}
 
-void SDLDrawable::load(const int x, const int y, const int width, const int height) {
+void SDLDrawable::load(const float x, const float y, const int width, const int height) {
 	m_position.setX(x);
 	m_position.setY(y);
 	m_iWidth = width;

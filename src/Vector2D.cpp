@@ -12,7 +12,7 @@ Vector2D::Vector2D(const float x, const float y) {
 }
 
 float Vector2D::getLength() {
-	return sqrt(pow(m_iX, 2) + pow(m_iY, 2));
+	return sqrtf(powf(m_iX, 2.0) + powf(m_iY, 2.0));
 }
 
 float Vector2D::getX() {

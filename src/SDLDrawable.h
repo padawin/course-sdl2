@@ -22,7 +22,7 @@ class SDLDrawable : public GameObject {
 
 	public:
 	SDLDrawable();
-	virtual void load(const int x, const int y, const int width, const int height);
+	virtual void load(const float x, const float y, const int width, const int height);
 	virtual void setTexture(const std::string textureID, int nbFrames);
 	virtual void setTextureRow(const int currentRow);
 	virtual void setVelocity(const Vector2D velocity);
