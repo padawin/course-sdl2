@@ -1,6 +1,11 @@
 #include "GameStateMachine.h"
 
 void GameStateMachine::pushState(GameState *pState) {
+	// if the current state is the same as the pushed one, do nothing
+	if (!m_gameStates.empty() && m_gameStates.back()->getStateID() == pState->getStateID()) {
+		return;
+	}
+
 	m_gameStates.push_back(pState);
 	m_gameStates.back()->onEnter();
 }

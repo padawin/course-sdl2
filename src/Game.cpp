@@ -57,7 +57,6 @@ bool Game::init(
 	m_bRunning = l_bReturn;
 
 	if (l_bReturn) {
-		InputHandler::Instance()->initialiseJoysticks();
 		_initGameMachine();
 	}
 
@@ -132,16 +131,7 @@ bool Game::_loadResources() {
 
 void Game::_initGameMachine() {
 	m_pGameStateMachine = new GameStateMachine();
-
-	GameState* initialState;
-	if (!InputHandler::Instance()->joysticksInitialised()) {
-		initialState = new NoJoystickState();
-	}
-	else {
-		initialState = new MenuState();
-	}
-
-	m_pGameStateMachine->changeState(initialState);
+	m_pGameStateMachine->changeState(new MenuState());
 }
 
 void Game::handleEvents() {
@@ -152,6 +142,10 @@ void Game::handleEvents() {
 }
 
 void Game::update() {
+	if (!InputHandler::Instance()->joysticksInitialised()) {
+		m_pGameStateMachine->pushState(new NoJoystickState());
+	}
+
 	m_pGameStateMachine->update();
 }
 

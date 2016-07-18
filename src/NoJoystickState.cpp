@@ -1,10 +1,14 @@
 #include "NoJoystickState.h"
+#include "Game.h"
+#include "InputHandler.h"
 #include <iostream>
 
 const std::string NoJoystickState::s_menuID = "NO_JOYSTICK";
 
 void NoJoystickState::update() {
-	// nothing for now
+	if (InputHandler::Instance()->joysticksInitialised()) {
+		Game::Instance()->getStateMachine()->popState();
+	}
 }
 void NoJoystickState::render() {
 	// nothing for now
