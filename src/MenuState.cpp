@@ -1,6 +1,7 @@
 #include "MenuState.h"
 #include "Game.h"
 #include "InputHandler.h"
+#include "PlayState.h"
 #include <iostream>
 
 const std::string MenuState::s_menuID = "MENU";
@@ -27,14 +28,23 @@ void MenuState::update() {
 			m_buttons[m_activeButtonIndex]->setActive(true);
 			m_menuBeingChanged = true;
 		}
+
+		if (InputHandler::Instance()->getButtonState(0, 0)) {
+			m_buttons[m_activeButtonIndex]->executeAction();
+		}
 	}
 }
+
 void MenuState::render() {
 	for (std::vector<GameObject*>::size_type i = 0; i != m_renderableObjects.size(); i++) {
 		m_renderableObjects[i]->render(Game::Instance()->getRenderer());
 	}
 }
+
 bool MenuState::onEnter() {
+	std::vector<void (*)()> callbacks;
+	callbacks.push_back(MenuState::startGame);
+	callbacks.push_back(MenuState::quitGame);
 	std::cout << "entering MenuState\n";
 	m_menuBeingChanged = false;
 	m_nbButtons = 2;
@@ -47,9 +57,11 @@ bool MenuState::onEnter() {
 		m_buttons[i]->setTexture("mainmenu", 1);
 		m_buttons[i]->setTextureRow(i + 1);
 		m_buttons[i]->setActive(i == m_activeButtonIndex);
+		m_buttons[i]->setAction(callbacks[i]);
 	}
 	return true;
 }
+
 bool MenuState::onExit() {
 	std::cout << "exiting MenuState\n";
 	return true;
@@ -57,4 +69,12 @@ bool MenuState::onExit() {
 
 std::string MenuState::getStateID() const {
 	return s_menuID;
+}
+
+void MenuState::startGame() {
+	Game::Instance()->getStateMachine()->changeState(new PlayState());
+}
+
+void MenuState::quitGame() {
+	Game::Instance()->quit();
 }

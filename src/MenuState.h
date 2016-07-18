@@ -19,6 +19,9 @@ class MenuState : public GameState {
 	virtual bool onEnter();
 	virtual bool onExit();
 	virtual std::string getStateID() const;
+
+	static void startGame();
+	static void quitGame();
 };
 
 #endif
