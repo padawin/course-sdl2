@@ -2,6 +2,7 @@
 #define __Game__
 
 #include <SDL2/SDL.h>
+#include <vector>
 #include "GameStateMachine.h"
 #include "TextureManager.h"
 
@@ -11,6 +12,9 @@ class Game {
 	SDL_Window* m_pWindow;
 	SDL_Renderer* m_pRenderer;
 	TextureManager* m_textureManager;
+
+	std::vector<std::pair<const char*, const char*>> fileNames;
+	int nbFiles;
 
 	GameStateMachine* m_pGameStateMachine;
 

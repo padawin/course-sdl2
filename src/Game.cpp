@@ -11,6 +11,10 @@ static Game* s_pInstance;
 Game::Game() {
 	m_pWindow = 0;
 	m_pRenderer = 0;
+
+	fileNames.push_back(std::make_pair("animate", "resources/char9.bmp"));
+	fileNames.push_back(std::make_pair("mainmenu", "resources/menu-buttons.png"));
+	nbFiles = 2;
 }
 
 Game::~Game() {
@@ -101,31 +105,25 @@ bool Game::_initSDL(
 }
 
 bool Game::_loadResources() {
-	const char* fileNames[][2] = {
-		{"animate", "resources/char9.bmp"},
-		{"mainmenu", "resources/menu-buttons.png"}
-	};
-	int nbFiles = 2;
-
 	const char* errorPattern = "An error occured while loading the file %s\n%s\n";
 
 	std::cout << "Load resources \n";
 	for (int i = 0; i < nbFiles; ++i) {
-		char errorMessage[strlen(fileNames[i][1]) + strlen(errorPattern) - 2];
-		std::cout << "Load resource " << fileNames[i][1] << "\n";
+		char errorMessage[strlen(fileNames[i].second) + strlen(errorPattern) - 2];
+		std::cout << "Load resource " << fileNames[i].second << "\n";
 		bool textureLoaded = m_textureManager->load(
-			fileNames[i][1],
-			fileNames[i][0],
+			fileNames[i].second,
+			fileNames[i].first,
 			m_pRenderer
 		);
 
 		if (!textureLoaded) {
-			sprintf(errorMessage, errorPattern, fileNames[i][1], strerror(errno));
+			sprintf(errorMessage, errorPattern, fileNames[i].second, strerror(errno));
 			std::cout << errorMessage;
 			return false;
 		}
 		else {
-			std::cout << "Resource " << fileNames[i][1] << " loaded\n";
+			std::cout << "Resource " << fileNames[i].second << " loaded\n";
 		}
 	}
 
