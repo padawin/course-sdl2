@@ -33,7 +33,7 @@ Game *Game::Instance() {
 	return s_pInstance;
 }
 
-void Game::free() {
+void Game::freeGame() {
 	delete s_pInstance;
 	s_pInstance = 0;
 }

@@ -42,7 +42,7 @@ int main(int argc, char* args[]) {
 		}
 	}
 
-	Game::free();
+	Game::freeGame();
 
 	return 0;
 }
