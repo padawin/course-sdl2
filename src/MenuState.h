@@ -11,6 +11,7 @@ class MenuState : public GameState {
 	std::vector<MenuButton*> m_buttons;
 	int m_nbButtons;
 	bool m_activeButtonIndex;
+	bool m_menuBeingChanged;
 
 	public:
 	virtual void update();

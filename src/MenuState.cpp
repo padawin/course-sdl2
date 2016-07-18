@@ -1,11 +1,33 @@
 #include "MenuState.h"
 #include "Game.h"
+#include "InputHandler.h"
 #include <iostream>
 
 const std::string MenuState::s_menuID = "MENU";
 
 void MenuState::update() {
-	// nothing for now
+	InputHandler* handlerInstance = InputHandler::Instance();
+	if (handlerInstance->joysticksInitialised()) {
+		int yAxisValue = handlerInstance->stickYValue(0, LEFT_STICK);
+		// The stick must be brought back to neutral position to choose another
+		// menu element, otherwise, it moves too fast.
+		if (m_menuBeingChanged && yAxisValue == 0) {
+			m_menuBeingChanged = false;
+		}
+		else if (!m_menuBeingChanged && yAxisValue != 0) {
+			// deactivate the current menu element, change the current active
+			// index, activate the new current menu element
+			m_buttons[m_activeButtonIndex]->setActive(false);
+			if (yAxisValue > 0) {
+				m_activeButtonIndex = (m_nbButtons + m_activeButtonIndex - 1) % m_nbButtons;
+			}
+			else if (yAxisValue < 0) {
+				m_activeButtonIndex = (m_activeButtonIndex + 1) % m_nbButtons;
+			}
+			m_buttons[m_activeButtonIndex]->setActive(true);
+			m_menuBeingChanged = true;
+		}
+	}
 }
 void MenuState::render() {
 	for (std::vector<GameObject*>::size_type i = 0; i != m_renderableObjects.size(); i++) {
@@ -14,6 +36,7 @@ void MenuState::render() {
 }
 bool MenuState::onEnter() {
 	std::cout << "entering MenuState\n";
+	m_menuBeingChanged = false;
 	m_nbButtons = 2;
 	m_activeButtonIndex = 0;
 	for (int i = 0; i < m_nbButtons; ++i) {
