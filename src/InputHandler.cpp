@@ -4,7 +4,10 @@
 
 static InputHandler* s_pInstance;
 
-InputHandler::InputHandler() {}
+InputHandler::InputHandler() {
+	m_bJoysticksInitialised = false;
+	SDL_JoystickEventState(SDL_ENABLE);
+}
 
 InputHandler *InputHandler::Instance() {
 	if (s_pInstance == 0) {
@@ -100,7 +103,6 @@ void InputHandler::initialiseJoysticks() {
 				std::cout << SDL_GetError();
 			}
 		}
-		SDL_JoystickEventState(SDL_ENABLE);
 		m_bJoysticksInitialised = true;
 		std::cout << "Initialised "<< m_joysticks.size() << " joystick(s)\n";
 	}
