@@ -2,7 +2,7 @@
 #include "InputHandler.h"
 
 void Player::handleInput() {
-	int xAxisValue, yAxisValue, velocityBasis = 1;
+	float xAxisValue, yAxisValue, velocityBasis = 1.0;
 	InputHandler* handlerInstance = InputHandler::Instance();
 
 	if (handlerInstance->joysticksInitialised()) {
@@ -10,8 +10,8 @@ void Player::handleInput() {
 			velocityBasis = 2.5;
 		}
 
-		xAxisValue = handlerInstance->stickXValue(0, LEFT_STICK);
-		yAxisValue = handlerInstance->stickYValue(0, LEFT_STICK);
+		xAxisValue = (float) handlerInstance->stickXValue(0, LEFT_STICK);
+		yAxisValue = (float) handlerInstance->stickYValue(0, LEFT_STICK);
 		if (xAxisValue > 0 || xAxisValue < 0) {
 			m_velocity.setX(velocityBasis * xAxisValue);
 		}

@@ -5,8 +5,8 @@
 
 class MenuButton : public SDLDrawable {
 	protected:
-	bool m_pActive;
-	void (*m_callback)();
+	bool m_pActive = false;
+	void (*m_callback)() = NULL;
 
 	public:
 	void setActive(const bool active);

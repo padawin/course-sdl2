@@ -14,14 +14,14 @@ class InputHandler {
 	InputHandler();
 	// store each joystick in a vector of pairs, the first element of the pair
 	// being the joystick id and the second element, the joystick itself
-	std::vector<std::pair<int, SDL_Joystick*>> m_joysticks;
+	std::vector<std::pair<int, SDL_Joystick*>> m_joysticks = {};
 	// map joysticks ids and pairs of stick values (one element per stick, each
 	// stick has a value per axis (x and y)
-	std::map<int, std::pair<Vector2D, Vector2D>> m_joystickAxisValues;
+	std::map<int, std::pair<Vector2D, Vector2D>> m_joystickAxisValues = {};
 	// map joysticks ids and buttons state, each joystick has a list of buttons
 	// set to true or false depending on if the button is pressed
-	std::map<int, std::vector<bool>> m_buttonStates;
-	bool m_bJoysticksInitialised;
+	std::map<int, std::vector<bool>> m_buttonStates = {};
+	bool m_bJoysticksInitialised = false;
 	const int M_JOYSTICK_DEADZONE = 10000;
 	const int M_LEFT_STICK_X_AXIS = 0;
 	const int M_LEFT_STICK_Y_AXIS = 1;
@@ -31,7 +31,7 @@ class InputHandler {
 	void setJoystickValue(const int value, Vector2D* axisVector, Vector2DCoord coord);
 	void handleStickEvent(const SDL_Event event);
 	void handleButtonEvent(const SDL_Event event, const bool isDown);
-	void handleJoystickRemoved(const SDL_Event event);
+	void handleJoystickRemoved();
 
 	public:
 	static InputHandler* Instance();

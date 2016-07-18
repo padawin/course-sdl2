@@ -53,7 +53,9 @@ bool MenuState::onEnter() {
 		m_buttons.push_back(new MenuButton());
 		m_gameObjects.push_back(m_buttons[i]);
 		m_renderableObjects.push_back(m_buttons[i]);
-		m_buttons[i]->load(50, 15 + 100 * (i + 1), 300, 100);
+		float y = 15;
+		y += (float) (100 * (i + 1));
+		m_buttons[i]->load(50.0, y, 300, 100);
 		m_buttons[i]->setTexture("mainmenu", 1);
 		m_buttons[i]->setTextureRow(i + 1);
 		m_buttons[i]->setActive(i == m_activeButtonIndex);

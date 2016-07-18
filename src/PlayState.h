@@ -8,8 +8,8 @@
 class PlayState : public GameState {
 	private:
 	static const std::string s_menuID;
-	std::vector<Enemy*> m_enemies;
-	Player* m_player;
+	std::vector<Enemy*> m_enemies = {};
+	Player* m_player = NULL;
 
 	void _initActors();
 	void _cleanActors();

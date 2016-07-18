@@ -8,21 +8,21 @@
 
 class SDLDrawable : public GameObject {
 	protected:
-	std::string m_sTextureID;
-	int m_iNbFrames;
-	int m_iCurrentFrame;
-	int m_iCurrentRow;
+	std::string m_sTextureID = "";
+	int m_iNbFrames = 0;
+	int m_iCurrentFrame = 0;
+	int m_iCurrentRow = 0;
 
 	Vector2D m_position;
 	Vector2D m_velocity;
 	Vector2D m_acceleration;
 
-	int m_iWidth;
-	int m_iHeight;
+	int m_iWidth = 0;
+	int m_iHeight = 0;
 
 	public:
 	SDLDrawable();
-	virtual void load(const int x, const int y, const int width, const int height);
+	virtual void load(const float x, const float y, const int width, const int height);
 	virtual void setTexture(const std::string textureID, int nbFrames);
 	virtual void setTextureRow(const int currentRow);
 	virtual void setVelocity(const Vector2D velocity);
