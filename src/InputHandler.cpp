@@ -36,6 +36,9 @@ bool InputHandler::update() {
 		else if (event.type == SDL_JOYDEVICEADDED) {
 			initialiseJoystick(event.cdevice.which);
 		}
+		else if (event.type == SDL_JOYDEVICEREMOVED) {
+			handleJoystickRemoved(event);
+		}
 	}
 
 	return ret;
@@ -64,6 +67,10 @@ void InputHandler::handleStickEvent(const SDL_Event event) {
 void InputHandler::handleButtonEvent(const SDL_Event event, const bool isDown) {
 	int joystickId = event.jaxis.which;
 	m_buttonStates[joystickId][event.jbutton.button] = isDown;
+}
+
+void InputHandler::handleJoystickRemoved(const SDL_Event event) {
+	clean();
 }
 
 void InputHandler::setJoystickValue(const int value, Vector2D* axisVector, Vector2DCoord coord) {

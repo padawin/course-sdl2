@@ -31,6 +31,7 @@ class InputHandler {
 	void setJoystickValue(const int value, Vector2D* axisVector, Vector2DCoord coord);
 	void handleStickEvent(const SDL_Event event);
 	void handleButtonEvent(const SDL_Event event, const bool isDown);
+	void handleJoystickRemoved(const SDL_Event event);
 
 	public:
 	static InputHandler* Instance();
