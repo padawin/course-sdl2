@@ -101,19 +101,31 @@ bool Game::_initSDL(
 }
 
 bool Game::_loadResources() {
-	const char* fileName = "resources/char9.bmp";
-	const char* errorPattern = "An error occured while loading the file %s\n%s\n";
-	char errorMessage[strlen(fileName) + strlen(errorPattern) - 2];
-	bool textureLoaded = m_textureManager->load(
-		fileName,
-		"animate",
-		m_pRenderer
-	);
+	const char* fileNames[][2] = {
+		{"animate", "resources/char9.bmp"}
+	};
+	int nbFiles = 1;
 
-	if (!textureLoaded) {
-		sprintf(errorMessage, errorPattern, fileName, strerror(errno));
-		std::cout << errorMessage;
-		return false;
+	const char* errorPattern = "An error occured while loading the file %s\n%s\n";
+
+	std::cout << "Load resources \n";
+	for (int i = 0; i < nbFiles; ++i) {
+		char errorMessage[strlen(fileNames[i][1]) + strlen(errorPattern) - 2];
+		std::cout << "Load resource " << fileNames[i][1] << "\n";
+		bool textureLoaded = m_textureManager->load(
+			fileNames[i][1],
+			fileNames[i][0],
+			m_pRenderer
+		);
+
+		if (!textureLoaded) {
+			sprintf(errorMessage, errorPattern, fileNames[i][1], strerror(errno));
+			std::cout << errorMessage;
+			return false;
+		}
+		else {
+			std::cout << "Resource " << fileNames[i][1] << " loaded\n";
+		}
 	}
 
 	return true;
