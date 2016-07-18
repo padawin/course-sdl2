@@ -36,7 +36,7 @@ bool InputHandler::update() {
 			initialiseJoystick(event.cdevice.which);
 		}
 		else if (event.type == SDL_JOYDEVICEREMOVED) {
-			handleJoystickRemoved(event);
+			handleJoystickRemoved();
 		}
 	}
 
@@ -68,7 +68,7 @@ void InputHandler::handleButtonEvent(const SDL_Event event, const bool isDown) {
 	m_buttonStates[joystickId][event.jbutton.button] = isDown;
 }
 
-void InputHandler::handleJoystickRemoved(const SDL_Event event) {
+void InputHandler::handleJoystickRemoved() {
 	clean();
 }
 
