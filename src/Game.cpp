@@ -99,7 +99,7 @@ bool Game::_initSDL(
 }
 
 bool Game::_loadResources() {
-	const char* errorPattern = "An error occured while loading the file %s\n%s\n";
+	const char* errorPattern = "An error occured while loading the file %s";
 
 	std::cout << "Load resources \n";
 	for (int i = 0; i < nbFiles; ++i) {
@@ -112,8 +112,9 @@ bool Game::_loadResources() {
 		);
 
 		if (!textureLoaded) {
-			sprintf(errorMessage, errorPattern, fileNames[i].second, strerror(errno));
-			std::cout << errorMessage;
+			sprintf(errorMessage, errorPattern, fileNames[i].second);
+			std::cout << errorMessage << "\n";
+			std::cout << strerror(errno) << "\n";
 			return false;
 		}
 		else {
