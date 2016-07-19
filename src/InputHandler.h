@@ -20,13 +20,13 @@ class InputHandler {
 	InputHandler();
 	// store each joystick in a vector of pairs, the first element of the pair
 	// being the joystick id and the second element, the joystick itself
-	std::vector<std::pair<int, SDL_Joystick*>> m_joysticks = {};
+	std::vector<std::pair<int, SDL_Joystick*>> m_vJoysticks = {};
 	// map joysticks ids and pairs of stick values (one element per stick, each
 	// stick has a value per axis (x and y)
-	std::map<int, std::pair<Vector2D, Vector2D>> m_joystickAxisValues = {};
+	std::map<int, std::pair<Vector2D, Vector2D>> m_mJoystickAxisValues = {};
 	// map joysticks ids and buttons state, each joystick has a list of buttons
 	// set to true or false depending on if the button is pressed
-	std::map<int, std::vector<bool>> m_buttonStates = {};
+	std::map<int, std::vector<bool>> m_mButtonStates = {};
 	bool m_bJoysticksInitialised = false;
 
 	void _initialiseJoystick(const int index);
