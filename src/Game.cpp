@@ -10,6 +10,7 @@ static Game* s_pInstance;
 Game::Game() {
 	fileNames.push_back(std::make_pair("animate", "resources/char9.bmp"));
 	fileNames.push_back(std::make_pair("mainmenu", "resources/menu-buttons.png"));
+	fileNames.push_back(std::make_pair("pausemenu", "resources/pause-menu-buttons.png"));
 	nbFiles = (int) fileNames.size();
 }
 
