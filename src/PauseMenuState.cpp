@@ -1,0 +1,45 @@
+#include "PauseMenuState.h"
+#include "Game.h"
+#include "InputHandler.h"
+#include "MainMenuState.h"
+#include <iostream>
+
+const std::string PauseMenuState::s_menuID = "PAUSEMENU";
+
+PauseMenuState::PauseMenuState() : MenuState::MenuState(3) {
+	s_pActions.push_back(PauseMenuState::resumeGame);
+	s_pActions.push_back(PauseMenuState::goToMainMenu);
+	s_pActions.push_back(PauseMenuState::quitGame);
+}
+
+MenuButton* PauseMenuState::createButton(const int index) {
+	MenuButton* b = new MenuButton();
+	float y = 15;
+	y += (float) (100 * (index + 1));
+	b->load(50.0, y, 300, 100);
+	b->setTexture("pausemenu", 1);
+	b->setTextureRow(index + 1);
+	b->setActive(index == m_activeButtonIndex);
+	b->setAction(s_pActions[index]);
+
+	return b;
+}
+
+std::string PauseMenuState::getStateID() const {
+	return s_menuID;
+}
+
+void PauseMenuState::resumeGame() {
+	Game::Instance()->getStateMachine()->popState();
+}
+
+void PauseMenuState::goToMainMenu() {
+	std::cout << "clean state machine\n";
+	Game::Instance()->getStateMachine()->clean();
+	std::cout << "Add main menu state\n";
+	Game::Instance()->getStateMachine()->pushState(new MainMenuState());
+}
+
+void PauseMenuState::quitGame() {
+	Game::Instance()->quit();
+}
