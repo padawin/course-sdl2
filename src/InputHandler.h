@@ -11,6 +11,12 @@ enum JoystickControl {LEFT_STICK, RIGHT_STICK};
 
 class InputHandler {
 	private:
+	const int M_JOYSTICK_DEADZONE = 10000;
+	const int M_LEFT_STICK_X_AXIS = 0;
+	const int M_LEFT_STICK_Y_AXIS = 1;
+	const int M_RIGHT_STICK_X_AXIS = 3;
+	const int M_RIGHT_STICK_Y_AXIS = 4;
+
 	InputHandler();
 	// store each joystick in a vector of pairs, the first element of the pair
 	// being the joystick id and the second element, the joystick itself
@@ -22,11 +28,6 @@ class InputHandler {
 	// set to true or false depending on if the button is pressed
 	std::map<int, std::vector<bool>> m_buttonStates = {};
 	bool m_bJoysticksInitialised = false;
-	const int M_JOYSTICK_DEADZONE = 10000;
-	const int M_LEFT_STICK_X_AXIS = 0;
-	const int M_LEFT_STICK_Y_AXIS = 1;
-	const int M_RIGHT_STICK_X_AXIS = 3;
-	const int M_RIGHT_STICK_Y_AXIS = 4;
 
 	void setJoystickValue(const int value, Vector2D* axisVector, Vector2DCoord coord);
 	void handleStickEvent(const SDL_Event event);
