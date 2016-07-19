@@ -6,23 +6,20 @@
 #include <vector>
 
 class MenuState : public GameState {
-	private:
-	static const std::string s_menuID;
+	protected:
 	std::vector<MenuButton*> m_buttons = {};
-	int m_nbButtons = 0;
+	int m_nbButtons;
 	int m_activeButtonIndex = 0;
 	bool m_menuBeingChanged = false;
+	std::vector<void (*)()> s_pActions = {};
 
 	public:
+	MenuState(const int nbButtons);
 	virtual void update();
 	virtual void render();
 	virtual bool onEnter();
 	virtual bool onExit();
-	virtual std::string getStateID() const;
-
-	static void startGame();
-	static void quitGame();
+	virtual MenuButton* createButton(const int index) = 0;
 };
 
 #endif
-

@@ -1,6 +1,6 @@
 #include "Game.h"
 #include "InputHandler.h"
-#include "MenuState.h"
+#include "MainMenuState.h"
 #include "NoJoystickState.h"
 #include <iostream>
 #include <errno.h>
@@ -130,7 +130,7 @@ bool Game::_loadResources() {
 
 void Game::_initGameMachine() {
 	m_pGameStateMachine = new GameStateMachine();
-	m_pGameStateMachine->changeState(new MenuState());
+	m_pGameStateMachine->changeState(new MainMenuState());
 }
 
 void Game::handleEvents() {

@@ -4,7 +4,7 @@
 #include "PlayState.h"
 #include <iostream>
 
-const std::string MenuState::s_menuID = "MENU";
+MenuState::MenuState(const int nbButtons) : m_nbButtons(nbButtons) {}
 
 void MenuState::update() {
 	InputHandler* handlerInstance = InputHandler::Instance();
@@ -42,24 +42,14 @@ void MenuState::render() {
 }
 
 bool MenuState::onEnter() {
-	std::vector<void (*)()> callbacks;
-	callbacks.push_back(MenuState::startGame);
-	callbacks.push_back(MenuState::quitGame);
 	std::cout << "entering MenuState\n";
 	m_menuBeingChanged = false;
 	m_nbButtons = 2;
 	m_activeButtonIndex = 0;
 	for (int i = 0; i < m_nbButtons; ++i) {
-		m_buttons.push_back(new MenuButton());
+		m_buttons.push_back(createButton(i));
 		m_gameObjects.push_back(m_buttons[i]);
 		m_renderableObjects.push_back(m_buttons[i]);
-		float y = 15;
-		y += (float) (100 * (i + 1));
-		m_buttons[i]->load(50.0, y, 300, 100);
-		m_buttons[i]->setTexture("mainmenu", 1);
-		m_buttons[i]->setTextureRow(i + 1);
-		m_buttons[i]->setActive(i == m_activeButtonIndex);
-		m_buttons[i]->setAction(callbacks[i]);
 	}
 	return true;
 }
@@ -67,16 +57,4 @@ bool MenuState::onEnter() {
 bool MenuState::onExit() {
 	std::cout << "exiting MenuState\n";
 	return true;
-}
-
-std::string MenuState::getStateID() const {
-	return s_menuID;
-}
-
-void MenuState::startGame() {
-	Game::Instance()->getStateMachine()->changeState(new PlayState());
-}
-
-void MenuState::quitGame() {
-	Game::Instance()->quit();
 }
