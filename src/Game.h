@@ -9,14 +9,14 @@
 class Game {
 	private:
 	bool m_bRunning = false;
-	SDL_Window* m_pWindow = 0;
-	SDL_Renderer* m_pRenderer = 0;
+	SDL_Window* m_window = 0;
+	SDL_Renderer* m_renderer = 0;
 	TextureManager* m_textureManager = 0;
 
-	std::vector<std::pair<const char*, const char*>> fileNames = {};
-	int nbFiles = 0;
+	std::vector<std::pair<const char*, const char*>> m_vFileNames = {};
+	int m_iNbFiles = 0;
 
-	GameStateMachine* m_pGameStateMachine = 0;
+	GameStateMachine* m_gameStateMachine = 0;
 
 	Game();
 	~Game();

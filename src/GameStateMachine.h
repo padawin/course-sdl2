@@ -6,7 +6,7 @@
 
 class GameStateMachine {
 	private:
-	std::vector<GameState*> m_gameStates = {};
+	std::vector<GameState*> m_vGameStates = {};
 
 	public:
 	void pushState(GameState* pState);

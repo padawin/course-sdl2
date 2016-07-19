@@ -25,19 +25,19 @@ bool InputHandler::update() {
 				ret = false;
 				break;
 			case SDL_JOYAXISMOTION:
-				handleStickEvent(event);
+				_handleStickEvent(event);
 				break;
 			case SDL_JOYBUTTONDOWN:
-				handleButtonEvent(event, true);
+				_handleButtonEvent(event, true);
 				break;
 			case SDL_JOYBUTTONUP:
-				handleButtonEvent(event, false);
+				_handleButtonEvent(event, false);
 				break;
 			case SDL_JOYDEVICEADDED:
-				initialiseJoystick(event.cdevice.which);
+				_initialiseJoystick(event.cdevice.which);
 				break;
 			case SDL_JOYDEVICEREMOVED:
-				handleJoystickRemoved();
+				_handleJoystickRemoved();
 				break;
 			default:
 				break;
@@ -47,36 +47,36 @@ bool InputHandler::update() {
 	return ret;
 }
 
-void InputHandler::handleStickEvent(const SDL_Event event) {
+void InputHandler::_handleStickEvent(const SDL_Event event) {
 	int joystickId = event.jaxis.which;
 	// left stick move left or right
 	if (event.jaxis.axis == M_LEFT_STICK_X_AXIS) {
-		setJoystickValue(event.jaxis.value, &m_joystickAxisValues[joystickId].first, VECTOR_X);
+		_setJoystickValue(event.jaxis.value, &m_mJoystickAxisValues[joystickId].first, VECTOR_X);
 	}
 	// left stick move up or down
 	if (event.jaxis.axis == M_LEFT_STICK_Y_AXIS) {
-		setJoystickValue(event.jaxis.value, &m_joystickAxisValues[joystickId].first, VECTOR_Y);
+		_setJoystickValue(event.jaxis.value, &m_mJoystickAxisValues[joystickId].first, VECTOR_Y);
 	}
 	// right stick move left or right
 	if (event.jaxis.axis == M_RIGHT_STICK_X_AXIS) {
-		setJoystickValue(event.jaxis.value, &m_joystickAxisValues[joystickId].second, VECTOR_X);
+		_setJoystickValue(event.jaxis.value, &m_mJoystickAxisValues[joystickId].second, VECTOR_X);
 	}
 	// right stick move up or down
 	if (event.jaxis.axis == M_RIGHT_STICK_Y_AXIS) {
-		setJoystickValue(event.jaxis.value, &m_joystickAxisValues[joystickId].second, VECTOR_Y);
+		_setJoystickValue(event.jaxis.value, &m_mJoystickAxisValues[joystickId].second, VECTOR_Y);
 	}
 }
 
-void InputHandler::handleButtonEvent(const SDL_Event event, const bool isDown) {
+void InputHandler::_handleButtonEvent(const SDL_Event event, const bool isDown) {
 	int joystickId = event.jaxis.which;
-	m_buttonStates[joystickId][event.jbutton.button] = isDown;
+	m_mButtonStates[joystickId][event.jbutton.button] = isDown;
 }
 
-void InputHandler::handleJoystickRemoved() {
+void InputHandler::_handleJoystickRemoved() {
 	clean();
 }
 
-void InputHandler::setJoystickValue(const int value, Vector2D* axisVector, Vector2DCoord coord) {
+void InputHandler::_setJoystickValue(const int value, Vector2D* axisVector, Vector2DCoord coord) {
 	if (value > M_JOYSTICK_DEADZONE) {
 		axisVector->set(coord, 1.0);
 	}
@@ -88,7 +88,7 @@ void InputHandler::setJoystickValue(const int value, Vector2D* axisVector, Vecto
 	}
 }
 
-void InputHandler::initialiseJoystick(const int indexJoystick) {
+void InputHandler::_initialiseJoystick(const int indexJoystick) {
 	if (SDL_WasInit(SDL_INIT_JOYSTICK) == 0) {
 		SDL_InitSubSystem(SDL_INIT_JOYSTICK);
 	}
@@ -99,9 +99,9 @@ void InputHandler::initialiseJoystick(const int indexJoystick) {
 	}
 	else {
 		int joystickId = SDL_JoystickInstanceID(joy);
-		m_joysticks.push_back(std::make_pair(joystickId, joy));
+		m_vJoysticks.push_back(std::make_pair(joystickId, joy));
 		// for each joystick store their stick axises values
-		m_joystickAxisValues[joystickId] = std::make_pair(
+		m_mJoystickAxisValues[joystickId] = std::make_pair(
 			Vector2D(0,0),
 			Vector2D(0,0)
 		);
@@ -109,24 +109,24 @@ void InputHandler::initialiseJoystick(const int indexJoystick) {
 		for (int j = 0; j < SDL_JoystickNumButtons(joy); j++) {
 			tempButtons.push_back(false);
 		}
-		m_buttonStates[joystickId] = tempButtons;
+		m_mButtonStates[joystickId] = tempButtons;
 		m_bJoysticksInitialised = true;
-		std::cout << "Initialised "<< m_joysticks.size() << " joystick(s)\n";
+		std::cout << "Initialised "<< m_vJoysticks.size() << " joystick(s)\n";
 	}
 }
 
 void InputHandler::clean() {
 	if (m_bJoysticksInitialised) {
-		int nbJoysticks = (int) m_joysticks.size();
+		int nbJoysticks = (int) m_vJoysticks.size();
 		for (int i = 0; i < nbJoysticks; i++){
-			SDL_JoystickClose(m_joysticks[i].second);
-			m_joysticks[i].second = NULL;
+			SDL_JoystickClose(m_vJoysticks[i].second);
+			m_vJoysticks[i].second = NULL;
 		}
 
-		std::cout << "Cleaned "<< m_joysticks.size() << " joystick(s)\n";
-		m_joysticks.clear();
-		m_buttonStates.clear();
-		m_joystickAxisValues.clear();
+		std::cout << "Cleaned "<< m_vJoysticks.size() << " joystick(s)\n";
+		m_vJoysticks.clear();
+		m_mButtonStates.clear();
+		m_mJoystickAxisValues.clear();
 
 		m_bJoysticksInitialised = false;
 	}
@@ -143,12 +143,12 @@ void InputHandler::free() {
 
 int InputHandler::stickXValue(const int joyIndex, const JoystickControl stick) {
 	int value = 0;
-	if (m_joystickAxisValues.size() > 0) {
+	if (m_mJoystickAxisValues.size() > 0) {
 		if (stick == LEFT_STICK) {
-			value = (int) m_joystickAxisValues[m_joysticks[joyIndex].first].first.getX();
+			value = (int) m_mJoystickAxisValues[m_vJoysticks[joyIndex].first].first.getX();
 		}
 		else if (stick == RIGHT_STICK) {
-			value = (int) m_joystickAxisValues[m_joysticks[joyIndex].first].second.getX();
+			value = (int) m_mJoystickAxisValues[m_vJoysticks[joyIndex].first].second.getX();
 		}
 	}
 	return value;
@@ -156,21 +156,21 @@ int InputHandler::stickXValue(const int joyIndex, const JoystickControl stick) {
 
 int InputHandler::stickYValue(const int joyIndex, const JoystickControl stick) {
 	int value = 0;
-	if (m_joystickAxisValues.size() > 0) {
+	if (m_mJoystickAxisValues.size() > 0) {
 		if (stick == LEFT_STICK) {
-			value = (int) m_joystickAxisValues[m_joysticks[joyIndex].first].first.getY();
+			value = (int) m_mJoystickAxisValues[m_vJoysticks[joyIndex].first].first.getY();
 		}
 		else if (stick == RIGHT_STICK) {
-			value = (int) m_joystickAxisValues[m_joysticks[joyIndex].first].second.getY();
+			value = (int) m_mJoystickAxisValues[m_vJoysticks[joyIndex].first].second.getY();
 		}
 	}
 	return value;
 }
 
 bool InputHandler::getButtonState(const int joystickIndex, const int buttonNumber) {
-	return m_buttonStates[m_joysticks[joystickIndex].first][buttonNumber];
+	return m_mButtonStates[m_vJoysticks[joystickIndex].first][buttonNumber];
 }
 
 void InputHandler::setButtonState(const int joystickIndex, const int button, const bool down) {
-	m_buttonStates[m_joysticks[joystickIndex].first][button] = down;
+	m_mButtonStates[m_vJoysticks[joystickIndex].first][button] = down;
 }
