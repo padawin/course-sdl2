@@ -51,6 +51,11 @@ bool MenuState::onEnter() {
 }
 
 bool MenuState::onExit() {
-	std::cout << "exiting MenuState\n";
+	for (int i = 0; i < m_nbButtons; ++i) {
+		delete m_buttons[i];
+		m_buttons[i] = NULL;
+		m_gameObjects[i] = NULL;
+		m_renderableObjects[i] = NULL;
+	}
 	return true;
 }
