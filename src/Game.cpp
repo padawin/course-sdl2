@@ -8,10 +8,10 @@
 static Game* s_pInstance;
 
 Game::Game() {
-	fileNames.push_back(std::make_pair("animate", "resources/char9.bmp"));
-	fileNames.push_back(std::make_pair("mainmenu", "resources/menu-buttons.png"));
-	fileNames.push_back(std::make_pair("pausemenu", "resources/pause-menu-buttons.png"));
-	nbFiles = (int) fileNames.size();
+	m_vFileNames.push_back(std::make_pair("animate", "resources/char9.bmp"));
+	m_vFileNames.push_back(std::make_pair("mainmenu", "resources/menu-buttons.png"));
+	m_vFileNames.push_back(std::make_pair("pausemenu", "resources/pause-menu-buttons.png"));
+	m_iNbFiles = (int) m_vFileNames.size();
 }
 
 Game::~Game() {
@@ -20,8 +20,8 @@ Game::~Game() {
 	_cleanResources();
 	TextureManager::free();
 	_cleanGameMachine();
-	SDL_DestroyWindow(m_pWindow);
-	SDL_DestroyRenderer(m_pRenderer);
+	SDL_DestroyWindow(m_window);
+	SDL_DestroyRenderer(m_renderer);
 	// clean up SDL
 	SDL_Quit();
 }
@@ -81,15 +81,15 @@ bool Game::_initSDL(
 	}
 	else {
 		// if succeeded create our window
-		m_pWindow = SDL_CreateWindow(title, x, y, w, h, flags);
+		m_window = SDL_CreateWindow(title, x, y, w, h, flags);
 		// if the window creation succeeded create our renderer
-		if (m_pWindow == 0) {
+		if (m_window == 0) {
 			std::cout << "Window creation failed\n";
 			l_bReturn = false;
 		}
 		else {
-			m_pRenderer = SDL_CreateRenderer(m_pWindow, -1, 0);
-			if (m_pRenderer == 0) {
+			m_renderer = SDL_CreateRenderer(m_window, -1, 0);
+			if (m_renderer == 0) {
 				std::cout << "Renderer creation failed\n";
 				l_bReturn = false;
 			}
@@ -103,25 +103,25 @@ bool Game::_loadResources() {
 	const char errorPattern[] = "An error occured while loading the file %s";
 
 	std::cout << "Load resources \n";
-	for (int i = 0; i < nbFiles; ++i) {
+	for (int i = 0; i < m_iNbFiles; ++i) {
 		char* errorMessage = (char*) calloc(
-			strlen(errorPattern) + strlen(fileNames[i].second), sizeof(char)
+			strlen(errorPattern) + strlen(m_vFileNames[i].second), sizeof(char)
 		);
-		std::cout << "Load resource " << fileNames[i].second << "\n";
+		std::cout << "Load resource " << m_vFileNames[i].second << "\n";
 		bool textureLoaded = m_textureManager->load(
-			fileNames[i].second,
-			fileNames[i].first,
-			m_pRenderer
+			m_vFileNames[i].second,
+			m_vFileNames[i].first,
+			m_renderer
 		);
 
 		if (!textureLoaded) {
-			sprintf(errorMessage, errorPattern, fileNames[i].second);
+			sprintf(errorMessage, errorPattern, m_vFileNames[i].second);
 			std::cout << errorMessage << "\n";
 			std::cout << strerror(errno) << "\n";
 			return false;
 		}
 		else {
-			std::cout << "Resource " << fileNames[i].second << " loaded\n";
+			std::cout << "Resource " << m_vFileNames[i].second << " loaded\n";
 		}
 		free(errorMessage);
 	}
@@ -130,8 +130,8 @@ bool Game::_loadResources() {
 }
 
 void Game::_initGameMachine() {
-	m_pGameStateMachine = new GameStateMachine();
-	m_pGameStateMachine->changeState(new MainMenuState());
+	m_gameStateMachine = new GameStateMachine();
+	m_gameStateMachine->changeState(new MainMenuState());
 }
 
 void Game::handleEvents() {
@@ -143,36 +143,36 @@ void Game::handleEvents() {
 
 void Game::update() {
 	if (!InputHandler::Instance()->joysticksInitialised()) {
-		m_pGameStateMachine->pushState(new NoJoystickState());
+		m_gameStateMachine->pushState(new NoJoystickState());
 	}
 
-	m_pGameStateMachine->update();
+	m_gameStateMachine->update();
 }
 
 void Game::render() {
 	// set to black
 	// This function expects Red, Green, Blue and
 	// Alpha as color values
-	SDL_SetRenderDrawColor(m_pRenderer, 0, 0, 0, 255);
+	SDL_SetRenderDrawColor(m_renderer, 0, 0, 0, 255);
 	// clear the window to black
-	SDL_RenderClear(m_pRenderer);
+	SDL_RenderClear(m_renderer);
 
-	m_pGameStateMachine->render();
+	m_gameStateMachine->render();
 	// show the window
-	SDL_RenderPresent(m_pRenderer);
+	SDL_RenderPresent(m_renderer);
 }
 
 void Game::_cleanGameMachine() {
-	m_pGameStateMachine->clean();
-	delete m_pGameStateMachine;
-	m_pGameStateMachine = NULL;
+	m_gameStateMachine->clean();
+	delete m_gameStateMachine;
+	m_gameStateMachine = NULL;
 }
 
 void Game::_cleanResources() {
 	std::cout << "Clean resources\n";
-	for (int i = 0; i < nbFiles; ++i) {
-		std::cout << "Clean resource " << fileNames[i].second << "\n";
-		TextureManager::Instance()->clearFromTextureMap(fileNames[i].first);
+	for (int i = 0; i < m_iNbFiles; ++i) {
+		std::cout << "Clean resource " << m_vFileNames[i].second << "\n";
+		TextureManager::Instance()->clearFromTextureMap(m_vFileNames[i].first);
 	}
 }
 
@@ -181,7 +181,7 @@ bool Game::isRunning() {
 }
 
 SDL_Renderer* Game::getRenderer() {
-	return m_pRenderer;
+	return m_renderer;
 }
 
 void Game::quit() {
@@ -189,5 +189,5 @@ void Game::quit() {
 }
 
 GameStateMachine* Game::getStateMachine() {
-	return m_pGameStateMachine;
+	return m_gameStateMachine;
 }
