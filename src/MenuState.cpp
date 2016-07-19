@@ -4,7 +4,7 @@
 #include "PlayState.h"
 #include <iostream>
 
-const std::string MenuState::s_menuID = "MENU";
+MenuState::MenuState(const int nbButtons) : m_nbButtons(nbButtons) {}
 
 void MenuState::update() {
 	InputHandler* handlerInstance = InputHandler::Instance();
@@ -19,10 +19,10 @@ void MenuState::update() {
 			// deactivate the current menu element, change the current active
 			// index, activate the new current menu element
 			m_buttons[m_activeButtonIndex]->setActive(false);
-			if (yAxisValue > 0) {
+			if (yAxisValue < 0) {
 				m_activeButtonIndex = (m_nbButtons + m_activeButtonIndex - 1) % m_nbButtons;
 			}
-			else if (yAxisValue < 0) {
+			else if (yAxisValue > 0) {
 				m_activeButtonIndex = (m_activeButtonIndex + 1) % m_nbButtons;
 			}
 			m_buttons[m_activeButtonIndex]->setActive(true);
@@ -42,41 +42,20 @@ void MenuState::render() {
 }
 
 bool MenuState::onEnter() {
-	std::vector<void (*)()> callbacks;
-	callbacks.push_back(MenuState::startGame);
-	callbacks.push_back(MenuState::quitGame);
-	std::cout << "entering MenuState\n";
-	m_menuBeingChanged = false;
-	m_nbButtons = 2;
-	m_activeButtonIndex = 0;
 	for (int i = 0; i < m_nbButtons; ++i) {
-		m_buttons.push_back(new MenuButton());
+		m_buttons.push_back(createButton(i));
 		m_gameObjects.push_back(m_buttons[i]);
 		m_renderableObjects.push_back(m_buttons[i]);
-		float y = 15;
-		y += (float) (100 * (i + 1));
-		m_buttons[i]->load(50.0, y, 300, 100);
-		m_buttons[i]->setTexture("mainmenu", 1);
-		m_buttons[i]->setTextureRow(i + 1);
-		m_buttons[i]->setActive(i == m_activeButtonIndex);
-		m_buttons[i]->setAction(callbacks[i]);
 	}
 	return true;
 }
 
 bool MenuState::onExit() {
-	std::cout << "exiting MenuState\n";
+	for (int i = 0; i < m_nbButtons; ++i) {
+		delete m_buttons[i];
+		m_buttons[i] = NULL;
+		m_gameObjects[i] = NULL;
+		m_renderableObjects[i] = NULL;
+	}
 	return true;
-}
-
-std::string MenuState::getStateID() const {
-	return s_menuID;
-}
-
-void MenuState::startGame() {
-	Game::Instance()->getStateMachine()->changeState(new PlayState());
-}
-
-void MenuState::quitGame() {
-	Game::Instance()->quit();
 }

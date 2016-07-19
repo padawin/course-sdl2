@@ -1,10 +1,17 @@
 #include "PlayState.h"
+#include "PauseMenuState.h"
+#include "InputHandler.h"
 #include "Game.h"
 #include <iostream>
 
 const std::string PlayState::s_menuID = "PLAY";
 
 void PlayState::update() {
+	InputHandler* handlerInstance = InputHandler::Instance();
+	if (handlerInstance->joysticksInitialised() && InputHandler::Instance()->getButtonState(0, 7)) {
+		Game::Instance()->getStateMachine()->pushState(new PauseMenuState());
+	}
+
 	for (std::vector<GameObject*>::size_type i = 0; i != m_gameObjects.size(); i++) {
 		m_gameObjects[i]->update();
 	}

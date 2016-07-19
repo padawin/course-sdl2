@@ -1,6 +1,6 @@
 #include "Game.h"
 #include "InputHandler.h"
-#include "MenuState.h"
+#include "MainMenuState.h"
 #include "NoJoystickState.h"
 #include <iostream>
 #include <errno.h>
@@ -10,7 +10,8 @@ static Game* s_pInstance;
 Game::Game() {
 	fileNames.push_back(std::make_pair("animate", "resources/char9.bmp"));
 	fileNames.push_back(std::make_pair("mainmenu", "resources/menu-buttons.png"));
-	nbFiles = 2;
+	fileNames.push_back(std::make_pair("pausemenu", "resources/pause-menu-buttons.png"));
+	nbFiles = (int) fileNames.size();
 }
 
 Game::~Game() {
@@ -130,7 +131,7 @@ bool Game::_loadResources() {
 
 void Game::_initGameMachine() {
 	m_pGameStateMachine = new GameStateMachine();
-	m_pGameStateMachine->changeState(new MenuState());
+	m_pGameStateMachine->changeState(new MainMenuState());
 }
 
 void Game::handleEvents() {
