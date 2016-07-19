@@ -29,6 +29,7 @@ class InputHandler {
 	std::map<int, std::vector<bool>> m_buttonStates = {};
 	bool m_bJoysticksInitialised = false;
 
+	void _initialiseJoystick(const int index);
 	void _setJoystickValue(const int value, Vector2D* axisVector, Vector2DCoord coord);
 	void _handleStickEvent(const SDL_Event event);
 	void _handleButtonEvent(const SDL_Event event, const bool isDown);
@@ -39,7 +40,6 @@ class InputHandler {
 	static void free();
 	bool update();
 	void clean();
-	void initialiseJoystick(const int index);
 	bool joysticksInitialised();
 	int stickXValue(const int joy, const JoystickControl stick);
 	int stickYValue(const int joy, const JoystickControl stick);

@@ -34,7 +34,7 @@ bool InputHandler::update() {
 				_handleButtonEvent(event, false);
 				break;
 			case SDL_JOYDEVICEADDED:
-				initialiseJoystick(event.cdevice.which);
+				_initialiseJoystick(event.cdevice.which);
 				break;
 			case SDL_JOYDEVICEREMOVED:
 				_handleJoystickRemoved();
