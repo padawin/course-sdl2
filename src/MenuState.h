@@ -7,11 +7,11 @@
 
 class MenuState : public GameState {
 	protected:
-	std::vector<MenuButton*> m_buttons = {};
-	int m_nbButtons;
-	int m_activeButtonIndex = 0;
-	bool m_menuBeingChanged = false;
-	std::vector<void (*)()> s_pActions = {};
+	std::vector<MenuButton*> m_vButtons = {};
+	int m_iNbButtons;
+	int m_iActiveButtonIndex = 0;
+	bool m_bMenuBeingChanged = false;
+	std::vector<void (*)()> s_vActions = {};
 
 	public:
 	MenuState(const int nbButtons);

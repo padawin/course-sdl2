@@ -6,9 +6,9 @@
 const std::string PauseMenuState::s_menuID = "PAUSEMENU";
 
 PauseMenuState::PauseMenuState() : MenuState::MenuState(3) {
-	s_pActions.push_back(PauseMenuState::resumeGame);
-	s_pActions.push_back(PauseMenuState::goToMainMenu);
-	s_pActions.push_back(PauseMenuState::quitGame);
+	s_vActions.push_back(PauseMenuState::resumeGame);
+	s_vActions.push_back(PauseMenuState::goToMainMenu);
+	s_vActions.push_back(PauseMenuState::quitGame);
 }
 
 MenuButton* PauseMenuState::createButton(const int index) {
@@ -18,8 +18,8 @@ MenuButton* PauseMenuState::createButton(const int index) {
 	b->load(50.0, y, 300, 100);
 	b->setTexture("pausemenu", 1);
 	b->setTextureRow(index + 1);
-	b->setActive(index == m_activeButtonIndex);
-	b->setAction(s_pActions[index]);
+	b->setActive(index == m_iActiveButtonIndex);
+	b->setAction(s_vActions[index]);
 
 	return b;
 }
