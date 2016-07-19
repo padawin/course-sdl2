@@ -19,10 +19,10 @@ void MenuState::update() {
 			// deactivate the current menu element, change the current active
 			// index, activate the new current menu element
 			m_buttons[m_activeButtonIndex]->setActive(false);
-			if (yAxisValue > 0) {
+			if (yAxisValue < 0) {
 				m_activeButtonIndex = (m_nbButtons + m_activeButtonIndex - 1) % m_nbButtons;
 			}
-			else if (yAxisValue < 0) {
+			else if (yAxisValue > 0) {
 				m_activeButtonIndex = (m_activeButtonIndex + 1) % m_nbButtons;
 			}
 			m_buttons[m_activeButtonIndex]->setActive(true);
