@@ -42,7 +42,7 @@ class InputHandler {
 	bool joysticksInitialised();
 	int stickXValue(const int joy, const JoystickControl stick);
 	int stickYValue(const int joy, const JoystickControl stick);
-	bool getButtonState(int joy, int buttonNumber);
+	bool getButtonState(const int joyIndex, const int buttonNumber);
 };
 
 #endif
