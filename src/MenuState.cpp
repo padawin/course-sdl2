@@ -36,16 +36,16 @@ void MenuState::update() {
 }
 
 void MenuState::render() {
-	for (std::vector<GameObject*>::size_type i = 0; i != m_renderableObjects.size(); i++) {
-		m_renderableObjects[i]->render(Game::Instance()->getRenderer());
+	for (std::vector<GameObject*>::size_type i = 0; i != m_vRenderableObjects.size(); i++) {
+		m_vRenderableObjects[i]->render(Game::Instance()->getRenderer());
 	}
 }
 
 bool MenuState::onEnter() {
 	for (int i = 0; i < m_nbButtons; ++i) {
 		m_buttons.push_back(createButton(i));
-		m_gameObjects.push_back(m_buttons[i]);
-		m_renderableObjects.push_back(m_buttons[i]);
+		m_vGameObjects.push_back(m_buttons[i]);
+		m_vRenderableObjects.push_back(m_buttons[i]);
 	}
 	return true;
 }
@@ -54,8 +54,8 @@ bool MenuState::onExit() {
 	for (int i = 0; i < m_nbButtons; ++i) {
 		delete m_buttons[i];
 		m_buttons[i] = NULL;
-		m_gameObjects[i] = NULL;
-		m_renderableObjects[i] = NULL;
+		m_vGameObjects[i] = NULL;
+		m_vRenderableObjects[i] = NULL;
 	}
 	return true;
 }
