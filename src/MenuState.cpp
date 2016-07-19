@@ -42,10 +42,6 @@ void MenuState::render() {
 }
 
 bool MenuState::onEnter() {
-	std::cout << "entering MenuState\n";
-	m_menuBeingChanged = false;
-	m_nbButtons = 2;
-	m_activeButtonIndex = 0;
 	for (int i = 0; i < m_nbButtons; ++i) {
 		m_buttons.push_back(createButton(i));
 		m_gameObjects.push_back(m_buttons[i]);
