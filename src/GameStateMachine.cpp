@@ -2,19 +2,19 @@
 
 void GameStateMachine::pushState(GameState *pState) {
 	// if the current state is the same as the pushed one, do nothing
-	if (!m_gameStates.empty() && m_gameStates.back()->getStateID() == pState->getStateID()) {
+	if (!m_vGameStates.empty() && m_vGameStates.back()->getStateID() == pState->getStateID()) {
 		return;
 	}
 
-	m_gameStates.push_back(pState);
-	m_gameStates.back()->onEnter();
+	m_vGameStates.push_back(pState);
+	m_vGameStates.back()->onEnter();
 }
 
 void GameStateMachine::changeState(GameState *pState) {
 	// If there is at least one state
-	if (!m_gameStates.empty()) {
+	if (!m_vGameStates.empty()) {
 		// and if it is the state we want to add
-		if (m_gameStates.back()->getStateID() == pState->getStateID()) {
+		if (m_vGameStates.back()->getStateID() == pState->getStateID()) {
 			return;
 		}
 
@@ -27,9 +27,9 @@ void GameStateMachine::changeState(GameState *pState) {
 }
 
 bool GameStateMachine::popState() {
-	if (!m_gameStates.empty() && m_gameStates.back()->onExit()) {
-		delete m_gameStates.back();
-		m_gameStates.pop_back();
+	if (!m_vGameStates.empty() && m_vGameStates.back()->onExit()) {
+		delete m_vGameStates.back();
+		m_vGameStates.pop_back();
 		return true;
 	}
 
@@ -41,16 +41,16 @@ void GameStateMachine::clean() {
 }
 
 GameState* GameStateMachine::getCurrentState() {
-	return m_gameStates.back();
+	return m_vGameStates.back();
 }
 
 void GameStateMachine::update() {
-	if (!m_gameStates.empty()) {
-		m_gameStates.back()->update();
+	if (!m_vGameStates.empty()) {
+		m_vGameStates.back()->update();
 	}
 }
 void GameStateMachine::render() {
-	if (!m_gameStates.empty()) {
-		m_gameStates.back()->render();
+	if (!m_vGameStates.empty()) {
+		m_vGameStates.back()->render();
 	}
 }
