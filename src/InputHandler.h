@@ -43,6 +43,7 @@ class InputHandler {
 	int stickXValue(const int joy, const JoystickControl stick);
 	int stickYValue(const int joy, const JoystickControl stick);
 	bool getButtonState(const int joyIndex, const int buttonNumber);
+	void setButtonState(const int joyIndex, const int button, const bool down);
 };
 
 #endif

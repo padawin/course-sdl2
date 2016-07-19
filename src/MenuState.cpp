@@ -31,6 +31,7 @@ void MenuState::update() {
 
 		if (InputHandler::Instance()->getButtonState(0, 0)) {
 			m_buttons[m_activeButtonIndex]->executeAction();
+			InputHandler::Instance()->setButtonState(0, 0, false);
 		}
 	}
 }

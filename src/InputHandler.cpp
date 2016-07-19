@@ -170,3 +170,7 @@ int InputHandler::stickYValue(const int joyIndex, const JoystickControl stick) {
 bool InputHandler::getButtonState(const int joystickIndex, const int buttonNumber) {
 	return m_buttonStates[m_joysticks[joystickIndex].first][buttonNumber];
 }
+
+void InputHandler::setButtonState(const int joystickIndex, const int button, const bool down) {
+	m_buttonStates[m_joysticks[joystickIndex].first][button] = down;
+}
