@@ -25,19 +25,19 @@ bool InputHandler::update() {
 				ret = false;
 				break;
 			case SDL_JOYAXISMOTION:
-				handleStickEvent(event);
+				_handleStickEvent(event);
 				break;
 			case SDL_JOYBUTTONDOWN:
-				handleButtonEvent(event, true);
+				_handleButtonEvent(event, true);
 				break;
 			case SDL_JOYBUTTONUP:
-				handleButtonEvent(event, false);
+				_handleButtonEvent(event, false);
 				break;
 			case SDL_JOYDEVICEADDED:
 				initialiseJoystick(event.cdevice.which);
 				break;
 			case SDL_JOYDEVICEREMOVED:
-				handleJoystickRemoved();
+				_handleJoystickRemoved();
 				break;
 			default:
 				break;
@@ -47,36 +47,36 @@ bool InputHandler::update() {
 	return ret;
 }
 
-void InputHandler::handleStickEvent(const SDL_Event event) {
+void InputHandler::_handleStickEvent(const SDL_Event event) {
 	int joystickId = event.jaxis.which;
 	// left stick move left or right
 	if (event.jaxis.axis == M_LEFT_STICK_X_AXIS) {
-		setJoystickValue(event.jaxis.value, &m_joystickAxisValues[joystickId].first, VECTOR_X);
+		_setJoystickValue(event.jaxis.value, &m_joystickAxisValues[joystickId].first, VECTOR_X);
 	}
 	// left stick move up or down
 	if (event.jaxis.axis == M_LEFT_STICK_Y_AXIS) {
-		setJoystickValue(event.jaxis.value, &m_joystickAxisValues[joystickId].first, VECTOR_Y);
+		_setJoystickValue(event.jaxis.value, &m_joystickAxisValues[joystickId].first, VECTOR_Y);
 	}
 	// right stick move left or right
 	if (event.jaxis.axis == M_RIGHT_STICK_X_AXIS) {
-		setJoystickValue(event.jaxis.value, &m_joystickAxisValues[joystickId].second, VECTOR_X);
+		_setJoystickValue(event.jaxis.value, &m_joystickAxisValues[joystickId].second, VECTOR_X);
 	}
 	// right stick move up or down
 	if (event.jaxis.axis == M_RIGHT_STICK_Y_AXIS) {
-		setJoystickValue(event.jaxis.value, &m_joystickAxisValues[joystickId].second, VECTOR_Y);
+		_setJoystickValue(event.jaxis.value, &m_joystickAxisValues[joystickId].second, VECTOR_Y);
 	}
 }
 
-void InputHandler::handleButtonEvent(const SDL_Event event, const bool isDown) {
+void InputHandler::_handleButtonEvent(const SDL_Event event, const bool isDown) {
 	int joystickId = event.jaxis.which;
 	m_buttonStates[joystickId][event.jbutton.button] = isDown;
 }
 
-void InputHandler::handleJoystickRemoved() {
+void InputHandler::_handleJoystickRemoved() {
 	clean();
 }
 
-void InputHandler::setJoystickValue(const int value, Vector2D* axisVector, Vector2DCoord coord) {
+void InputHandler::_setJoystickValue(const int value, Vector2D* axisVector, Vector2DCoord coord) {
 	if (value > M_JOYSTICK_DEADZONE) {
 		axisVector->set(coord, 1.0);
 	}
@@ -88,7 +88,7 @@ void InputHandler::setJoystickValue(const int value, Vector2D* axisVector, Vecto
 	}
 }
 
-void InputHandler::initialiseJoystick(const int indexJoystick) {
+void InputHandler::_initialiseJoystick(const int indexJoystick) {
 	if (SDL_WasInit(SDL_INIT_JOYSTICK) == 0) {
 		SDL_InitSubSystem(SDL_INIT_JOYSTICK);
 	}
