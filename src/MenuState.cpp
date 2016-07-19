@@ -2,7 +2,6 @@
 #include "Game.h"
 #include "InputHandler.h"
 #include "PlayState.h"
-#include <iostream>
 
 MenuState::MenuState(const int nbButtons) : m_nbButtons(nbButtons) {}
 

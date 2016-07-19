@@ -2,7 +2,6 @@
 #include "PauseMenuState.h"
 #include "InputHandler.h"
 #include "Game.h"
-#include <iostream>
 
 const std::string PlayState::s_menuID = "PLAY";
 
@@ -22,12 +21,10 @@ void PlayState::render() {
 	}
 }
 bool PlayState::onEnter() {
-	std::cout << "entering PlayState\n";
 	_initActors();
 	return true;
 }
 bool PlayState::onExit() {
-	std::cout << "exiting PlayState\n";
 	_cleanActors();
 	return true;
 }

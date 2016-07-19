@@ -2,7 +2,6 @@
 #include "Game.h"
 #include "InputHandler.h"
 #include "MainMenuState.h"
-#include <iostream>
 
 const std::string PauseMenuState::s_menuID = "PAUSEMENU";
 
@@ -34,9 +33,7 @@ void PauseMenuState::resumeGame() {
 }
 
 void PauseMenuState::goToMainMenu() {
-	std::cout << "clean state machine\n";
 	Game::Instance()->getStateMachine()->clean();
-	std::cout << "Add main menu state\n";
 	Game::Instance()->getStateMachine()->pushState(new MainMenuState());
 }
 

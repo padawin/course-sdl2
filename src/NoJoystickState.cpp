@@ -1,7 +1,6 @@
 #include "NoJoystickState.h"
 #include "Game.h"
 #include "InputHandler.h"
-#include <iostream>
 
 const std::string NoJoystickState::s_menuID = "NO_JOYSTICK";
 
@@ -14,11 +13,9 @@ void NoJoystickState::render() {
 	// nothing for now
 }
 bool NoJoystickState::onEnter() {
-	std::cout << "entering NoJoystickState\n";
 	return true;
 }
 bool NoJoystickState::onExit() {
-	std::cout << "exiting NoJoystickState\n";
 	return true;
 }
 
