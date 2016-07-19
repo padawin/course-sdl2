@@ -2,7 +2,6 @@
 #include "Game.h"
 #include "InputHandler.h"
 #include "PlayState.h"
-#include <iostream>
 
 MenuState::MenuState(const int nbButtons) : m_nbButtons(nbButtons) {}
 
@@ -31,6 +30,7 @@ void MenuState::update() {
 
 		if (InputHandler::Instance()->getButtonState(0, 0)) {
 			m_buttons[m_activeButtonIndex]->executeAction();
+			InputHandler::Instance()->setButtonState(0, 0, false);
 		}
 	}
 }
