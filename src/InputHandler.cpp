@@ -4,10 +4,17 @@
 
 static InputHandler* s_pInstance;
 
+/**
+ * Construct. Enable the SDL Joystick event state. This will then reacts to
+ * joystick events.
+ */
 InputHandler::InputHandler() {
 	SDL_JoystickEventState(SDL_ENABLE);
 }
 
+/**
+ * Singleton method to get the instance.
+ */
 InputHandler *InputHandler::Instance() {
 	if (s_pInstance == 0) {
 		s_pInstance = new InputHandler();
@@ -16,6 +23,9 @@ InputHandler *InputHandler::Instance() {
 	return s_pInstance;
 }
 
+/**
+ * Processes the SDL events and acts accordingly depending on the event type.
+ */
 bool InputHandler::update() {
 	bool ret = true;
 	SDL_Event event;
@@ -47,6 +57,9 @@ bool InputHandler::update() {
 	return ret;
 }
 
+/**
+ * Set a joystick stick value depending on which stick is manipulated.
+ */
 void InputHandler::_handleStickEvent(const SDL_Event event) {
 	int joystickId = event.jaxis.which;
 	// left stick move left or right
@@ -67,15 +80,26 @@ void InputHandler::_handleStickEvent(const SDL_Event event) {
 	}
 }
 
+/**
+ * Change the state of a pressed or released joystick button.
+ */
 void InputHandler::_handleButtonEvent(const SDL_Event event, const bool isDown) {
 	int joystickId = event.jaxis.which;
 	m_mButtonStates[joystickId][event.jbutton.button] = isDown;
 }
 
+/**
+ * If a joystick is removed, completely clean the list of joysticks
+ */
 void InputHandler::_handleJoystickRemoved() {
 	clean();
 }
 
+/**
+ * Set the value 1, -1 or 0 to a stick axis vector depending on the position of
+ * the stick. 1 and -1 being on either side of the dead zone and 0 being within
+ * the dead zone (stick considered as in neutral position).
+ */
 void InputHandler::_setJoystickValue(const int value, Vector2D* axisVector, Vector2DCoord coord) {
 	if (value > M_JOYSTICK_DEADZONE) {
 		axisVector->set(coord, 1.0);
@@ -88,6 +112,10 @@ void InputHandler::_setJoystickValue(const int value, Vector2D* axisVector, Vect
 	}
 }
 
+/**
+ * Initialises a joystick, creates the maps and vectors to monitor its buttons
+ * and sticks.
+ */
 void InputHandler::_initialiseJoystick(const int indexJoystick) {
 	if (SDL_WasInit(SDL_INIT_JOYSTICK) == 0) {
 		SDL_InitSubSystem(SDL_INIT_JOYSTICK);
@@ -115,6 +143,9 @@ void InputHandler::_initialiseJoystick(const int indexJoystick) {
 	}
 }
 
+/**
+ * Clears every initialised joysticks.
+ */
 void InputHandler::clean() {
 	if (m_bJoysticksInitialised) {
 		int nbJoysticks = (int) m_vJoysticks.size();
@@ -141,6 +172,9 @@ void InputHandler::free() {
 	s_pInstance = 0;
 }
 
+/**
+ * Gets the X value of the required stick
+ */
 int InputHandler::stickXValue(const int joyIndex, const JoystickControl stick) {
 	int value = 0;
 	if (m_mJoystickAxisValues.size() > 0) {
@@ -154,6 +188,9 @@ int InputHandler::stickXValue(const int joyIndex, const JoystickControl stick) {
 	return value;
 }
 
+/**
+ * Gets the Y value of the required stick
+ */
 int InputHandler::stickYValue(const int joyIndex, const JoystickControl stick) {
 	int value = 0;
 	if (m_mJoystickAxisValues.size() > 0) {

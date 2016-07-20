@@ -5,6 +5,12 @@
 #include "MenuButton.h"
 #include <vector>
 
+/**
+ * State representing a menu. A menu has a vector of buttons, a number of
+ * buttons, the index of the currently active button, a list of actions
+ * (associated with the buttons) and a flag to know if the menu is being
+ * changed (eg if the currently selected item is changed to another one)
+ */
 class MenuState : public GameState {
 	protected:
 	std::vector<MenuButton*> m_vButtons = {};
@@ -19,6 +25,12 @@ class MenuState : public GameState {
 	virtual void render();
 	virtual bool onEnter();
 	virtual bool onExit();
+
+	/**
+	 * From a menu to another, the buttons are created differently (different
+	 * size, position...), so each menu needs its own way of creating its
+	 * buttons.
+	 */
 	virtual MenuButton* createButton(const int index) = 0;
 };
 

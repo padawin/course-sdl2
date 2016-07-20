@@ -5,6 +5,12 @@
 
 const std::string PlayState::s_menuID = "PLAY";
 
+/**
+ * If the button 7 of the joystick is pressed (start in xbox controller), push
+ * the pause menu state, to pause the game.
+ *
+ * Then/else, update every object of the play state (player and enemies).
+ */
 void PlayState::update() {
 	InputHandler* handlerInstance = InputHandler::Instance();
 	if (handlerInstance->joysticksInitialised() && InputHandler::Instance()->getButtonState(0, 7)) {

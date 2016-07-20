@@ -28,31 +28,21 @@ bool TextureManager::load(
 	return false;
 }
 
+/**
+ * This basically calls drawFrame with 0 and 0 as col and frame.
+ */
 void TextureManager::draw(
 	std::string id,
 	int x, int y,
 	int width, int height,
 	SDL_Renderer* pRenderer, SDL_RendererFlip flip
 ) {
-		SDL_Rect srcRect;
-		SDL_Rect destRect;
-		srcRect.x = 0;
-		srcRect.y = 0;
-		srcRect.w = width;
-		destRect.w = width;
-		srcRect.h = height;
-		destRect.h = height;
-		destRect.x = x;
-		destRect.y = y;
-		SDL_RenderCopyEx(
-			pRenderer,
-			m_textureMap[id],
-			&srcRect, &destRect,
-			0, 0,
-			flip
-		);
+	drawFrame(id, x, y, width, height, 0, 0, pRenderer, flip);
 }
 
+/**
+ * Renders a subsection of the texture identified by the provided id.
+ */
 void TextureManager::drawFrame(
 	std::string id,
 	int x, int y,
@@ -60,25 +50,28 @@ void TextureManager::drawFrame(
 	int currentRow, int currentFrame,
 	SDL_Renderer* pRenderer, SDL_RendererFlip flip
 ) {
-		SDL_Rect srcRect;
-		SDL_Rect destRect;
-		srcRect.x = width * currentFrame;
-		srcRect.y = height * (currentRow - 1);
-		srcRect.w = width;
-		destRect.w = width;
-		srcRect.h = height;
-		destRect.h = height;
-		destRect.x = x;
-		destRect.y = y;
-		SDL_RenderCopyEx(
-			pRenderer,
-			m_textureMap[id],
-			&srcRect, &destRect,
-			0, 0,
-			flip
-		);
+	SDL_Rect srcRect;
+	SDL_Rect destRect;
+	srcRect.x = width * currentFrame;
+	srcRect.y = height * (currentRow - 1);
+	srcRect.w = width;
+	destRect.w = width;
+	srcRect.h = height;
+	destRect.h = height;
+	destRect.x = x;
+	destRect.y = y;
+	SDL_RenderCopyEx(
+		pRenderer,
+		m_textureMap[id],
+		&srcRect, &destRect,
+		0, 0,
+		flip
+	);
 }
 
+/**
+ * Singleton method to get the instance.
+ */
 TextureManager *TextureManager::Instance() {
 	if (s_pInstance == 0) {
 		s_pInstance = new TextureManager();

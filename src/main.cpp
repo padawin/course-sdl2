@@ -38,6 +38,7 @@ int main(int argc, char* args[]) {
 		g->update();
 		g->render();
 
+		// use a delay to cap the fps
 		frameTime = SDL_GetTicks() - frameStart;
 		if (frameTime< DELAY_TIME) {
 			SDL_Delay((int) (DELAY_TIME - frameTime));

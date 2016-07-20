@@ -1,7 +1,6 @@
 #include "MenuButton.h"
 
 void MenuButton::setActive(const bool active) {
-	m_bActive = active;
 	m_iCurrentFrame = (int) active;
 }
 
