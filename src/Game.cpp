@@ -48,8 +48,6 @@ bool Game::init(
 	const bool fullScreen
 ) {
 	bool l_bReturn = false;
-	m_textureManager = TextureManager::Instance();
-
 	if (_initSDL(title, x, y, w, h, fullScreen) && _loadResources()) {
 		_initGameMachine();
 		l_bReturn = true;
@@ -108,7 +106,7 @@ bool Game::_loadResources() {
 			strlen(errorPattern) + strlen(m_vFileNames[i].second), sizeof(char)
 		);
 		std::cout << "Load resource " << m_vFileNames[i].second << "\n";
-		bool textureLoaded = m_textureManager->load(
+		bool textureLoaded = TextureManager::Instance()->load(
 			m_vFileNames[i].second,
 			m_vFileNames[i].first,
 			m_renderer

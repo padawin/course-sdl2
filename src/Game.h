@@ -11,7 +11,6 @@ class Game {
 	bool m_bRunning = false;
 	SDL_Window* m_window = 0;
 	SDL_Renderer* m_renderer = 0;
-	TextureManager* m_textureManager = 0;
 
 	std::vector<std::pair<const char*, const char*>> m_vFileNames = {};
 	int m_iNbFiles = 0;
