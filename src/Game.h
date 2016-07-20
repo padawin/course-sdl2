@@ -12,7 +12,7 @@ class Game {
 	SDL_Window* m_window = 0;
 	SDL_Renderer* m_renderer = 0;
 
-	std::vector<std::pair<const char*, const char*>> m_vFileNames = {};
+	std::vector<std::pair<const char*, const char*>> m_vResourceFiles = {};
 	int m_iNbFiles = 0;
 
 	GameStateMachine* m_gameStateMachine = 0;

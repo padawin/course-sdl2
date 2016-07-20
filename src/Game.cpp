@@ -8,10 +8,10 @@
 static Game* s_pInstance;
 
 Game::Game() {
-	m_vFileNames.push_back(std::make_pair("animate", "resources/char9.bmp"));
-	m_vFileNames.push_back(std::make_pair("mainmenu", "resources/menu-buttons.png"));
-	m_vFileNames.push_back(std::make_pair("pausemenu", "resources/pause-menu-buttons.png"));
-	m_iNbFiles = (int) m_vFileNames.size();
+	m_vResourceFiles.push_back(std::make_pair("animate", "resources/char9.bmp"));
+	m_vResourceFiles.push_back(std::make_pair("mainmenu", "resources/menu-buttons.png"));
+	m_vResourceFiles.push_back(std::make_pair("pausemenu", "resources/pause-menu-buttons.png"));
+	m_iNbFiles = (int) m_vResourceFiles.size();
 }
 
 Game::~Game() {
@@ -103,23 +103,23 @@ bool Game::_loadResources() {
 	std::cout << "Load resources \n";
 	for (int i = 0; i < m_iNbFiles; ++i) {
 		char* errorMessage = (char*) calloc(
-			strlen(errorPattern) + strlen(m_vFileNames[i].second), sizeof(char)
+			strlen(errorPattern) + strlen(m_vResourceFiles[i].second), sizeof(char)
 		);
-		std::cout << "Load resource " << m_vFileNames[i].second << "\n";
+		std::cout << "Load resource " << m_vResourceFiles[i].second << "\n";
 		bool textureLoaded = TextureManager::Instance()->load(
-			m_vFileNames[i].second,
-			m_vFileNames[i].first,
+			m_vResourceFiles[i].second,
+			m_vResourceFiles[i].first,
 			m_renderer
 		);
 
 		if (!textureLoaded) {
-			sprintf(errorMessage, errorPattern, m_vFileNames[i].second);
+			sprintf(errorMessage, errorPattern, m_vResourceFiles[i].second);
 			std::cout << errorMessage << "\n";
 			std::cout << strerror(errno) << "\n";
 			return false;
 		}
 		else {
-			std::cout << "Resource " << m_vFileNames[i].second << " loaded\n";
+			std::cout << "Resource " << m_vResourceFiles[i].second << " loaded\n";
 		}
 		free(errorMessage);
 	}
@@ -169,8 +169,8 @@ void Game::_cleanGameMachine() {
 void Game::_cleanResources() {
 	std::cout << "Clean resources\n";
 	for (int i = 0; i < m_iNbFiles; ++i) {
-		std::cout << "Clean resource " << m_vFileNames[i].second << "\n";
-		TextureManager::Instance()->clearFromTextureMap(m_vFileNames[i].first);
+		std::cout << "Clean resource " << m_vResourceFiles[i].second << "\n";
+		TextureManager::Instance()->clearFromTextureMap(m_vResourceFiles[i].first);
 	}
 }
 
