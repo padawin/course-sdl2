@@ -7,6 +7,10 @@
 class GameObject {
 	public:
 	virtual ~GameObject() {}
+
+	/**
+	 * An object can be updated
+	 */
 	virtual void update() = 0;
 };
 

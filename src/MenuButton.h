@@ -3,6 +3,9 @@
 
 #include "SDLDrawable.h"
 
+/**
+ * SDLDrawable representing buttons in MenuStates, it has an action.
+ */
 class MenuButton : public SDLDrawable {
 	protected:
 	void (*m_callback)() = NULL;

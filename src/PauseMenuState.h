@@ -4,6 +4,9 @@
 #include "MenuState.h"
 #include "MenuButton.h"
 
+/**
+ * State for the pause menu
+ */
 class PauseMenuState : public MenuState {
 	protected:
 	static const std::string s_menuID;

@@ -4,6 +4,9 @@
 #include "MenuState.h"
 #include "MenuButton.h"
 
+/**
+ * State to display the main menu.
+ */
 class MainMenuState : public MenuState {
 	protected:
 	static const std::string s_menuID;

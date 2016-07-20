@@ -28,6 +28,8 @@ void MenuState::update() {
 			m_bMenuBeingChanged = true;
 		}
 
+		// If the button 0 of the joystick 0 is pressed (A on Xbox controller),
+		// execute the action associated with the currently selected button
 		if (InputHandler::Instance()->getButtonState(0, 0)) {
 			m_vButtons[m_iActiveButtonIndex]->executeAction();
 			InputHandler::Instance()->setButtonState(0, 0, false);

@@ -3,6 +3,9 @@
 
 #include "GameState.h"
 
+/**
+ * State used when a joystick is unplugged
+ */
 class NoJoystickState : public GameState {
 	private:
 	static const std::string s_menuID;
