@@ -28,6 +28,9 @@ bool TextureManager::load(
 	return false;
 }
 
+/**
+ * This basically calls drawFrame with 0 and 0 as col and frame.
+ */
 void TextureManager::draw(
 	std::string id,
 	int x, int y,
@@ -37,6 +40,9 @@ void TextureManager::draw(
 	drawFrame(id, x, y, width, height, 0, 0, pRenderer, flip);
 }
 
+/**
+ * Renders a subsection of the texture identified by the provided id.
+ */
 void TextureManager::drawFrame(
 	std::string id,
 	int x, int y,
@@ -63,6 +69,9 @@ void TextureManager::drawFrame(
 	);
 }
 
+/**
+ * Singleton method to get the instance.
+ */
 TextureManager *TextureManager::Instance() {
 	if (s_pInstance == 0) {
 		s_pInstance = new TextureManager();

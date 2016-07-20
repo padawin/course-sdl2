@@ -82,6 +82,11 @@ class InputHandler {
 
 	public:
 	/**
+	 * Deleted for singleton
+	 */
+	InputHandler(InputHandler const&) = delete;
+	void operator=(InputHandler const&) = delete;
+	/**
 	 * Method to get the input handler method.
 	 */
 	static InputHandler* Instance();
