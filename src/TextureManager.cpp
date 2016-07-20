@@ -34,23 +34,7 @@ void TextureManager::draw(
 	int width, int height,
 	SDL_Renderer* pRenderer, SDL_RendererFlip flip
 ) {
-		SDL_Rect srcRect;
-		SDL_Rect destRect;
-		srcRect.x = 0;
-		srcRect.y = 0;
-		srcRect.w = width;
-		destRect.w = width;
-		srcRect.h = height;
-		destRect.h = height;
-		destRect.x = x;
-		destRect.y = y;
-		SDL_RenderCopyEx(
-			pRenderer,
-			m_textureMap[id],
-			&srcRect, &destRect,
-			0, 0,
-			flip
-		);
+	drawFrame(id, x, y, width, height, 0, 0, pRenderer, flip);
 }
 
 void TextureManager::drawFrame(
