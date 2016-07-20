@@ -7,6 +7,9 @@
 
 static Game* s_pInstance;
 
+/**
+ * Game construct, Initialises the vector of resource names.
+ */
 Game::Game() {
 	m_vResourceFiles.push_back(std::make_pair("animate", "resources/char9.bmp"));
 	m_vResourceFiles.push_back(std::make_pair("mainmenu", "resources/menu-buttons.png"));
@@ -14,6 +17,10 @@ Game::Game() {
 	m_iNbFiles = (int) m_vResourceFiles.size();
 }
 
+/**
+ * Game destructor, cleans the InputHandler, the resources, the state machine
+ * and stops the SDL.
+ */
 Game::~Game() {
 	InputHandler::Instance()->clean();
 	InputHandler::free();
@@ -22,10 +29,12 @@ Game::~Game() {
 	_cleanGameMachine();
 	SDL_DestroyWindow(m_window);
 	SDL_DestroyRenderer(m_renderer);
-	// clean up SDL
 	SDL_Quit();
 }
 
+/**
+ * Classic singleton method to get the Game instance.
+ */
 Game *Game::Instance() {
 	if (s_pInstance == 0) {
 		s_pInstance = new Game();
@@ -34,11 +43,18 @@ Game *Game::Instance() {
 	return s_pInstance;
 }
 
+/**
+ * Deletes the game instance.
+ */
 void Game::freeGame() {
 	delete s_pInstance;
 	s_pInstance = 0;
 }
 
+/**
+ * Initialises the SDL, loads the resources and initialises the State machine.
+ * Then sets te m_bRunning flag to true.
+ */
 bool Game::init(
 	const char* title,
 	const int x,
@@ -57,6 +73,9 @@ bool Game::init(
 	return l_bReturn;
 }
 
+/**
+ * Classic SDL initialisation.
+ */
 bool Game::_initSDL(
 	const char* title,
 	const int x,
@@ -97,6 +116,10 @@ bool Game::_initSDL(
 	return l_bReturn;
 }
 
+/**
+ * Loads each resource. Returns false if a resource is failed to be loaded (for
+ * example if the file does not exist or is not readable).
+ */
 bool Game::_loadResources() {
 	const char errorPattern[] = "An error occured while loading the file %s";
 
@@ -127,11 +150,18 @@ bool Game::_loadResources() {
 	return true;
 }
 
+/**
+ * Initialises the State machine and sets the MainMenu state as initial state.
+ */
 void Game::_initGameMachine() {
 	m_gameStateMachine = new GameStateMachine();
 	m_gameStateMachine->changeState(new MainMenuState());
 }
 
+/**
+ * Update the input handler, if the update returns false, the game stops
+ * running.
+ */
 void Game::handleEvents() {
 	bool keepRunning = InputHandler::Instance()->update();
 	if (!keepRunning) {
@@ -139,6 +169,11 @@ void Game::handleEvents() {
 	}
 }
 
+/**
+ * Method to be called at each game loop, if no joystick is detected, the state
+ * NoJoystickState is pushed, until a joystick is plugged.
+ * The state machines updates its current state.
+ */
 void Game::update() {
 	if (!InputHandler::Instance()->joysticksInitialised()) {
 		m_gameStateMachine->pushState(new NoJoystickState());
@@ -147,6 +182,9 @@ void Game::update() {
 	m_gameStateMachine->update();
 }
 
+/**
+ * Method to be called at each game loop. Renders the current state.
+ */
 void Game::render() {
 	// set to black
 	// This function expects Red, Green, Blue and
@@ -166,6 +204,9 @@ void Game::_cleanGameMachine() {
 	m_gameStateMachine = NULL;
 }
 
+/**
+ * Clean every resources.
+ */
 void Game::_cleanResources() {
 	std::cout << "Clean resources\n";
 	for (int i = 0; i < m_iNbFiles; ++i) {
@@ -182,6 +223,9 @@ SDL_Renderer* Game::getRenderer() {
 	return m_renderer;
 }
 
+/**
+ * Set running to false, which then will stop the game loop.
+ */
 void Game::quit() {
 	m_bRunning = false;
 }
