@@ -44,23 +44,23 @@ void TextureManager::drawFrame(
 	int currentRow, int currentFrame,
 	SDL_Renderer* pRenderer, SDL_RendererFlip flip
 ) {
-		SDL_Rect srcRect;
-		SDL_Rect destRect;
-		srcRect.x = width * currentFrame;
-		srcRect.y = height * (currentRow - 1);
-		srcRect.w = width;
-		destRect.w = width;
-		srcRect.h = height;
-		destRect.h = height;
-		destRect.x = x;
-		destRect.y = y;
-		SDL_RenderCopyEx(
-			pRenderer,
-			m_textureMap[id],
-			&srcRect, &destRect,
-			0, 0,
-			flip
-		);
+	SDL_Rect srcRect;
+	SDL_Rect destRect;
+	srcRect.x = width * currentFrame;
+	srcRect.y = height * (currentRow - 1);
+	srcRect.w = width;
+	destRect.w = width;
+	srcRect.h = height;
+	destRect.h = height;
+	destRect.x = x;
+	destRect.y = y;
+	SDL_RenderCopyEx(
+		pRenderer,
+		m_textureMap[id],
+		&srcRect, &destRect,
+		0, 0,
+		flip
+	);
 }
 
 TextureManager *TextureManager::Instance() {
