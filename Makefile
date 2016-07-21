@@ -42,7 +42,7 @@ all: $(PROG)
 
 build/%.o: %.cpp
 	@mkdir -p $(dir $@)
-	$(CC) $(CCDYNAMICFLAGS) -c -MMD $(patsubst $(BUILDDIR)/%.o,%.cpp,$@) -o $@
+	$(CC) -c -MMD $(patsubst $(BUILDDIR)/%.o,%.cpp,$@) -o $@
 
 clean:
 	rm -rf $(BINDIR) $(BUILDDIR)
