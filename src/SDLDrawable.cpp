@@ -16,8 +16,16 @@ void SDLDrawable::load(const float x, const float y, const int width, const int 
 void SDLDrawable::setTexture(const std::string textureID, const int nbFrames) {
 	m_iCurrentRow = 1;
 	m_iCurrentFrame = 1;
+	setAnimated(nbFrames > 1);
 	m_iNbFrames = nbFrames;
 	m_sTextureID = textureID;
+}
+
+void SDLDrawable::setAnimated(const bool animated) {
+	m_bAnimated = animated;
+	if (!m_bAnimated) {
+		m_iCurrentFrame = 1;
+	}
 }
 
 void SDLDrawable::setTextureRow(const int currentRow) {
@@ -33,7 +41,9 @@ void SDLDrawable::setAcceleration(const Vector2D acceleration) {
 }
 
 void SDLDrawable::update() {
-	m_iCurrentFrame = int(((SDL_GetTicks() / 100) % m_iNbFrames));
+	if (m_bAnimated) {
+		m_iCurrentFrame = int(((SDL_GetTicks() / 100) % m_iNbFrames));
+	}
 	m_velocity += m_acceleration;
 	m_position += m_velocity;
 }

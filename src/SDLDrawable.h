@@ -19,6 +19,8 @@ class SDLDrawable : public GameObject {
 	int m_iCurrentFrame = 0;
 	int m_iCurrentRow = 0;
 
+	bool m_bAnimated = false;
+
 	Vector2D m_position;
 	Vector2D m_velocity;
 	Vector2D m_acceleration;
@@ -37,6 +39,7 @@ class SDLDrawable : public GameObject {
 	virtual void setTextureRow(const int currentRow);
 	virtual void setVelocity(const Vector2D velocity);
 	virtual void setAcceleration(const Vector2D acceleration);
+	virtual void setAnimated(const bool animated);
 
 	virtual void update();
 	virtual void render(SDL_Renderer* pRenderer);
