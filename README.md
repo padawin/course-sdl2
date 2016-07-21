@@ -16,4 +16,4 @@ Just run:
 
 Just run:
 
-	./build/sdl-example
+	./bin/sdl-example
