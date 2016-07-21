@@ -16,6 +16,7 @@ class SDLDrawable : public GameObject {
 	protected:
 	std::string m_sTextureID = "";
 	int m_iNbFrames = 0;
+	int m_iAnimationSpeed = 1;
 	int m_iCurrentFrame = 0;
 	int m_iCurrentRow = 0;
 
@@ -35,7 +36,8 @@ class SDLDrawable : public GameObject {
 	 * Method to load the object
 	 */
 	virtual void load(const float x, const float y, const int width, const int height);
-	virtual void setTexture(const std::string textureID, const int nbFrames=1);
+	void setTexture(const std::string textureID, const int nbFrames=1, const int animationSpeed=1);
+	virtual void setAnimationSpeed(const int animationSpeed);
 	virtual void setTextureRow(const int currentRow);
 	virtual void setVelocity(const Vector2D velocity);
 	virtual void setAcceleration(const Vector2D acceleration);

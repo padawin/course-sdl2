@@ -44,7 +44,7 @@ void PlayState::_initActors() {
 	m_vGameObjects.push_back(m_player);
 	m_vRenderableObjects.push_back(m_player);
 	m_player->load(0.0, 0.0, 128, 142);
-	m_player->setTexture("animate", 6);
+	m_player->setTexture("animate", 6, 10);
 	m_player->setAnimated(false);
 
 	int l_iNbEnemies = 4;
@@ -53,7 +53,7 @@ void PlayState::_initActors() {
 		m_vGameObjects.push_back(m_enemies[e]);
 		m_vRenderableObjects.push_back(m_enemies[e]);
 		m_enemies[e]->load(0.0, (float) (142 * (e + 1)), 128, 142);
-		m_enemies[e]->setTexture("animate", 6);
+		m_enemies[e]->setTexture("animate", 6, 10);
 		m_enemies[e]->setAnimated(false);
 	}
 }
