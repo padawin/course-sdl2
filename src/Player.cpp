@@ -14,6 +14,10 @@ void Player::handleInput() {
 	if (handlerInstance->joysticksInitialised()) {
 		if (handlerInstance->getButtonState(0, 1)) {
 			velocityBasis = 2.5;
+			setAnimationSpeed(15);
+		}
+		else {
+			setAnimationSpeed(10);
 		}
 
 		xAxisValue = (float) handlerInstance->stickXValue(0, LEFT_STICK);
