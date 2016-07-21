@@ -11,3 +11,9 @@ void MenuButton::setAction(void (*callback)()) {
 void MenuButton::executeAction() {
 	m_callback();
 }
+
+// MENU BUTTON BASE CREATOR CLASS
+
+GameObject* MenuButtonCreator::createGameObject() const {
+	return new MenuButton();
+}
