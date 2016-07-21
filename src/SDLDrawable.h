@@ -33,7 +33,7 @@ class SDLDrawable : public GameObject {
 	 * Method to load the object
 	 */
 	virtual void load(const float x, const float y, const int width, const int height);
-	virtual void setTexture(const std::string textureID, int nbFrames);
+	virtual void setTexture(const std::string textureID, const int nbFrames=1);
 	virtual void setTextureRow(const int currentRow);
 	virtual void setVelocity(const Vector2D velocity);
 	virtual void setAcceleration(const Vector2D acceleration);

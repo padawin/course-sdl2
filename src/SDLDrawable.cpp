@@ -13,7 +13,7 @@ void SDLDrawable::load(const float x, const float y, const int width, const int 
 	m_iHeight = height;
 }
 
-void SDLDrawable::setTexture(const std::string textureID, int nbFrames) {
+void SDLDrawable::setTexture(const std::string textureID, const int nbFrames) {
 	m_iCurrentRow = 1;
 	m_iCurrentFrame = 1;
 	m_iNbFrames = nbFrames;
