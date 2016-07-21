@@ -45,3 +45,9 @@ void Player::update() {
 	handleInput();
 	SDLDrawable::update();
 }
+
+// PLAYER BASE CREATOR CLASS
+
+GameObject* PlayerCreator::createGameObject() const {
+	return new Player();
+}
