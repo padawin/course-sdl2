@@ -14,7 +14,7 @@ MenuButton* MainMenuState::createButton(const int index) {
 	float y = 15;
 	y += (float) (100 * (index + 1));
 	b->load(50.0, y, 300, 100);
-	b->setTexture("mainmenu", 1);
+	b->setTexture("mainmenu");
 	b->setTextureRow(index + 1);
 	b->setActive(index == m_iActiveButtonIndex);
 	b->setAction(s_vActions[index]);

@@ -14,15 +14,22 @@ void Player::handleInput() {
 	if (handlerInstance->joysticksInitialised()) {
 		if (handlerInstance->getButtonState(0, 1)) {
 			velocityBasis = 2.5;
+			setAnimationSpeed(15);
+		}
+		else {
+			setAnimationSpeed(10);
 		}
 
 		xAxisValue = (float) handlerInstance->stickXValue(0, LEFT_STICK);
 		yAxisValue = (float) handlerInstance->stickYValue(0, LEFT_STICK);
 		if (xAxisValue > 0 || xAxisValue < 0) {
 			m_velocity.setX(velocityBasis * xAxisValue);
+			setAnimated(true);
 		}
+
 		if (yAxisValue > 0 || yAxisValue < 0) {
 			m_velocity.setY(velocityBasis * yAxisValue);
+			setAnimated(true);
 		}
 	}
 }
@@ -31,6 +38,7 @@ void Player::handleInput() {
  * Reset the player velocity and update the input even polling and the player
  */
 void Player::update() {
+	setAnimated(false);
 	m_velocity.setX(0);
 	m_velocity.setY(0);
 
