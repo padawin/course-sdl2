@@ -63,3 +63,66 @@ void SDLDrawable::render(SDL_Renderer* pRenderer) {
 		pRenderer
 	);
 }
+
+// SDLDRAWABLELOADER
+
+SDLDrawableLoader::SDLDrawableLoader(
+	const float x, const float y,
+	const int width, const int height,
+	const std::string textureID,
+	const int textureRow
+) :
+	m_fX(x),
+	m_fY(y),
+	m_iWidth(width),
+	m_iHeight(height),
+	m_sTextureID(textureID),
+	m_iTextureRow(textureRow) {}
+
+SDLDrawableLoader::SDLDrawableLoader(
+	const float x, const float y,
+	const int width, const int height,
+	const std::string textureID, const int textureRow,
+	const int nbFrames, const int animationSpeed,
+	const bool animated
+) : SDLDrawableLoader(x, y, width, height, textureID, textureRow) {
+	m_iNbFrames = nbFrames;
+	m_iAnimationSpeed = animationSpeed;
+	m_bAnimated = animated;
+}
+
+float SDLDrawableLoader::getX() {
+	return m_fX;
+}
+
+float SDLDrawableLoader::getY() {
+	return m_fY;
+}
+
+int SDLDrawableLoader::getWidth() {
+	return m_iWidth;
+}
+
+int SDLDrawableLoader::getHeight() {
+	return m_iHeight;
+}
+
+std::string SDLDrawableLoader::getTextureID() {
+	return m_sTextureID;
+}
+
+int SDLDrawableLoader::getTextureRow() {
+	return m_iTextureRow;
+}
+
+int SDLDrawableLoader::getNbFrames() {
+	return m_iNbFrames;
+}
+
+int SDLDrawableLoader::getAnimationSpeed() {
+	return m_iAnimationSpeed;
+}
+
+bool SDLDrawableLoader::isAnimated() {
+	return m_bAnimated;
+}
