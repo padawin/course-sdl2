@@ -6,6 +6,8 @@
 #include "GameObject.h"
 #include "Vector2D.h"
 
+class SDLDrawableLoader;
+
 /**
  * A SDLDrawable is a game object having a physical existence (eg can be
  * drawn). So it has a texture, a dimension, a position, a velocity and
@@ -35,7 +37,7 @@ class SDLDrawable : public GameObject {
 	/**
 	 * Method to load the object
 	 */
-	virtual void load(const float x, const float y, const int width, const int height);
+	virtual void load(SDLDrawableLoader loader);
 	void setTexture(const std::string textureID, const int nbFrames=1, const int animationSpeed=1);
 	virtual void setAnimationSpeed(const int animationSpeed);
 	virtual void setTextureRow(const int currentRow);
@@ -45,6 +47,44 @@ class SDLDrawable : public GameObject {
 
 	virtual void update();
 	virtual void render(SDL_Renderer* pRenderer);
+};
+
+class SDLDrawableLoader : public GameObjectLoader {
+	private:
+	float m_fX;
+	float m_fY;
+	int m_iWidth;
+	int m_iHeight;
+	std::string m_sTextureID;
+	int m_iTextureRow;
+	int m_iNbFrames = 1;
+	int m_iAnimationSpeed = 1;
+	bool m_bAnimated = false;
+
+
+	public:
+	SDLDrawableLoader(
+		const float x, const float y,
+		const int width, const int height,
+		const std::string textureID,
+		const int textureRow
+	);
+	SDLDrawableLoader(
+		const float x, const float y,
+		const int width, const int height,
+		const std::string textureID, const int textureRow,
+		const int nbFrames, const int animationSpeed,
+		const bool animated=false
+	);
+	float getX();
+	float getY();
+	int getWidth();
+	int getHeight();
+	std::string getTextureID();
+	int getTextureRow();
+	int getNbFrames();
+	int getAnimationSpeed();
+	bool isAnimated();
 };
 
 #endif
