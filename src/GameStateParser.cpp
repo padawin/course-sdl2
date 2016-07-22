@@ -3,7 +3,12 @@
 
 using namespace libconfig;
 
-bool GameStateParser::parseState(const char *stateFile, const char* stateID, std::vector<GameObject *> *pObjects) {
+bool GameStateParser::parseState(
+	const char *stateFile,
+	const char* stateID,
+	std::vector<GameObject*> *objects,
+	std::vector<SDLDrawable*> *drawables
+) {
 	Config cfg;
 
 	try {
@@ -19,20 +24,26 @@ bool GameStateParser::parseState(const char *stateFile, const char* stateID, std
 		return false;
 	}
 
-	const Setting &root = cfg.getRoot();
+	Setting &root = cfg.getRoot();
 	if (!root.exists(stateID)) {
 		std::cerr << "No state " << stateID << " entry found in "
 			<< stateFile << std::endl;
+		return false;
 	}
 
-	const Setting &states = root[stateID];
-	if (states.exists("objects")) {
-		_parseObjects(&states["objects"], pObjects);
-	}
-
+	_parseObjects(root[stateID], objects, drawables);
 	return true;
 }
 
-void GameStateParser::_parseObjects(Setting* objectsSetting, std::vector<GameObject*> *pObjects) {
+bool GameStateParser::_parseObjects(
+	Setting &stateSetting,
+	std::vector<GameObject*> *objects,
+	std::vector<SDLDrawable*> *drawables
+) {
+	if (!stateSetting.exists("objects")) {
+		return false;
+	}
 
+
+	return true;
 }

@@ -3,14 +3,25 @@
 
 #include <vector>
 #include "GameObject.h"
+#include "SDLDrawable.h"
 #include <libconfig.h++>
 
 class GameStateParser {
-	public:
-	bool parseState(const char* stateFile, const char* stateID, std::vector<GameObject*> *pObjects);
-
 	private:
-	void _parseObjects(libconfig::Setting* objectsSetting, std::vector<GameObject*> *pObjects);
+	SDLDrawable* _parseDrawable(libconfig::Setting* objectSetting, std::string type);
+	bool _parseObjects(
+		libconfig::Setting &stateSetting,
+		std::vector<GameObject*> *objects,
+		std::vector<SDLDrawable*> *drawables
+	);
+
+	public:
+	bool parseState(
+		const char *stateFile,
+		const char* stateID,
+		std::vector<GameObject*> *objects,
+		std::vector<SDLDrawable*> *drawables
+	);
 };
 
 #endif
