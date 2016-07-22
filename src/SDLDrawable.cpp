@@ -6,11 +6,18 @@ SDLDrawable::SDLDrawable() :
 	m_velocity(Vector2D()),
 	m_acceleration(Vector2D()) {}
 
-void SDLDrawable::load(const float x, const float y, const int width, const int height) {
-	m_position.setX(x);
-	m_position.setY(y);
-	m_iWidth = width;
-	m_iHeight = height;
+void SDLDrawable::load(SDLDrawableLoader loader) {
+	m_position.setX(loader.getX());
+	m_position.setY(loader.getY());
+	m_iWidth = loader.getWidth();
+	m_iHeight = loader.getHeight();
+	setTexture(
+		loader.getTextureID(),
+		loader.getNbFrames(),
+		loader.getAnimationSpeed()
+	);
+	setTextureRow(loader.getTextureRow());
+	setAnimated(loader.isAnimated());
 }
 
 void SDLDrawable::setTexture(const std::string textureID, const int nbFrames, const int animationSpeed) {
