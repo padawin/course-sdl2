@@ -43,26 +43,28 @@ void PlayState::_initActors() {
 	m_player = new Player();
 	m_vGameObjects.push_back(m_player);
 	m_vRenderableObjects.push_back(m_player);
-	m_player->load(SDLDrawableLoader(
+	SDLDrawableLoader loader(
 		0.0, 0.0, // x, y
 		128, 142, // w, h
 		"animate", 1, // texture, textureRow
 		6, 10, // nbFrames, animation speed
 		false // animated
-	));
+	);
+	m_player->load(&loader);
 
 	int l_iNbEnemies = 4;
 	for (int e = 0; e < l_iNbEnemies; ++e) {
 		m_enemies.push_back(new Enemy());
 		m_vGameObjects.push_back(m_enemies[e]);
 		m_vRenderableObjects.push_back(m_enemies[e]);
-		m_enemies[e]->load(SDLDrawableLoader(
+		SDLDrawableLoader loader(
 			0.0, (float) (142 * (e + 1)),
 			128, 142,
 			"animate", 1,
 			6, 10,
 			false
-		));
+		);
+		m_enemies[e]->load(&loader);
 	}
 }
 

@@ -15,7 +15,8 @@ MenuButton* PauseMenuState::createButton(const int index) {
 	MenuButton* b = new MenuButton();
 	float y = 15;
 	y += (float) (100 * (index + 1));
-	b->load(SDLDrawableLoader(50.0, y, 300, 100, "pausemenu", index + 1));
+	SDLDrawableLoader loader(50.0, y, 300, 100, "pausemenu", index + 1);
+	b->load(&loader);
 	b->setActive(index == m_iActiveButtonIndex);
 	b->setAction(s_vActions[index]);
 
