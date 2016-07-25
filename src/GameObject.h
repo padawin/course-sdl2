@@ -14,4 +14,7 @@ class GameObject {
 	virtual void update() = 0;
 };
 
+class GameObjectLoader {
+
+};
 #endif

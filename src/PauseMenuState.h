@@ -13,7 +13,6 @@ class PauseMenuState : public MenuState {
 
 	public:
 	PauseMenuState();
-	MenuButton* createButton(const int index);
 	std::string getStateID() const;
 
 	static void resumeGame();

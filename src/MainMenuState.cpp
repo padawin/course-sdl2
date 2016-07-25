@@ -9,19 +9,6 @@ MainMenuState::MainMenuState() : MenuState::MenuState(2) {
 	s_vActions.push_back(MainMenuState::quitGame);
 }
 
-MenuButton* MainMenuState::createButton(const int index) {
-	MenuButton* b = new MenuButton();
-	float y = 15;
-	y += (float) (100 * (index + 1));
-	b->load(50.0, y, 300, 100);
-	b->setTexture("mainmenu");
-	b->setTextureRow(index + 1);
-	b->setActive(index == m_iActiveButtonIndex);
-	b->setAction(s_vActions[index]);
-
-	return b;
-}
-
 std::string MainMenuState::getStateID() const {
 	return s_menuID;
 }

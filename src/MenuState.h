@@ -25,13 +25,6 @@ class MenuState : public GameState {
 	virtual void render();
 	virtual bool onEnter();
 	virtual bool onExit();
-
-	/**
-	 * From a menu to another, the buttons are created differently (different
-	 * size, position...), so each menu needs its own way of creating its
-	 * buttons.
-	 */
-	virtual MenuButton* createButton(const int index) = 0;
 };
 
 #endif

@@ -1,7 +1,9 @@
 #include "MenuState.h"
 #include "Game.h"
+#include "GameStateParser.h"
 #include "InputHandler.h"
 #include "PlayState.h"
+#include <iostream>
 
 MenuState::MenuState(const int nbButtons) : m_iNbButtons(nbButtons) {}
 
@@ -44,10 +46,21 @@ void MenuState::render() {
 }
 
 bool MenuState::onEnter() {
-	for (int i = 0; i < m_iNbButtons; ++i) {
-		m_vButtons.push_back(createButton(i));
-		m_vGameObjects.push_back(m_vButtons[i]);
-		m_vRenderableObjects.push_back(m_vButtons[i]);
+	// parse the state
+	GameStateParser stateParser;
+	stateParser.parseState(
+		"configs/menus.cfg",
+		getStateID().c_str(),
+		&m_vGameObjects,
+		&m_vRenderableObjects
+	);
+	for (std::vector<GameObject*>::size_type i = 0; i != m_vRenderableObjects.size(); i++) {
+		if (dynamic_cast<MenuButton*>(m_vGameObjects[i])) {
+			MenuButton* button = dynamic_cast<MenuButton*>(m_vGameObjects[i]);
+			m_vButtons.push_back(button);
+			button->setActive(i == 0);
+			button->setAction(s_vActions[i]);
+		}
 	}
 	return true;
 }
