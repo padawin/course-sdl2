@@ -2,6 +2,8 @@
 #include "InputHandler.h"
 #include "MainMenuState.h"
 #include "NoJoystickState.h"
+#include "GameObjectFactory.h"
+#include "MenuButton.h"
 #include <iostream>
 #include <errno.h>
 
@@ -15,6 +17,11 @@ Game::Game() {
 	m_vResourceFiles.push_back(std::make_pair("mainmenu", "resources/menu-buttons.png"));
 	m_vResourceFiles.push_back(std::make_pair("pausemenu", "resources/pause-menu-buttons.png"));
 	m_iNbFiles = (int) m_vResourceFiles.size();
+
+	// object types
+	GameObjectFactory::Instance()->registerType(
+		"MenuButton", new MenuButtonCreator()
+	);
 }
 
 /**
