@@ -1,4 +1,5 @@
 #include "GameStateParser.h"
+#include "GameObjectFactory.h"
 #include <iostream>
 
 using namespace libconfig;
@@ -44,6 +45,65 @@ bool GameStateParser::_parseObjects(
 		return false;
 	}
 
+	const Setting &objectsSetting = stateSetting["objects"];
+	int count = objectsSetting.getLength();
+	for (int i = 0; i < count; ++i) {
+		bool drawable;
+		std::string type;
+		Setting &objectSetting = objectsSetting[i];
+		objectSetting.lookupValue("drawable", drawable);
+		objectSetting.lookupValue("type", type);
+
+		if (drawable) {
+			SDLDrawable* drawableObject = _parseDrawable(&objectSetting, type);
+			drawables->push_back(drawableObject);
+			objects->push_back(drawableObject);
+		}
+		else {
+			GameObject* gameObject = GameObjectFactory::Instance()->create(type);
+			objects->push_back(gameObject);
+		}
+	}
 
 	return true;
+}
+
+SDLDrawable* GameStateParser::_parseDrawable(Setting* objectSetting, std::string type) {
+	std::string texture;
+	float x, y;
+	int w, h, textureRow, nbFrames, animationSpeed;
+	bool animated;
+
+	nbFrames = 1;
+	objectSetting->lookupValue("x", x);
+	objectSetting->lookupValue("y", y);
+	objectSetting->lookupValue("w", w);
+	objectSetting->lookupValue("h", h);
+	objectSetting->lookupValue("texture", texture);
+	objectSetting->lookupValue("textureRow", textureRow);
+	objectSetting->lookupValue("nbFrames", nbFrames);
+	objectSetting->lookupValue("animationSpeed", animationSpeed);
+	objectSetting->lookupValue("animated", animated);
+
+	SDLDrawableLoader* loader;
+	// non animated texture
+	if (nbFrames == 1) {
+		loader = new SDLDrawableLoader(x, y, w, h, texture, textureRow);
+	}
+	else {
+		loader = new SDLDrawableLoader(
+			x, y, w, h,
+			texture, textureRow,
+			nbFrames, animationSpeed,
+			animated
+		);
+	}
+
+	SDLDrawable* gameObject = dynamic_cast<SDLDrawable*>(GameObjectFactory::Instance()->create(type));
+	gameObject->load(loader);
+
+	delete loader;
+	loader = NULL;
+
+	return gameObject;
 }
