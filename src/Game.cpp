@@ -4,6 +4,8 @@
 #include "NoJoystickState.h"
 #include "GameObjectFactory.h"
 #include "MenuButton.h"
+#include "Player.h"
+#include "Enemy.h"
 #include <iostream>
 #include <errno.h>
 
@@ -21,6 +23,12 @@ Game::Game() {
 	// object types
 	GameObjectFactory::Instance()->registerType(
 		"MenuButton", new MenuButtonCreator()
+	);
+	GameObjectFactory::Instance()->registerType(
+		"Player", new PlayerCreator()
+	);
+	GameObjectFactory::Instance()->registerType(
+		"Enemy", new EnemyCreator()
 	);
 }
 

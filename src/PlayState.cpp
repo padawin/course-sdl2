@@ -2,6 +2,7 @@
 #include "PauseMenuState.h"
 #include "InputHandler.h"
 #include "Game.h"
+#include "GameStateParser.h"
 
 const std::string PlayState::s_menuID = "PLAY";
 
@@ -40,38 +41,21 @@ std::string PlayState::getStateID() const {
 }
 
 void PlayState::_initActors() {
-	m_player = new Player();
-	m_vGameObjects.push_back(m_player);
-	m_vRenderableObjects.push_back(m_player);
-	SDLDrawableLoader loader(
-		0.0, 0.0, // x, y
-		128, 142, // w, h
-		"animate", 1, // texture, textureRow
-		6, 10, // nbFrames, animation speed
-		false // animated
+	// parse the state
+	GameStateParser stateParser;
+	stateParser.parseState(
+		"configs/levels.cfg",
+		getStateID().c_str(),
+		&m_vGameObjects,
+		&m_vRenderableObjects
 	);
-	m_player->load(&loader);
-
-	int l_iNbEnemies = 4;
-	for (int e = 0; e < l_iNbEnemies; ++e) {
-		m_enemies.push_back(new Enemy());
-		m_vGameObjects.push_back(m_enemies[e]);
-		m_vRenderableObjects.push_back(m_enemies[e]);
-		SDLDrawableLoader loader(
-			0.0, (float) (142 * (e + 1)),
-			128, 142,
-			"animate", 1,
-			6, 10,
-			false
-		);
-		m_enemies[e]->load(&loader);
-	}
 }
 
 void PlayState::_cleanActors() {
 	for (std::vector<GameObject*>::size_type i = 0; i != m_vGameObjects.size(); i++) {
 		delete m_vGameObjects[i];
 		m_vGameObjects[i] = NULL;
+		m_vRenderableObjects[i] = NULL;
 	}
 
 	m_vGameObjects.clear();
