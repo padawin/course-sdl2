@@ -13,7 +13,6 @@ class MainMenuState : public MenuState {
 
 	public:
 	MainMenuState();
-	MenuButton* createButton(const int index);
 	std::string getStateID() const;
 
 	static void startGame();
