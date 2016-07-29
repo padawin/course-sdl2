@@ -1,5 +1,9 @@
 #include "Level.h"
 
+Level::Level() {
+
+}
+
 std::vector<Tileset>* Level::getTilesets() {
 	return &m_vTilesets;
 }
