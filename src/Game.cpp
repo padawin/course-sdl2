@@ -80,6 +80,8 @@ bool Game::init(
 ) {
 	bool l_bReturn = false;
 	if (_initSDL(title, x, y, w, h, fullScreen) && _loadResources()) {
+		m_iScreenWidth = w;
+		m_iScreenHeight = h;
 		_initGameMachine();
 		l_bReturn = true;
 		m_bRunning = true;
@@ -247,4 +249,12 @@ void Game::quit() {
 
 GameStateMachine* Game::getStateMachine() {
 	return m_gameStateMachine;
+}
+
+int Game::getScreenWidth() {
+	return m_iScreenWidth;
+}
+
+int Game::getScreenHeight() {
+	return m_iScreenHeight;
 }
