@@ -44,6 +44,18 @@ class TextureManager {
 	);
 
 	/**
+	 * Draws a tile from a tileset.
+	 */
+	void drawTile(
+		std::string id,
+		int margin, int spacing,
+		int x, int y,
+		int width, int height,
+		int currentRow, int currentFrame,
+		SDL_Renderer *pRenderer
+	);
+
+	/**
 	 * Draws a frame from a texture. A framed texture is considered as a grid,
 	 * a currentRow and currentFrame integers are expected to find which frame
 	 * of the texture to draw.
