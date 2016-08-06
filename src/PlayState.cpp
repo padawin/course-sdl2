@@ -3,6 +3,7 @@
 #include "InputHandler.h"
 #include "Game.h"
 #include "GameStateParser.h"
+#include "LevelParser.h"
 
 const std::string PlayState::s_menuID = "PLAY";
 
@@ -23,11 +24,14 @@ void PlayState::update() {
 	}
 }
 void PlayState::render() {
+	m_level->render();
 	for (std::vector<GameObject*>::size_type i = 0; i != m_vRenderableObjects.size(); i++) {
 		m_vRenderableObjects[i]->render(Game::Instance()->getRenderer());
 	}
 }
 bool PlayState::onEnter() {
+	LevelParser levelParser;
+	m_level = levelParser.parseLevel("resources/levels/level1.tmx");
 	_initActors();
 	return true;
 }

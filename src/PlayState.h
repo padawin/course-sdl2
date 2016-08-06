@@ -2,6 +2,7 @@
 #define __PlayState__
 
 #include "GameState.h"
+#include "Level.h"
 
 /**
  * State for the in game screen. Contains a player and a list of enemies
@@ -9,6 +10,8 @@
 class PlayState : public GameState {
 	private:
 	static const std::string s_menuID;
+
+	Level *m_level;
 
 	void _initActors();
 	void _cleanActors();
