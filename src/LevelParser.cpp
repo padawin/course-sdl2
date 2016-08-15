@@ -27,7 +27,7 @@ Level* LevelParser::parseLevel(std::string levelsDir, std::string levelFile) {
 	for (TiXmlElement* e = root->FirstChildElement(); e != NULL; e = e->NextSiblingElement()) {
 		// parse the tilesets
 		if (e->Value() == std::string("tileset")) {
-			_parseTilesets(e, level->getTilesets());
+			_parseTilesets(levelsDir, e, level->getTilesets());
 		}
 
 		// parse any object layers
@@ -39,10 +39,13 @@ Level* LevelParser::parseLevel(std::string levelsDir, std::string levelFile) {
 	return level;
 }
 
-void LevelParser::_parseTilesets(TiXmlElement* tilesetRoot, std::vector<Tileset>* tilesets) {
+void LevelParser::_parseTilesets(std::string dirName, TiXmlElement* tilesetRoot, std::vector<Tileset>* tilesets) {
+	std::string fileName = tilesetRoot->FirstChildElement()->Attribute("source");
+	std::string textureFile = _joinPath(dirName, fileName);
+
 	// first add the tileset to texture manager
 	TextureManager::Instance()->load(
-		tilesetRoot->FirstChildElement()->Attribute("source"),
+		textureFile,
 		tilesetRoot->Attribute("name"),
 		Game::Instance()->getRenderer()
 	);
