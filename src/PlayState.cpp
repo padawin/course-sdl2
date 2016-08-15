@@ -31,7 +31,7 @@ void PlayState::render() {
 }
 bool PlayState::onEnter() {
 	LevelParser levelParser;
-	m_level = levelParser.parseLevel("resources/levels/level1.tmx");
+	m_level = levelParser.parseLevel("resources/levels/", "level1.tmx");
 	_initActors();
 	return true;
 }

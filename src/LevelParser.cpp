@@ -9,10 +9,10 @@ std::string LevelParser::_joinPath(std::string pathPart1, std::string pathPart2)
 	return pathPart1 + '/' + pathPart2;
 }
 
-Level* LevelParser::parseLevel(const char *levelFile) {
+Level* LevelParser::parseLevel(std::string levelsDir, std::string levelFile) {
 	// create a TinyXML document and load the map XML
 	TiXmlDocument levelDocument;
-	levelDocument.LoadFile(levelFile);
+	levelDocument.LoadFile(_joinPath(levelsDir, levelFile));
 
 	// create the level object
 	Level* level = new Level();

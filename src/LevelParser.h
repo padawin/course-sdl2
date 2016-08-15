@@ -20,7 +20,7 @@ class LevelParser {
 	int m_iHeight;
 
 	public:
-	virtual Level* parseLevel(const char* levelFile);
+	virtual Level* parseLevel(std::string levelsDir, std::string levelFile);
 };
 
 #endif
