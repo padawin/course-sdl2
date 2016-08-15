@@ -13,6 +13,7 @@ class LevelParser {
 		std::vector<Layer*> *pLayers,
 		const std::vector<Tileset>* pTilesets
 	);
+	std::string _joinPath(std::string pathPart1, std::string pathPart2);
 
 	int m_iTileSize;
 	int m_iWidth;

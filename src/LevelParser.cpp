@@ -5,6 +5,10 @@
 #include "vendor/base64.h"
 #include <zlib.h>
 
+std::string LevelParser::_joinPath(std::string pathPart1, std::string pathPart2) {
+	return pathPart1 + '/' + pathPart2;
+}
+
 Level* LevelParser::parseLevel(const char *levelFile) {
 	// create a TinyXML document and load the map XML
 	TiXmlDocument levelDocument;
