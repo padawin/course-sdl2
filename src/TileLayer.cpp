@@ -39,13 +39,12 @@ void TileLayer::render() {
 			}
 
 			Tileset tileset = getTilesetByID(id);
-			id--;
 			TextureManager::Instance()->drawTile(
 				tileset.name, 2, 2,
 				(j * m_iTileSize) - x2, (i * m_iTileSize) - y2,
 				m_iTileSize, m_iTileSize,
-				(id - (tileset.firstGridID - 1)) / tileset.numColumns,
-				(id - (tileset.firstGridID - 1)) % tileset.numColumns,
+				(id - tileset.firstGridID) / tileset.numColumns,
+				(id - tileset.firstGridID) % tileset.numColumns,
 				Game::Instance()->getRenderer()
 			);
 		}
