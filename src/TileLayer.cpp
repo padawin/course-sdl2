@@ -43,7 +43,7 @@ void TileLayer::render() {
 				tileset.name, 2, 2,
 				(j * m_iTileSize) - x2, (i * m_iTileSize) - y2,
 				m_iTileSize, m_iTileSize,
-				(id - tileset.firstGridID) / tileset.numColumns,
+				1 + (id - tileset.firstGridID) / tileset.numColumns,
 				(id - tileset.firstGridID) % tileset.numColumns,
 				Game::Instance()->getRenderer()
 			);
