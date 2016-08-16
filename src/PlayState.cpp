@@ -37,6 +37,8 @@ bool PlayState::onEnter() {
 }
 bool PlayState::onExit() {
 	_cleanActors();
+	LevelParser levelParser;
+	levelParser.cleanLevel(m_level);
 	return true;
 }
 

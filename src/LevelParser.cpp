@@ -39,6 +39,11 @@ Level* LevelParser::parseLevel(std::string levelsDir, std::string levelFile) {
 	return level;
 }
 
+void LevelParser::cleanLevel(Level* level) {
+	delete level;
+	level = 0;
+}
+
 void LevelParser::_parseTilesets(std::string dirName, TiXmlElement* tilesetRoot, std::vector<Tileset>* tilesets) {
 	std::string fileName = tilesetRoot->FirstChildElement()->Attribute("source");
 	std::string textureFile = _joinPath(dirName, fileName);
