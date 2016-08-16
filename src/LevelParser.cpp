@@ -2,6 +2,7 @@
 #include "TextureManager.h"
 #include "TileLayer.h"
 #include "Game.h"
+#include "config.h"
 #include "vendor/base64.h"
 #include <zlib.h>
 
@@ -9,10 +10,10 @@ std::string LevelParser::_joinPath(std::string pathPart1, std::string pathPart2)
 	return pathPart1 + '/' + pathPart2;
 }
 
-Level* LevelParser::parseLevel(std::string levelsDir, std::string levelFile) {
+Level* LevelParser::parseLevel(std::string levelFilePath) {
 	// create a TinyXML document and load the map XML
 	TiXmlDocument levelDocument;
-	levelDocument.LoadFile(_joinPath(levelsDir, levelFile));
+	levelDocument.LoadFile(levelFilePath);
 
 	// create the level object
 	Level* level = new Level();
@@ -27,7 +28,7 @@ Level* LevelParser::parseLevel(std::string levelsDir, std::string levelFile) {
 	for (TiXmlElement* e = root->FirstChildElement(); e != NULL; e = e->NextSiblingElement()) {
 		// parse the tilesets
 		if (e->Value() == std::string("tileset")) {
-			_parseTilesets(levelsDir, e, level->getTilesets());
+			_parseTilesets(e, level->getTilesets());
 		}
 
 		// parse any object layers
@@ -44,9 +45,9 @@ void LevelParser::cleanLevel(Level* level) {
 	level = 0;
 }
 
-void LevelParser::_parseTilesets(std::string dirName, TiXmlElement* tilesetRoot, std::vector<Tileset>* tilesets) {
+void LevelParser::_parseTilesets(TiXmlElement* tilesetRoot, std::vector<Tileset>* tilesets) {
 	std::string fileName = tilesetRoot->FirstChildElement()->Attribute("source");
-	std::string textureFile = _joinPath(dirName, fileName);
+	std::string textureFile = _joinPath(RESOURCE_PATH, fileName);
 
 	// first add the tileset to texture manager
 	TextureManager::Instance()->load(

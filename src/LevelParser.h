@@ -7,7 +7,7 @@
 
 class LevelParser {
 	private:
-	void _parseTilesets(std::string dirName, TiXmlElement* pTilesetRoot, std::vector<Tileset>* pTilesets);
+	void _parseTilesets(TiXmlElement* pTilesetRoot, std::vector<Tileset>* pTilesets);
 	void _parseTileLayer(
 		TiXmlElement* pTileElement,
 		std::vector<Layer*> *pLayers,
@@ -20,7 +20,7 @@ class LevelParser {
 	int m_iHeight;
 
 	public:
-	virtual Level* parseLevel(std::string levelsDir, std::string levelFile);
+	virtual Level* parseLevel(std::string levelFilePath);
 	virtual void cleanLevel(Level* level);
 };
 
