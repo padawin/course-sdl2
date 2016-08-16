@@ -31,6 +31,16 @@ class GameObjectFactory {
 	static GameObjectFactory* Instance();
 
 	/**
+	 * Method to clean the map of object creators
+	 */
+	void clean();
+
+	/**
+	 * Method to free the factory.
+	 */
+	static void free();
+
+	/**
 	 * Method to register a game object type
 	 */
 	bool registerType(std::string typeID, GameObjectCreator* pCreator);

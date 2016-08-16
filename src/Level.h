@@ -27,7 +27,8 @@ class Level {
 	Level();
 
 	public:
-	~Level() {}
+	// @TODO Must free the layers
+	~Level();
 	void update();
 	void render();
 	std::vector<Tileset>* getTilesets();

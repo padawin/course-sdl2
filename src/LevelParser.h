@@ -21,6 +21,7 @@ class LevelParser {
 
 	public:
 	virtual Level* parseLevel(std::string levelsDir, std::string levelFile);
+	virtual void cleanLevel(Level* level);
 };
 
 #endif

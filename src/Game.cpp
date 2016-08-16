@@ -39,6 +39,7 @@ Game::Game() {
 Game::~Game() {
 	InputHandler::Instance()->clean();
 	InputHandler::free();
+	GameObjectFactory::free();
 	_cleanResources();
 	TextureManager::free();
 	_cleanGameMachine();

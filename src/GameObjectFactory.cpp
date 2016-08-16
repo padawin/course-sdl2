@@ -17,6 +17,18 @@ GameObjectFactory *GameObjectFactory::Instance() {
 	return s_pInstance;
 }
 
+void GameObjectFactory::clean() {
+	for(std::map<std::string, GameObjectCreator*>::iterator itr = m_creators.begin(); itr != m_creators.end(); itr++) {
+		delete itr->second;
+	}
+}
+
+void GameObjectFactory::free() {
+	Instance()->clean();
+	delete s_pInstance;
+	s_pInstance = 0;
+}
+
 bool GameObjectFactory::registerType(std::string typeID, GameObjectCreator* pCreator) {
 	std::map<std::string, GameObjectCreator*>::iterator it = m_creators.find(typeID);
 
