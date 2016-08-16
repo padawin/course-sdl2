@@ -15,7 +15,7 @@ static Game* s_pInstance;
  * Game construct, Initialises the vector of resource names.
  */
 Game::Game() {
-	m_vResourceFiles.push_back(std::make_pair("animate", "resources/char9.bmp"));
+	m_vResourceFiles.push_back(std::make_pair("animate", "resources/char9.png"));
 	m_vResourceFiles.push_back(std::make_pair("mainmenu", "resources/menu-buttons.png"));
 	m_vResourceFiles.push_back(std::make_pair("pausemenu", "resources/pause-menu-buttons.png"));
 	m_iNbFiles = (int) m_vResourceFiles.size();
@@ -80,6 +80,8 @@ bool Game::init(
 ) {
 	bool l_bReturn = false;
 	if (_initSDL(title, x, y, w, h, fullScreen) && _loadResources()) {
+		m_iScreenWidth = w;
+		m_iScreenHeight = h;
 		_initGameMachine();
 		l_bReturn = true;
 		m_bRunning = true;
@@ -247,4 +249,12 @@ void Game::quit() {
 
 GameStateMachine* Game::getStateMachine() {
 	return m_gameStateMachine;
+}
+
+int Game::getScreenWidth() {
+	return m_iScreenWidth;
+}
+
+int Game::getScreenHeight() {
+	return m_iScreenHeight;
 }

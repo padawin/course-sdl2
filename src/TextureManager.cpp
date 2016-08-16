@@ -40,6 +40,32 @@ void TextureManager::draw(
 	drawFrame(id, x, y, width, height, 0, 0, pRenderer, flip);
 }
 
+void TextureManager::drawTile(
+	std::string id,
+	int margin, int spacing,
+	int x, int y,
+	int width, int height,
+	int currentRow, int currentFrame,
+	SDL_Renderer *pRenderer
+) {
+	SDL_Rect srcRect;
+	SDL_Rect destRect;
+	srcRect.x = margin + (spacing + width) * currentFrame;
+	srcRect.y = margin + (spacing + height) * (currentRow - 1);
+	srcRect.w = destRect.w = width;
+	srcRect.h = destRect.h = height;
+	destRect.x = x;
+	destRect.y = y;
+	SDL_RenderCopyEx(
+		pRenderer,
+		m_textureMap[id],
+		&srcRect,
+		&destRect,
+		0, 0,
+		SDL_FLIP_NONE
+	);
+}
+
 /**
  * Renders a subsection of the texture identified by the provided id.
  */

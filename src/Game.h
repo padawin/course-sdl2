@@ -37,6 +37,12 @@ class Game {
 	GameStateMachine* m_gameStateMachine = 0;
 
 	/**
+	 * Dimensions of the screen
+	 */
+	int m_iScreenWidth = 0;
+	int m_iScreenHeight = 0;
+
+	/**
 	 * The game is a singleton, so its constructor and destructor are private
 	 */
 	Game();
@@ -153,6 +159,12 @@ class Game {
 	 * Getter for the state machine.
 	 */
 	GameStateMachine* getStateMachine();
+
+	/**
+	 * Getters for the screen dimensions
+	 */
+	int getScreenWidth();
+	int getScreenHeight();
 };
 
 #endif /* defined(__Game__) */
