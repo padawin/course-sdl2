@@ -5,7 +5,10 @@ Level::Level() {
 }
 
 Level::~Level() {
-
+	for (int l = 0; l < (int) m_vLayers.size(); l++) {
+		delete m_vLayers[l];
+		m_vLayers[l] = 0;
+	}
 }
 
 std::vector<Tileset>* Level::getTilesets() {
