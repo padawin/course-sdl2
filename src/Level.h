@@ -27,7 +27,7 @@ class Level {
 	Level();
 
 	public:
-	~Level() {}
+	~Level();
 	void update();
 	void render();
 	std::vector<Tileset>* getTilesets();
