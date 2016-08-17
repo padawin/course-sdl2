@@ -65,7 +65,7 @@ bool MenuState::onEnter() {
 }
 
 bool MenuState::onExit() {
-	for (int i = 0; i < m_iNbButtons; ++i) {
+	for (int i = 0; i < (int) m_vButtons.size(); ++i) {
 		delete m_vButtons[i];
 		m_vButtons[i] = NULL;
 		m_vGameObjects[i] = NULL;
