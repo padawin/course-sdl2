@@ -7,7 +7,9 @@ void GameStateMachine::pushState(GameState *pState) {
 	}
 
 	m_vGameStates.push_back(pState);
-	m_vGameStates.back()->onEnter();
+	if (!m_vGameStates.back()->onEnter()) {
+		popState();
+	}
 }
 
 void GameStateMachine::changeState(GameState *pState) {
