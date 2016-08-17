@@ -25,4 +25,3 @@ class PlayState : public GameState {
 };
 
 #endif
-
