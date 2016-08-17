@@ -32,7 +32,7 @@ void PlayState::render() {
 bool PlayState::onEnter() {
 	LevelParser levelParser;
 	m_level = levelParser.parseLevel("configs/levels/level1.tmx");
-	_initActors();
+	_initActors("configs/levels/level1Objects.xml");
 	return true;
 }
 bool PlayState::onExit() {
@@ -46,11 +46,11 @@ std::string PlayState::getStateID() const {
 	return s_menuID;
 }
 
-void PlayState::_initActors() {
+void PlayState::_initActors(const char* actorsFilePath) {
 	// parse the state
 	GameStateParser stateParser;
 	stateParser.parseState(
-		"configs/levels.xml",
+		actorsFilePath,
 		getStateID().c_str(),
 		&m_vGameObjects,
 		&m_vRenderableObjects
