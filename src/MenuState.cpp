@@ -47,12 +47,17 @@ void MenuState::render() {
 bool MenuState::onEnter() {
 	// parse the state
 	GameStateParser stateParser;
-	stateParser.parseState(
+	bool stateParsed = stateParser.parseState(
 		"configs/menus.xml",
 		&m_vGameObjects,
 		&m_vRenderableObjects,
 		getStateID().c_str()
 	);
+
+	if (!stateParsed) {
+		return false;
+	}
+
 	for (std::vector<GameObject*>::size_type i = 0; i != m_vRenderableObjects.size(); i++) {
 		if (dynamic_cast<MenuButton*>(m_vGameObjects[i])) {
 			MenuButton* button = dynamic_cast<MenuButton*>(m_vGameObjects[i]);
@@ -65,7 +70,7 @@ bool MenuState::onEnter() {
 }
 
 bool MenuState::onExit() {
-	for (int i = 0; i < m_iNbButtons; ++i) {
+	for (int i = 0; i < (int) m_vButtons.size(); ++i) {
 		delete m_vButtons[i];
 		m_vButtons[i] = NULL;
 		m_vGameObjects[i] = NULL;

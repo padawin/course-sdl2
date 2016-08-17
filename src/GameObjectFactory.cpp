@@ -45,7 +45,7 @@ bool GameObjectFactory::registerType(std::string typeID, GameObjectCreator* pCre
 GameObject* GameObjectFactory::create(std::string typeID) {
 	std::map<std::string, GameObjectCreator*>::iterator it = m_creators.find(typeID);
 	if (it == m_creators.end()) {
-		std::cout << "could not find type: " << typeID << "\n";
+		std::cerr << "could not find type: " << typeID << "\n";
 		return NULL;
 	}
 
