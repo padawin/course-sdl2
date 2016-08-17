@@ -3,10 +3,10 @@
 #include <iostream>
 
 bool GameStateParser::parseState(
-	const char *stateFile,
-	const char* stateID,
+	const char* stateFile,
 	std::vector<GameObject*> *objects,
-	std::vector<SDLDrawable*> *drawables
+	std::vector<SDLDrawable*> *drawables,
+	const char* stateID
 ) {
 	// create a TinyXML document and load the map XML
 	TiXmlDocument stateDocument;

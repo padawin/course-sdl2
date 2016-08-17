@@ -23,10 +23,10 @@ class GameStateParser {
 
 	public:
 	bool parseState(
-		const char *stateFile,
-		const char* stateID,
+		const char* stateFile,
 		std::vector<GameObject*> *objects,
-		std::vector<SDLDrawable*> *drawables
+		std::vector<SDLDrawable*> *drawables,
+		const char* stateID = 0
 	);
 };
 

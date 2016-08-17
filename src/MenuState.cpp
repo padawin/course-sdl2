@@ -49,9 +49,9 @@ bool MenuState::onEnter() {
 	GameStateParser stateParser;
 	stateParser.parseState(
 		"configs/menus.xml",
-		getStateID().c_str(),
 		&m_vGameObjects,
-		&m_vRenderableObjects
+		&m_vRenderableObjects,
+		getStateID().c_str()
 	);
 	for (std::vector<GameObject*>::size_type i = 0; i != m_vRenderableObjects.size(); i++) {
 		if (dynamic_cast<MenuButton*>(m_vGameObjects[i])) {

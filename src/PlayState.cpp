@@ -51,7 +51,6 @@ void PlayState::_initActors(const char* actorsFilePath) {
 	GameStateParser stateParser;
 	stateParser.parseState(
 		actorsFilePath,
-		getStateID().c_str(),
 		&m_vGameObjects,
 		&m_vRenderableObjects
 	);
