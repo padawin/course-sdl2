@@ -50,7 +50,7 @@ void PlayState::_initActors() {
 	// parse the state
 	GameStateParser stateParser;
 	stateParser.parseState(
-		"configs/levels.cfg",
+		"configs/levels.xml",
 		getStateID().c_str(),
 		&m_vGameObjects,
 		&m_vRenderableObjects

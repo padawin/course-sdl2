@@ -48,7 +48,7 @@ bool MenuState::onEnter() {
 	// parse the state
 	GameStateParser stateParser;
 	stateParser.parseState(
-		"configs/menus.cfg",
+		"configs/menus.xml",
 		getStateID().c_str(),
 		&m_vGameObjects,
 		&m_vRenderableObjects

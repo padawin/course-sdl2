@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<states>
+	<state id="PLAY">
+		<objects>
+			<object
+				drawable="true" type="Player"
+				x="0.0" y="0.0" w="128" h="142"
+				texture="animate" textureRow="1"
+				nbFrames="6" animationSpeed="10"
+				animated="false"
+			/>
+			<object
+				drawable="true" type="Enemy"
+				x="128.0" y="142.0" w="128" h="142"
+				texture="animate" textureRow="1"
+				nbFrames="6" animationSpeed="10"
+				animated="true"
+			/>
+			<object
+				drawable="true" type="Enemy"
+				x="256.0" y="284.0" w="128" h="142"
+				texture="animate" textureRow="1"
+				nbFrames="6" animationSpeed="10"
+				animated="false"
+			/>
+		</objects>
+	</state>
+</states>
