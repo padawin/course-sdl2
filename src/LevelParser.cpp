@@ -30,7 +30,9 @@ Level* LevelParser::parseLevel(std::string levelFilePath) {
 		if (e->Value() == std::string("tileset")) {
 			_parseTilesets(e, level->getTilesets());
 		}
+	}
 
+	for (TiXmlElement* e = root->FirstChildElement(); e != NULL; e = e->NextSiblingElement()) {
 		// parse any object layers
 		if (e->Value() == std::string("layer")) {
 			_parseTileLayer(e, level->getLayers(), level->getTilesets());
