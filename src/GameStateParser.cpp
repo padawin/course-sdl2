@@ -2,88 +2,88 @@
 #include "GameObjectFactory.h"
 #include <iostream>
 
-using namespace libconfig;
-
 bool GameStateParser::parseState(
-	const char *stateFile,
-	const char* stateID,
+	const char* stateFile,
 	std::vector<GameObject*> *objects,
-	std::vector<SDLDrawable*> *drawables
+	std::vector<SDLDrawable*> *drawables,
+	const char* stateID
 ) {
-	Config cfg;
+	// create a TinyXML document and load the map XML
+	TiXmlDocument stateDocument;
+	stateDocument.LoadFile(stateFile);
 
-	try {
-		cfg.readFile(stateFile);
-	}
-	catch (const FileIOException &e) {
-		std::cerr << "I/O error while reading file." << std::endl;
-		return false;
-	}
-	catch (const ParseException &e) {
-		std::cerr << "Parse error at " << e.getFile() << ":" << e.getLine()
-			<< " - " << e.getError() << std::endl;
+	TiXmlElement* root = stateDocument.RootElement();
+	// a state ID is provided, consider the file as a list of states, the good
+	// one must be found
+	if (stateID != 0 && !_getStateNode(&root, stateID)) {
+		std::cerr << "No state found with ID " << stateID << std::endl;
 		return false;
 	}
 
-	Setting &root = cfg.getRoot();
-	if (!root.exists(stateID)) {
-		std::cerr << "No state " << stateID << " entry found in "
-			<< stateFile << std::endl;
-		return false;
-	}
-
-	_parseObjects(root[stateID], objects, drawables);
-	return true;
-}
-
-bool GameStateParser::_parseObjects(
-	Setting &stateSetting,
-	std::vector<GameObject*> *objects,
-	std::vector<SDLDrawable*> *drawables
-) {
-	if (!stateSetting.exists("objects")) {
-		return false;
-	}
-
-	const Setting &objectsSetting = stateSetting["objects"];
-	int count = objectsSetting.getLength();
-	for (int i = 0; i < count; ++i) {
-		bool drawable;
-		std::string type;
-		Setting &objectSetting = objectsSetting[i];
-		objectSetting.lookupValue("drawable", drawable);
-		objectSetting.lookupValue("type", type);
-
-		if (drawable) {
-			SDLDrawable* drawableObject = _parseDrawable(&objectSetting, type);
-			drawables->push_back(drawableObject);
-			objects->push_back(drawableObject);
-		}
-		else {
-			GameObject* gameObject = GameObjectFactory::Instance()->create(type);
-			objects->push_back(gameObject);
+	for (TiXmlElement* e = root->FirstChildElement(); e != NULL; e = e->NextSiblingElement()) {
+		// parse the objects
+		if (e->Value() == std::string("object")) {
+			_parseObject(e, objects, drawables);
 		}
 	}
 
 	return true;
 }
 
-SDLDrawable* GameStateParser::_parseDrawable(Setting* objectSetting, std::string type) {
-	std::string texture;
+bool GameStateParser::_getStateNode(TiXmlElement** root, const char* stateID) {
+	for (TiXmlElement* e = (*root)->FirstChildElement(); e != NULL; e = e->NextSiblingElement()) {
+		// find the required state node
+		if (e->Value() == std::string("state") && strcmp(e->Attribute("id"), stateID) == 0) {
+			(*root) = e->FirstChildElement();
+			return true;
+		}
+	}
+
+	return false;
+}
+
+bool GameStateParser::_parseObject(
+	TiXmlElement* object,
+	std::vector<GameObject*> *objects,
+	std::vector<SDLDrawable*> *drawables
+) {
+	bool drawable;
+	const char* type;
+	drawable = object->Attribute("drawable");
+	type = object->Attribute("type");
+
+	if (drawable) {
+		SDLDrawable* drawableObject = _parseDrawable(object, type);
+		drawables->push_back(drawableObject);
+		objects->push_back(drawableObject);
+	}
+	else {
+		GameObject* gameObject = GameObjectFactory::Instance()->create(type);
+		objects->push_back(gameObject);
+	}
+
+	return true;
+}
+
+SDLDrawable* GameStateParser::_parseDrawable(TiXmlElement* object, std::string type) {
+	const char* texture;
 	float x, y;
-	int w, h, textureRow, nbFrames, animationSpeed;
-	bool animated;
+	int w, h,
+		textureRow = 0,
+		nbFrames = 1,
+		animationSpeed = 1;
+	bool animated = false;
 
 	nbFrames = 1;
-	objectSetting->lookupValue("x", x);
-	objectSetting->lookupValue("y", y);
-	objectSetting->lookupValue("w", w);
-	objectSetting->lookupValue("h", h);
-	objectSetting->lookupValue("texture", texture);
-	objectSetting->lookupValue("textureRow", textureRow);
-	objectSetting->lookupValue("nbFrames", nbFrames);
-	objectSetting->lookupValue("animationSpeed", animationSpeed);
-	objectSetting->lookupValue("animated", animated);
+	object->QueryFloatAttribute("x", &x);
+	object->QueryFloatAttribute("y", &y);
+	object->QueryIntAttribute("w", &w);
+	object->QueryIntAttribute("h", &h);
+	texture = object->Attribute("texture");
+	object->QueryIntAttribute("textureRow", &textureRow);
+	object->QueryIntAttribute("nbFrames", &nbFrames);
+	object->QueryIntAttribute("animationSpeed", &animationSpeed);
+	object->QueryBoolAttribute("animated", &animated);
 
 	SDLDrawableLoader* loader;
 	// non animated texture

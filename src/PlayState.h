@@ -13,7 +13,7 @@ class PlayState : public GameState {
 
 	Level *m_level;
 
-	void _initActors();
+	void _initActors(const char* actorsFilePath);
 	void _cleanActors();
 
 	public:
