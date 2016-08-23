@@ -18,6 +18,7 @@ void TileLayer::setTileSize(int tileSize) {
 
 void TileLayer::update() {
 	m_position += m_velocity;
+	m_velocity.setX(1);
 }
 
 void TileLayer::render() {
