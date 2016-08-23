@@ -14,6 +14,7 @@ const std::string PlayState::s_menuID = "PLAY";
  * Then/else, update every object of the play state (player and enemies).
  */
 void PlayState::update() {
+	m_level->update();
 	InputHandler* handlerInstance = InputHandler::Instance();
 	if (handlerInstance->joysticksInitialised() && InputHandler::Instance()->getButtonState(0, 7)) {
 		Game::Instance()->getStateMachine()->pushState(new PauseMenuState());
