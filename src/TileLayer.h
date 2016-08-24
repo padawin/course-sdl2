@@ -10,6 +10,8 @@ class TileLayer : public Layer {
 	private:
 	int m_iNbColumns;
 	int m_iNbRows;
+	int m_iLayerNbColumns;
+	int m_iLayerNbRows;
 	int m_iTileSize;
 	Vector2D m_position;
 	Vector2D m_velocity;

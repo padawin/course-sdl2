@@ -11,6 +11,8 @@ TileLayer::TileLayer(int tileSize, const std::vector<Tileset> &tilesets) :
 void TileLayer::setTileIDs(const std::vector<std::vector<int>>& data, int width, int height) {
 	m_vTileIDs = data;
 
+	m_iLayerNbColumns = width;
+	m_iLayerNbRows = height;
 	if (m_iNbRows > height) {
 		m_iNbRows = height;
 	}
