@@ -1,5 +1,4 @@
 #include "MenuState.h"
-#include "Game.h"
 #include "GameStateParser.h"
 #include "ServiceProvider.h"
 #include "PlayState.h"
@@ -36,12 +35,6 @@ void MenuState::update() {
 	if (userActions->getActionState("ACTIVATE_MENU_BUTTON")) {
 		m_vButtons[m_iActiveButtonIndex]->executeAction();
 		userActions->resetActionState("ACTIVATE_MENU_BUTTON");
-	}
-}
-
-void MenuState::render() {
-	for (std::vector<GameObject*>::size_type i = 0; i != m_vRenderableObjects.size(); i++) {
-		m_vRenderableObjects[i]->render(Game::Instance()->getRenderer());
 	}
 }
 

@@ -19,15 +19,11 @@ void PlayState::update() {
 		Game::Instance()->getStateMachine()->pushState(new PauseMenuState());
 	}
 
-	for (std::vector<GameObject*>::size_type i = 0; i != m_vGameObjects.size(); i++) {
-		m_vGameObjects[i]->update();
-	}
+	GameState::update();
 }
 void PlayState::render() {
 	m_level->render();
-	for (std::vector<GameObject*>::size_type i = 0; i != m_vRenderableObjects.size(); i++) {
-		m_vRenderableObjects[i]->render(Game::Instance()->getRenderer());
-	}
+	GameState::render();
 }
 bool PlayState::onEnter() {
 	LevelParser levelParser;
