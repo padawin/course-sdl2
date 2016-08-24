@@ -8,8 +8,16 @@ TileLayer::TileLayer(int tileSize, const std::vector<Tileset> &tilesets) :
 	m_iNbRows = Game::Instance()->getScreenHeight() / m_iTileSize;
 }
 
-void TileLayer::setTileIDs(const std::vector<std::vector<int>>& data) {
+void TileLayer::setTileIDs(const std::vector<std::vector<int>>& data, int width, int height) {
 	m_vTileIDs = data;
+
+	if (m_iNbRows > height) {
+		m_iNbRows = height;
+	}
+
+	if (m_iNbColumns > width) {
+		m_iNbColumns = width;
+	}
 }
 
 void TileLayer::setTileSize(int tileSize) {

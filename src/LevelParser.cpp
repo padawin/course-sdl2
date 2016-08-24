@@ -121,6 +121,6 @@ void LevelParser::_parseTileLayer(
 		}
 	}
 
-	tileLayer->setTileIDs(data);
+	tileLayer->setTileIDs(data, m_iWidth, m_iHeight);
 	layers->push_back(tileLayer);
 }

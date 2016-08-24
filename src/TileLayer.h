@@ -22,7 +22,7 @@ class TileLayer : public Layer {
 	TileLayer(int tileSize, const std::vector<Tileset> &tilesets);
 	virtual void update();
 	virtual void render();
-	void setTileIDs(const std::vector<std::vector<int>>& data);
+	void setTileIDs(const std::vector<std::vector<int>>& data, int width, int height);
 	void setTileSize(int tileSize);
 };
 
