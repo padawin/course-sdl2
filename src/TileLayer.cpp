@@ -4,12 +4,22 @@
 TileLayer::TileLayer(int tileSize, const std::vector<Tileset> &tilesets) :
 	m_iTileSize(tileSize), m_vTilesets(tilesets), m_position(0, 0), m_velocity(0, 0)
 {
-	m_iNbColumns = Game::Instance()->getScreenWidth() / m_iTileSize;
-	m_iNbRows = Game::Instance()->getScreenHeight() / m_iTileSize;
+	m_iNbColumns = Game::Instance()->getScreenWidth() / m_iTileSize + 1;
+	m_iNbRows = Game::Instance()->getScreenHeight() / m_iTileSize + 1;
 }
 
-void TileLayer::setTileIDs(const std::vector<std::vector<int>>& data) {
+void TileLayer::setTileIDs(const std::vector<std::vector<int>>& data, int width, int height) {
 	m_vTileIDs = data;
+
+	m_iLayerNbColumns = width;
+	m_iLayerNbRows = height;
+	if (m_iNbRows > height) {
+		m_iNbRows = height;
+	}
+
+	if (m_iNbColumns > width) {
+		m_iNbColumns = width;
+	}
 }
 
 void TileLayer::setTileSize(int tileSize) {
@@ -18,6 +28,7 @@ void TileLayer::setTileSize(int tileSize) {
 
 void TileLayer::update() {
 	m_position += m_velocity;
+	m_velocity.setX(1);
 }
 
 void TileLayer::render() {
@@ -33,14 +44,14 @@ void TileLayer::render() {
 
 	for (int i = 0; i < m_iNbRows; i++) {
 		for (int j = 0; j < m_iNbColumns; j++) {
-			int id = m_vTileIDs[i][j + x];
+			int id = _getTileId(j + x, i + y);
 			if (id == 0) {
 				continue;
 			}
 
-			Tileset tileset = getTilesetByID(id);
+			Tileset tileset = _getTilesetByID(id);
 			TextureManager::Instance()->drawTile(
-				tileset.name, 2, 2,
+				tileset.name, tileset.margin, tileset.spacing,
 				(j * m_iTileSize) - x2, (i * m_iTileSize) - y2,
 				m_iTileSize, m_iTileSize,
 				1 + (id - tileset.firstGridID) / tileset.numColumns,
@@ -51,7 +62,7 @@ void TileLayer::render() {
 	}
 }
 
-Tileset TileLayer::getTilesetByID(int tileID) {
+Tileset TileLayer::_getTilesetByID(int tileID) {
 	for (int i = 0; i < m_vTilesets.size(); i++) {
 		// if we reached the last tileset, return it
 		if (i == m_vTilesets.size() - 1) {
@@ -70,4 +81,16 @@ Tileset TileLayer::getTilesetByID(int tileID) {
 	// did not find tileset, returning empty tileset
 	Tileset t;
 	return t;
+}
+
+int TileLayer::_getTileId(int x, int y) {
+	if (x < 0 || x >= m_iLayerNbColumns) {
+		return 0;
+	}
+
+	if (y < 0 || y >= m_iLayerNbRows) {
+		return 0;
+	}
+
+	return m_vTileIDs[y][x];
 }
