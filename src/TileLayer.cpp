@@ -44,7 +44,7 @@ void TileLayer::render() {
 
 	for (int i = 0; i < m_iNbRows; i++) {
 		for (int j = 0; j < m_iNbColumns; j++) {
-			int id = m_vTileIDs[i][j + x];
+			int id = _getTileId(j + x, i + y);
 			if (id == 0) {
 				continue;
 			}
@@ -81,4 +81,16 @@ Tileset TileLayer::getTilesetByID(int tileID) {
 	// did not find tileset, returning empty tileset
 	Tileset t;
 	return t;
+}
+
+int TileLayer::_getTileId(int x, int y) {
+	if (x < 0 || x >= m_iLayerNbColumns) {
+		return 0;
+	}
+
+	if (y < 0 || y >= m_iLayerNbRows) {
+		return 0;
+	}
+
+	return m_vTileIDs[y][x];
 }
