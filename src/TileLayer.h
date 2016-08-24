@@ -18,7 +18,7 @@ class TileLayer : public Layer {
 	const std::vector<Tileset> &m_vTilesets;
 	std::vector<std::vector<int>> m_vTileIDs;
 
-	Tileset getTilesetByID(int tileID);
+	Tileset _getTilesetByID(int tileID);
 	int _getTileId(int x, int y);
 
 	public:

@@ -49,7 +49,7 @@ void TileLayer::render() {
 				continue;
 			}
 
-			Tileset tileset = getTilesetByID(id);
+			Tileset tileset = _getTilesetByID(id);
 			TextureManager::Instance()->drawTile(
 				tileset.name, 2, 2,
 				(j * m_iTileSize) - x2, (i * m_iTileSize) - y2,
@@ -62,7 +62,7 @@ void TileLayer::render() {
 	}
 }
 
-Tileset TileLayer::getTilesetByID(int tileID) {
+Tileset TileLayer::_getTilesetByID(int tileID) {
 	for (int i = 0; i < m_vTilesets.size(); i++) {
 		// if we reached the last tileset, return it
 		if (i == m_vTilesets.size() - 1) {
