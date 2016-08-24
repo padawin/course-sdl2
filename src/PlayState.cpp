@@ -21,16 +21,19 @@ void PlayState::update() {
 
 	GameState::update();
 }
+
 void PlayState::render() {
 	m_level->render();
 	GameState::render();
 }
+
 bool PlayState::onEnter() {
 	LevelParser levelParser;
 	m_level = levelParser.parseLevel("configs/levels/level1.tmx");
 	_initActors("configs/levels/level1Objects.xml");
 	return true;
 }
+
 bool PlayState::onExit() {
 	_cleanActors();
 	LevelParser levelParser;
