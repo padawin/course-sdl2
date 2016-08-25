@@ -9,6 +9,8 @@
 
 enum JoystickControl {LEFT_STICK, RIGHT_STICK};
 
+enum InputType {KEYBOARD_KEY, CONTROLLER_BUTTON, CONTROLLER_STICK};
+
 class InputHandler {
 	private:
 	/**
