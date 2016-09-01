@@ -178,6 +178,11 @@ class Game {
 	int getScreenHeight();
 
 	/**
+	 * Set the mapping of actions of the user
+	 */
+	void setUserActions();
+
+	/**
 	 * Get the state of a given action to know if the user is executing it
 	 */
 	int getActionState(std::string name);

@@ -261,6 +261,17 @@ int Game::getScreenHeight() {
 	return m_iScreenHeight;
 }
 
+// @TODO provide file path to parse
+void Game::setUserActions() {
+	_cleanUserActions();
+
+	m_userActions = new UserActions();
+	Command pauseJoystick;
+	pauseJoystick.type = CONTROLLER_BUTTON;
+	pauseJoystick.id = 7;
+	m_userActions->add("PAUSE", pauseJoystick);
+}
+
 void Game::_cleanUserActions() {
 	if (m_userActions != 0) {
 		free(m_userActions);
