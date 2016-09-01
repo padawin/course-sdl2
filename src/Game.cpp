@@ -41,6 +41,7 @@ Game::~Game() {
 	InputHandler::free();
 	GameObjectFactory::free();
 	_cleanResources();
+	_cleanUserActions();
 	TextureManager::free();
 	_cleanGameMachine();
 	SDL_DestroyWindow(m_window);
@@ -258,4 +259,14 @@ int Game::getScreenWidth() {
 
 int Game::getScreenHeight() {
 	return m_iScreenHeight;
+}
+
+void Game::_cleanUserActions() {
+	if (m_userActions != 0) {
+		free(m_userActions);
+	}
+}
+
+int Game::getActionState(std::string name) {
+	return m_userActions->getActionState(name);
 }

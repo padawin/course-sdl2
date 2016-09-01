@@ -5,6 +5,7 @@
 #include <vector>
 #include "GameStateMachine.h"
 #include "TextureManager.h"
+#include "UserActions.h"
 
 class Game {
 	private:
@@ -22,6 +23,11 @@ class Game {
 	 * The game's renderer. Used to render graphics in the window
 	 */
 	SDL_Renderer* m_renderer = 0;
+
+	/**
+	 * List of the actions executable by the user
+	 */
+	UserActions* m_userActions = 0;
 
 	/**
 	 * List of files to use as graphic resources, each file is a pair composed
@@ -81,6 +87,11 @@ class Game {
 	 * Method to free the state machine.
 	 */
 	void _cleanGameMachine();
+
+	/**
+	 * Method to free the user actions.
+	 */
+	void _cleanUserActions();
 
 	public:
 	/**
@@ -165,6 +176,11 @@ class Game {
 	 */
 	int getScreenWidth();
 	int getScreenHeight();
+
+	/**
+	 * Get the state of a given action to know if the user is executing it
+	 */
+	int getActionState(std::string name);
 };
 
 #endif /* defined(__Game__) */
