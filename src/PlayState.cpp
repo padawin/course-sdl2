@@ -16,7 +16,7 @@ const std::string PlayState::s_menuID = "PLAY";
 void PlayState::update() {
 	m_level->update();
 	InputHandler* handlerInstance = InputHandler::Instance();
-	if (handlerInstance->joysticksInitialised() && InputHandler::Instance()->getButtonState(0, 7)) {
+	if (Game::Instance()->getActionState("PAUSE")) {
 		Game::Instance()->getStateMachine()->pushState(new PauseMenuState());
 	}
 
