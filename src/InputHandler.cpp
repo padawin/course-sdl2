@@ -173,31 +173,21 @@ void InputHandler::free() {
 }
 
 /**
- * Gets the X value of the required stick
- */
-int InputHandler::stickXValue(const int joyIndex, const JoystickControl stick) {
-	int value = 0;
-	if (m_mJoystickAxisValues.size() > 0) {
-		if (stick == LEFT_STICK) {
-			value = (int) m_mJoystickAxisValues[m_vJoysticks[joyIndex].first].first.getX();
-		}
-		else if (stick == RIGHT_STICK) {
-			value = (int) m_mJoystickAxisValues[m_vJoysticks[joyIndex].first].second.getX();
-		}
-	}
-	return value;
-}
-
-/**
  * Gets the Y value of the required stick
  */
-int InputHandler::stickYValue(const int joyIndex, const JoystickControl stick) {
+int InputHandler::stickValue(const int joyIndex, const JoystickControl stick) {
 	int value = 0;
 	if (m_mJoystickAxisValues.size() > 0) {
-		if (stick == LEFT_STICK) {
+		if (stick == LEFT_STICK_X) {
+			value = (int) m_mJoystickAxisValues[m_vJoysticks[joyIndex].first].first.getX();
+		}
+		else if (stick == LEFT_STICK_Y) {
 			value = (int) m_mJoystickAxisValues[m_vJoysticks[joyIndex].first].first.getY();
 		}
-		else if (stick == RIGHT_STICK) {
+		else if (stick == RIGHT_STICK_X) {
+			value = (int) m_mJoystickAxisValues[m_vJoysticks[joyIndex].first].second.getX();
+		}
+		else if (stick == RIGHT_STICK_Y) {
 			value = (int) m_mJoystickAxisValues[m_vJoysticks[joyIndex].first].second.getY();
 		}
 	}

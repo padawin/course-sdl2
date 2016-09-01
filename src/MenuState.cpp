@@ -9,7 +9,7 @@ MenuState::MenuState(const int nbButtons) : m_iNbButtons(nbButtons) {}
 void MenuState::update() {
 	InputHandler* handlerInstance = InputHandler::Instance();
 	if (handlerInstance->joysticksInitialised()) {
-		int yAxisValue = handlerInstance->stickYValue(0, LEFT_STICK);
+		int yAxisValue = handlerInstance->stickValue(0, LEFT_STICK_Y);
 		// The stick must be brought back to neutral position to choose another
 		// menu element, otherwise, it moves too fast.
 		if (m_bMenuBeingChanged && yAxisValue == 0) {

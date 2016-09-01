@@ -20,8 +20,8 @@ void Player::handleInput() {
 			setAnimationSpeed(10);
 		}
 
-		xAxisValue = (float) handlerInstance->stickXValue(0, LEFT_STICK);
-		yAxisValue = (float) handlerInstance->stickYValue(0, LEFT_STICK);
+		xAxisValue = (float) handlerInstance->stickValue(0, LEFT_STICK_X);
+		yAxisValue = (float) handlerInstance->stickValue(0, LEFT_STICK_Y);
 		if (xAxisValue > 0 || xAxisValue < 0) {
 			m_velocity.setX(velocityBasis * xAxisValue);
 			setAnimated(true);

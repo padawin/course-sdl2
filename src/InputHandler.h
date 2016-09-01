@@ -7,7 +7,7 @@
 #include <map>
 #include "Vector2D.h"
 
-enum JoystickControl {LEFT_STICK, RIGHT_STICK};
+enum JoystickControl {LEFT_STICK_X, LEFT_STICK_Y, RIGHT_STICK_X, RIGHT_STICK_Y};
 
 enum InputType {KEYBOARD_KEY, CONTROLLER_BUTTON, CONTROLLER_STICK};
 
@@ -114,14 +114,9 @@ class InputHandler {
 	bool joysticksInitialised();
 
 	/**
-	 * Method to get the X value of the given stick if a given joystick
+	 * Method to get the X or Y value of the given stick if a given joystick
 	 */
-	int stickXValue(const int joy, const JoystickControl stick);
-
-	/**
-	 * Method to get the Y value of the given stick if a given joystick
-	 */
-	int stickYValue(const int joy, const JoystickControl stick);
+	int stickValue(const int joy, const JoystickControl stick);
 
 	/**
 	 * Method to get the state of the given button if a given joystick
