@@ -6,6 +6,8 @@
 #include "MenuButton.h"
 #include "Player.h"
 #include "Enemy.h"
+#include "UserActions.h"
+#include "ServiceProvider.h"
 #include <iostream>
 #include <errno.h>
 
@@ -41,7 +43,6 @@ Game::~Game() {
 	InputHandler::free();
 	GameObjectFactory::free();
 	_cleanResources();
-	_cleanUserActions();
 	TextureManager::free();
 	_cleanGameMachine();
 	SDL_DestroyWindow(m_window);
@@ -85,6 +86,7 @@ bool Game::init(
 		m_iScreenWidth = w;
 		m_iScreenHeight = h;
 		_initGameMachine();
+		_initServiceProvider();
 		l_bReturn = true;
 		m_bRunning = true;
 	}
@@ -261,23 +263,12 @@ int Game::getScreenHeight() {
 	return m_iScreenHeight;
 }
 
-// @TODO provide file path to parse
-void Game::setUserActions() {
-	_cleanUserActions();
-
-	m_userActions = new UserActions();
+void Game::_initServiceProvider() {
+	UserActions* userActions = new UserActions();
 	Command pauseJoystick;
 	pauseJoystick.type = CONTROLLER_BUTTON;
 	pauseJoystick.id = 7;
-	m_userActions->add("PAUSE", pauseJoystick);
-}
+	userActions->add("PAUSE", pauseJoystick);
 
-void Game::_cleanUserActions() {
-	if (m_userActions != 0) {
-		free(m_userActions);
-	}
-}
-
-int Game::getActionState(std::string name) {
-	return m_userActions->getActionState(name);
+	ServiceProvider::setUserActions(userActions);
 }

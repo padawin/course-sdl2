@@ -5,7 +5,6 @@
 #include <vector>
 #include "GameStateMachine.h"
 #include "TextureManager.h"
-#include "UserActions.h"
 
 class Game {
 	private:
@@ -23,11 +22,6 @@ class Game {
 	 * The game's renderer. Used to render graphics in the window
 	 */
 	SDL_Renderer* m_renderer = 0;
-
-	/**
-	 * List of the actions executable by the user
-	 */
-	UserActions* m_userActions = 0;
 
 	/**
 	 * List of files to use as graphic resources, each file is a pair composed
@@ -180,12 +174,7 @@ class Game {
 	/**
 	 * Set the mapping of actions of the user
 	 */
-	void setUserActions();
-
-	/**
-	 * Get the state of a given action to know if the user is executing it
-	 */
-	int getActionState(std::string name);
+	void _initServiceProvider();
 };
 
 #endif /* defined(__Game__) */
