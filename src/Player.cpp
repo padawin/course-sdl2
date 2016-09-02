@@ -1,5 +1,6 @@
 #include "Player.h"
 #include "InputHandler.h"
+#include "ServiceProvider.h"
 
 /**
  * The joystick button and sticks states are checked. If the button 1 (B on
@@ -12,7 +13,7 @@ void Player::handleInput() {
 	InputHandler* handlerInstance = InputHandler::Instance();
 
 	if (handlerInstance->joysticksInitialised()) {
-		if (handlerInstance->getButtonState(0, 1)) {
+		if (ServiceProvider::getUserActions()->getActionState("PLAYER_RUSH")) {
 			velocityBasis = 2.5;
 			setAnimationSpeed(15);
 		}

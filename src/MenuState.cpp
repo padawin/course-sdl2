@@ -2,6 +2,7 @@
 #include "Game.h"
 #include "GameStateParser.h"
 #include "InputHandler.h"
+#include "ServiceProvider.h"
 #include "PlayState.h"
 
 MenuState::MenuState(const int nbButtons) : m_iNbButtons(nbButtons) {}
@@ -31,7 +32,7 @@ void MenuState::update() {
 
 		// If the button 0 of the joystick 0 is pressed (A on Xbox controller),
 		// execute the action associated with the currently selected button
-		if (InputHandler::Instance()->getButtonState(0, 0)) {
+		if (ServiceProvider::getUserActions()->getActionState("ACTIVATE_MENU_BUTTON")) {
 			m_vButtons[m_iActiveButtonIndex]->executeAction();
 			InputHandler::Instance()->setButtonState(0, 0, false);
 		}
