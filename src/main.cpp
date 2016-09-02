@@ -28,7 +28,6 @@ int main(int argc, char* args[]) {
 	parseArguments(argc, args, &fullScreen);
 
 	g = Game::Instance();
-	g->setUserActions();
 	if (!g->init("My first window", 100, 100, 640, 480, fullScreen)) {
 		return 1;
 	}
