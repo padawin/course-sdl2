@@ -49,6 +49,12 @@ bool InputHandler::update() {
 			case SDL_JOYDEVICEREMOVED:
 				_handleJoystickRemoved();
 				break;
+			case SDL_KEYDOWN:
+				_handleKeyEvent(event, true);
+				break;
+			case SDL_KEYUP:
+				_handleKeyEvent(event, false);
+				break;
 			default:
 				break;
 		}
@@ -86,6 +92,13 @@ void InputHandler::_handleStickEvent(const SDL_Event event) {
 void InputHandler::_handleButtonEvent(const SDL_Event event, const bool isDown) {
 	int joystickId = event.jaxis.which;
 	m_mButtonStates[joystickId][event.jbutton.button] = isDown;
+}
+
+/**
+ * Change the state of a pressed or released keyboard key.
+ */
+void InputHandler::_handleKeyEvent(const SDL_Event event, const bool isDown) {
+	m_mKeysStates[event.key.keysym.scancode] = isDown;
 }
 
 /**

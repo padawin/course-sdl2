@@ -52,6 +52,16 @@ class InputHandler {
 	std::map<int, std::vector<bool>> m_mButtonStates = {};
 
 	/**
+	 * State of the pressed keys on the keyboard;
+	 */
+
+	/**
+	 * Maps joysticks ids and buttons state, each joystick has a list of
+	 * buttons set to true or false depending on if the button is pressed
+	 */
+	std::map<SDL_Scancode, bool> m_mKeysStates = {};
+
+	/**
 	 * True if any joystick is initialised. If no joystick is present, the flag
 	 * will be set to false.
 	 */
@@ -76,6 +86,11 @@ class InputHandler {
 	 * Method called when a joystick button is pressed or released.
 	 */
 	void _handleButtonEvent(const SDL_Event event, const bool isDown);
+
+	/**
+	 * Method called when a keyboard key is pressed or released.
+	 */
+	void _handleKeyEvent(const SDL_Event event, const bool isDown);
 
 	/**
 	 * Method called when a joystick is unplugged.
