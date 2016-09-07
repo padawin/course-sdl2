@@ -21,6 +21,7 @@ class UserActions {
 	UserActions();
 	void add(std::string name, Command c);
 	int getActionState(std::string name);
+	void resetActionState(std::string name);
 };
 
 #endif

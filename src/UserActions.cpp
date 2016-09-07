@@ -41,3 +41,26 @@ int UserActions::getActionState(std::string name) {
 
 	return ret;
 }
+
+void UserActions::resetActionState(std::string name) {
+	if (!m_mMappings.count(name)) {
+		return;
+	}
+
+	std::vector<Command> commands = m_mMappings[name];
+	InputHandler* handlerInstance = InputHandler::Instance();
+	for (unsigned int c = 0; c < commands.size(); c++) {
+		switch (commands[c].type) {
+			case CONTROLLER_BUTTON:
+				if (handlerInstance->joysticksInitialised()) {
+					handlerInstance->setButtonState(
+						0, commands[c].buttonId, false
+					);
+				}
+				break;
+			case KEYBOARD_KEY:
+				handlerInstance->setKeyState(commands[c].key, false);
+				break;
+		}
+	}
+}

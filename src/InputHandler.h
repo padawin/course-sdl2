@@ -148,6 +148,11 @@ class InputHandler {
 	 * otherwise
 	 */
 	bool getKeyState(const SDL_Scancode key);
+
+	/**
+	 * Method to set the state of a given key
+	 */
+	void setKeyState(const SDL_Scancode key, bool value);
 };
 
 #endif

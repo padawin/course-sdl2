@@ -34,7 +34,7 @@ void MenuState::update() {
 		// execute the action associated with the currently selected button
 		if (ServiceProvider::getUserActions()->getActionState("ACTIVATE_MENU_BUTTON")) {
 			m_vButtons[m_iActiveButtonIndex]->executeAction();
-			InputHandler::Instance()->setButtonState(0, 0, false);
+			ServiceProvider::getUserActions()->resetActionState("ACTIVATE_MENU_BUTTON");
 		}
 	}
 }

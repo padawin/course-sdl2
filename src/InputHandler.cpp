@@ -218,3 +218,7 @@ void InputHandler::setButtonState(const int joystickIndex, const int button, con
 bool InputHandler::getKeyState(const SDL_Scancode key) {
 	return m_mKeysStates[key];
 }
+
+void InputHandler::setKeyState(const SDL_Scancode key, bool value) {
+	m_mKeysStates[key] = value;
+}
