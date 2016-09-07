@@ -271,14 +271,14 @@ void Game::_initServiceProvider() {
 	userActions->add("PAUSE", pauseJoystick);
 
 	Command activateMenuButtonJoystick;
-	pauseJoystick.type = CONTROLLER_BUTTON;
-	pauseJoystick.buttonId = 0;
-	userActions->add("ACTIVATE_MENU_BUTTON", pauseJoystick);
+	activateMenuButtonJoystick.type = CONTROLLER_BUTTON;
+	activateMenuButtonJoystick.buttonId = 0;
+	userActions->add("ACTIVATE_MENU_BUTTON", activateMenuButtonJoystick);
 
 	Command playerRushJoystick;
-	pauseJoystick.type = CONTROLLER_BUTTON;
-	pauseJoystick.buttonId = 1;
-	userActions->add("PLAYER_RUSH", pauseJoystick);
+	playerRushJoystick.type = CONTROLLER_BUTTON;
+	playerRushJoystick.buttonId = 1;
+	userActions->add("PLAYER_RUSH", playerRushJoystick);
 
 	ServiceProvider::setUserActions(userActions);
 }
