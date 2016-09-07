@@ -280,12 +280,20 @@ void Game::_initServiceProvider() {
 	menuNextJoystick.stickAxis = LEFT_STICK_Y;
 	menuNextJoystick.stickDirection = 1;
 	userActions->add("CHANGE_MENU_NEXT", menuNextJoystick);
+	Command menuNextKeyboard;
+	menuNextKeyboard.type = KEYBOARD_KEY;
+	menuNextKeyboard.key = SDL_SCANCODE_DOWN;
+	userActions->add("CHANGE_MENU_NEXT", menuNextKeyboard);
 
 	Command menuPreviousJoystick;
 	menuPreviousJoystick.type = CONTROLLER_STICK;
 	menuPreviousJoystick.stickAxis = LEFT_STICK_Y;
 	menuPreviousJoystick.stickDirection = -1;
 	userActions->add("CHANGE_MENU_PREVIOUS", menuPreviousJoystick);
+	Command menuPreviousKeyboard;
+	menuPreviousKeyboard.type = KEYBOARD_KEY;
+	menuPreviousKeyboard.key = SDL_SCANCODE_UP;
+	userActions->add("CHANGE_MENU_PREVIOUS", menuPreviousKeyboard);
 
 	Command activateMenuButtonJoystick;
 	activateMenuButtonJoystick.type = CONTROLLER_BUTTON;
