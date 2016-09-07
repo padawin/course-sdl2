@@ -269,11 +269,19 @@ void Game::_initServiceProvider() {
 	pauseJoystick.type = CONTROLLER_BUTTON;
 	pauseJoystick.buttonId = 7;
 	userActions->add("PAUSE", pauseJoystick);
+	Command pauseKeyboard;
+	pauseKeyboard.type = KEYBOARD_KEY;
+	pauseKeyboard.key = SDL_SCANCODE_ESCAPE;
+	userActions->add("PAUSE", pauseKeyboard);
 
 	Command activateMenuButtonJoystick;
 	activateMenuButtonJoystick.type = CONTROLLER_BUTTON;
 	activateMenuButtonJoystick.buttonId = 0;
 	userActions->add("ACTIVATE_MENU_BUTTON", activateMenuButtonJoystick);
+	Command activateMenuButtonKeyboard;
+	activateMenuButtonKeyboard.type = KEYBOARD_KEY;
+	activateMenuButtonKeyboard.key = SDL_SCANCODE_RETURN;
+	userActions->add("ACTIVATE_MENU_BUTTON", activateMenuButtonKeyboard);
 
 	Command playerRushJoystick;
 	playerRushJoystick.type = CONTROLLER_BUTTON;
