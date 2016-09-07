@@ -23,7 +23,7 @@ int UserActions::getActionState(std::string name) {
 		switch (commands[c].type) {
 			case CONTROLLER_BUTTON:
 				ret = !handlerInstance->joysticksInitialised() ? 0 :
-					InputHandler::Instance()->getButtonState(0, commands[c].id);
+					InputHandler::Instance()->getButtonState(0, commands[c].buttonId);
 				break;
 			case CONTROLLER_STICK:
 				ret = !handlerInstance->joysticksInitialised() ? 0 :

@@ -8,7 +8,7 @@
 
 struct Command {
 	InputType type;
-	int id;
+	int buttonId;
 	JoystickControl stickAxis;
 };
 
