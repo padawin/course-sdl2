@@ -142,6 +142,12 @@ class InputHandler {
 	 * Method to set the state of the given button if a given joystick
 	 */
 	void setButtonState(const int joyIndex, const int button, const bool down);
+
+	/**
+	 * Returns true if the provided key (from the keyboard) is pressed, false
+	 * otherwise
+	 */
+	bool getKeyState(const SDL_Scancode key);
 };
 
 #endif

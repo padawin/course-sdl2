@@ -214,3 +214,7 @@ bool InputHandler::getButtonState(const int joystickIndex, const int buttonNumbe
 void InputHandler::setButtonState(const int joystickIndex, const int button, const bool down) {
 	m_mButtonStates[m_vJoysticks[joystickIndex].first][button] = down;
 }
+
+bool InputHandler::getKeyState(const SDL_Scancode key) {
+	return m_mKeysStates[key];
+}

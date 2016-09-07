@@ -30,6 +30,7 @@ int UserActions::getActionState(std::string name) {
 					handlerInstance->stickValue(0, commands[c].stickAxis);
 				break;
 			case KEYBOARD_KEY:
+				ret = handlerInstance->getKeyState(commands[c].key);
 				break;
 		}
 
