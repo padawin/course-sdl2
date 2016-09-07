@@ -274,6 +274,18 @@ void Game::_initServiceProvider() {
 	pauseKeyboard.key = SDL_SCANCODE_ESCAPE;
 	userActions->add("PAUSE", pauseKeyboard);
 
+	Command menuNextJoystick;
+	menuNextJoystick.type = CONTROLLER_STICK;
+	menuNextJoystick.stickAxis = LEFT_STICK_Y;
+	menuNextJoystick.stickDirection = 1;
+	userActions->add("CHANGE_MENU_NEXT", menuNextJoystick);
+
+	Command menuPreviousJoystick;
+	menuPreviousJoystick.type = CONTROLLER_STICK;
+	menuPreviousJoystick.stickAxis = LEFT_STICK_Y;
+	menuPreviousJoystick.stickDirection = -1;
+	userActions->add("CHANGE_MENU_PREVIOUS", menuPreviousJoystick);
+
 	Command activateMenuButtonJoystick;
 	activateMenuButtonJoystick.type = CONTROLLER_BUTTON;
 	activateMenuButtonJoystick.buttonId = 0;
