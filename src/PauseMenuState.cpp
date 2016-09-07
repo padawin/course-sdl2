@@ -1,6 +1,5 @@
 #include "PauseMenuState.h"
 #include "Game.h"
-#include "InputHandler.h"
 #include "MainMenuState.h"
 
 const std::string PauseMenuState::s_menuID = "PAUSEMENU";
