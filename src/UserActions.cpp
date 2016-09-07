@@ -32,6 +32,10 @@ int UserActions::getActionState(std::string name) {
 			case KEYBOARD_KEY:
 				break;
 		}
+
+		if (ret != 0) {
+			break;
+		}
 	}
 
 	return ret;
