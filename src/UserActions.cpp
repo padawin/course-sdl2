@@ -26,8 +26,15 @@ int UserActions::getActionState(std::string name) {
 					handlerInstance->getButtonState(0, commands[c].buttonId);
 				break;
 			case CONTROLLER_STICK:
-				ret = !handlerInstance->joysticksInitialised() ? 0 :
-					handlerInstance->stickValue(0, commands[c].stickAxis);
+				if (handlerInstance->joysticksInitialised()) {
+					int stickValue = handlerInstance->stickValue(
+						0, commands[c].stickAxis
+					);
+					int stickDirection = commands[c].stickDirection;
+					if (stickDirection == 0 || stickValue == stickDirection) {
+						ret = stickValue;
+					}
+				}
 				break;
 			case KEYBOARD_KEY:
 				ret = handlerInstance->getKeyState(commands[c].key);

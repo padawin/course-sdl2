@@ -9,6 +9,7 @@
 struct Command {
 	InputType type;
 	int buttonId;
+	int stickDirection;
 	JoystickControl stickAxis;
 	SDL_Scancode key;
 };
