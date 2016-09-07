@@ -196,7 +196,8 @@ void Game::handleEvents() {
  * The state machines updates its current state.
  */
 void Game::update() {
-	if (!InputHandler::Instance()->joysticksInitialised()) {
+	// @TODO force or not the joystick from config value
+	if (m_bNeedsJoystick && !InputHandler::Instance()->joysticksInitialised()) {
 		m_gameStateMachine->pushState(new NoJoystickState());
 	}
 

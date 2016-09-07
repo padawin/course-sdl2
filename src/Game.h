@@ -14,6 +14,11 @@ class Game {
 	bool m_bRunning = false;
 
 	/**
+	 * flag to know if the game needs a joystick to be played
+	 */
+	bool m_bNeedsJoystick = false;
+
+	/**
 	 * The game's window
 	 */
 	SDL_Window* m_window = 0;
