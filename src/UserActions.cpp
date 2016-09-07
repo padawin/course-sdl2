@@ -23,11 +23,11 @@ int UserActions::getActionState(std::string name) {
 		switch (commands[c].type) {
 			case CONTROLLER_BUTTON:
 				ret = !handlerInstance->joysticksInitialised() ? 0 :
-					InputHandler::Instance()->getButtonState(0, commands[c].buttonId);
+					handlerInstance->getButtonState(0, commands[c].buttonId);
 				break;
 			case CONTROLLER_STICK:
 				ret = !handlerInstance->joysticksInitialised() ? 0 :
-					InputHandler::Instance()->stickValue(0, commands[c].stickAxis);
+					handlerInstance->stickValue(0, commands[c].stickAxis);
 				break;
 			case KEYBOARD_KEY:
 				break;
