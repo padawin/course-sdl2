@@ -1,5 +1,5 @@
 #include "Player.h"
-#include "InputHandler.h"
+#include "ServiceProvider.h"
 
 /**
  * The joystick button and sticks states are checked. If the button 1 (B on
@@ -8,29 +8,38 @@
  * set.
  */
 void Player::handleInput() {
-	float xAxisValue, yAxisValue, velocityBasis = 1.0;
-	InputHandler* handlerInstance = InputHandler::Instance();
+	int movesUp, movesDown, movesLeft, movesRight;
+	float velocityBasis = 1.0;
+	UserActions* userActions = ServiceProvider::getUserActions();
 
-	if (handlerInstance->joysticksInitialised()) {
-		if (handlerInstance->getButtonState(0, 1)) {
-			velocityBasis = 2.5;
-			setAnimationSpeed(15);
-		}
-		else {
-			setAnimationSpeed(10);
-		}
+	if (userActions->getActionState("PLAYER_RUSH")) {
+		velocityBasis = 2.5;
+		setAnimationSpeed(15);
+	}
+	else {
+		setAnimationSpeed(10);
+	}
 
-		xAxisValue = (float) handlerInstance->stickXValue(0, LEFT_STICK);
-		yAxisValue = (float) handlerInstance->stickYValue(0, LEFT_STICK);
-		if (xAxisValue > 0 || xAxisValue < 0) {
-			m_velocity.setX(velocityBasis * xAxisValue);
-			setAnimated(true);
-		}
+	movesUp = userActions->getActionState("MOVE_PLAYER_UP");
+	movesDown = userActions->getActionState("MOVE_PLAYER_DOWN");
+	movesLeft = userActions->getActionState("MOVE_PLAYER_LEFT");
+	movesRight = userActions->getActionState("MOVE_PLAYER_RIGHT");
+	if (movesLeft) {
+		m_velocity.setX(velocityBasis * -1);
+		setAnimated(true);
+	}
+	else if (movesRight) {
+		m_velocity.setX(velocityBasis);
+		setAnimated(true);
+	}
 
-		if (yAxisValue > 0 || yAxisValue < 0) {
-			m_velocity.setY(velocityBasis * yAxisValue);
-			setAnimated(true);
-		}
+	if (movesUp) {
+		m_velocity.setY(velocityBasis * -1);
+		setAnimated(true);
+	}
+	else if (movesDown) {
+		m_velocity.setY(velocityBasis);
+		setAnimated(true);
 	}
 }
 

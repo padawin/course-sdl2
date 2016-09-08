@@ -49,6 +49,12 @@ bool InputHandler::update() {
 			case SDL_JOYDEVICEREMOVED:
 				_handleJoystickRemoved();
 				break;
+			case SDL_KEYDOWN:
+				_handleKeyEvent(event, true);
+				break;
+			case SDL_KEYUP:
+				_handleKeyEvent(event, false);
+				break;
 			default:
 				break;
 		}
@@ -86,6 +92,13 @@ void InputHandler::_handleStickEvent(const SDL_Event event) {
 void InputHandler::_handleButtonEvent(const SDL_Event event, const bool isDown) {
 	int joystickId = event.jaxis.which;
 	m_mButtonStates[joystickId][event.jbutton.button] = isDown;
+}
+
+/**
+ * Change the state of a pressed or released keyboard key.
+ */
+void InputHandler::_handleKeyEvent(const SDL_Event event, const bool isDown) {
+	m_mKeysStates[event.key.keysym.scancode] = isDown;
 }
 
 /**
@@ -173,31 +186,21 @@ void InputHandler::free() {
 }
 
 /**
- * Gets the X value of the required stick
- */
-int InputHandler::stickXValue(const int joyIndex, const JoystickControl stick) {
-	int value = 0;
-	if (m_mJoystickAxisValues.size() > 0) {
-		if (stick == LEFT_STICK) {
-			value = (int) m_mJoystickAxisValues[m_vJoysticks[joyIndex].first].first.getX();
-		}
-		else if (stick == RIGHT_STICK) {
-			value = (int) m_mJoystickAxisValues[m_vJoysticks[joyIndex].first].second.getX();
-		}
-	}
-	return value;
-}
-
-/**
  * Gets the Y value of the required stick
  */
-int InputHandler::stickYValue(const int joyIndex, const JoystickControl stick) {
+int InputHandler::stickValue(const int joyIndex, const JoystickControl stick) {
 	int value = 0;
 	if (m_mJoystickAxisValues.size() > 0) {
-		if (stick == LEFT_STICK) {
+		if (stick == LEFT_STICK_X) {
+			value = (int) m_mJoystickAxisValues[m_vJoysticks[joyIndex].first].first.getX();
+		}
+		else if (stick == LEFT_STICK_Y) {
 			value = (int) m_mJoystickAxisValues[m_vJoysticks[joyIndex].first].first.getY();
 		}
-		else if (stick == RIGHT_STICK) {
+		else if (stick == RIGHT_STICK_X) {
+			value = (int) m_mJoystickAxisValues[m_vJoysticks[joyIndex].first].second.getX();
+		}
+		else if (stick == RIGHT_STICK_Y) {
 			value = (int) m_mJoystickAxisValues[m_vJoysticks[joyIndex].first].second.getY();
 		}
 	}
@@ -210,4 +213,12 @@ bool InputHandler::getButtonState(const int joystickIndex, const int buttonNumbe
 
 void InputHandler::setButtonState(const int joystickIndex, const int button, const bool down) {
 	m_mButtonStates[m_vJoysticks[joystickIndex].first][button] = down;
+}
+
+bool InputHandler::getKeyState(const SDL_Scancode key) {
+	return m_mKeysStates[key];
+}
+
+void InputHandler::setKeyState(const SDL_Scancode key, bool value) {
+	m_mKeysStates[key] = value;
 }

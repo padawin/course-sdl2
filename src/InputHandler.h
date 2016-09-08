@@ -7,7 +7,9 @@
 #include <map>
 #include "Vector2D.h"
 
-enum JoystickControl {LEFT_STICK, RIGHT_STICK};
+enum JoystickControl {LEFT_STICK_X, LEFT_STICK_Y, RIGHT_STICK_X, RIGHT_STICK_Y};
+
+enum InputType {KEYBOARD_KEY, CONTROLLER_BUTTON, CONTROLLER_STICK};
 
 class InputHandler {
 	private:
@@ -50,6 +52,16 @@ class InputHandler {
 	std::map<int, std::vector<bool>> m_mButtonStates = {};
 
 	/**
+	 * State of the pressed keys on the keyboard;
+	 */
+
+	/**
+	 * Maps joysticks ids and buttons state, each joystick has a list of
+	 * buttons set to true or false depending on if the button is pressed
+	 */
+	std::map<SDL_Scancode, bool> m_mKeysStates = {};
+
+	/**
 	 * True if any joystick is initialised. If no joystick is present, the flag
 	 * will be set to false.
 	 */
@@ -74,6 +86,11 @@ class InputHandler {
 	 * Method called when a joystick button is pressed or released.
 	 */
 	void _handleButtonEvent(const SDL_Event event, const bool isDown);
+
+	/**
+	 * Method called when a keyboard key is pressed or released.
+	 */
+	void _handleKeyEvent(const SDL_Event event, const bool isDown);
 
 	/**
 	 * Method called when a joystick is unplugged.
@@ -112,14 +129,9 @@ class InputHandler {
 	bool joysticksInitialised();
 
 	/**
-	 * Method to get the X value of the given stick if a given joystick
+	 * Method to get the X or Y value of the given stick if a given joystick
 	 */
-	int stickXValue(const int joy, const JoystickControl stick);
-
-	/**
-	 * Method to get the Y value of the given stick if a given joystick
-	 */
-	int stickYValue(const int joy, const JoystickControl stick);
+	int stickValue(const int joy, const JoystickControl stick);
 
 	/**
 	 * Method to get the state of the given button if a given joystick
@@ -130,6 +142,17 @@ class InputHandler {
 	 * Method to set the state of the given button if a given joystick
 	 */
 	void setButtonState(const int joyIndex, const int button, const bool down);
+
+	/**
+	 * Returns true if the provided key (from the keyboard) is pressed, false
+	 * otherwise
+	 */
+	bool getKeyState(const SDL_Scancode key);
+
+	/**
+	 * Method to set the state of a given key
+	 */
+	void setKeyState(const SDL_Scancode key, bool value);
 };
 
 #endif

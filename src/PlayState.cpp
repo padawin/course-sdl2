@@ -1,9 +1,9 @@
 #include "PlayState.h"
 #include "PauseMenuState.h"
-#include "InputHandler.h"
 #include "Game.h"
 #include "GameStateParser.h"
 #include "LevelParser.h"
+#include "ServiceProvider.h"
 
 const std::string PlayState::s_menuID = "PLAY";
 
@@ -15,8 +15,7 @@ const std::string PlayState::s_menuID = "PLAY";
  */
 void PlayState::update() {
 	m_level->update();
-	InputHandler* handlerInstance = InputHandler::Instance();
-	if (handlerInstance->joysticksInitialised() && InputHandler::Instance()->getButtonState(0, 7)) {
+	if (ServiceProvider::getUserActions()->getActionState("PAUSE")) {
 		Game::Instance()->getStateMachine()->pushState(new PauseMenuState());
 	}
 

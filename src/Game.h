@@ -14,6 +14,11 @@ class Game {
 	bool m_bRunning = false;
 
 	/**
+	 * flag to know if the game needs a joystick to be played
+	 */
+	bool m_bNeedsJoystick = false;
+
+	/**
 	 * The game's window
 	 */
 	SDL_Window* m_window = 0;
@@ -81,6 +86,11 @@ class Game {
 	 * Method to free the state machine.
 	 */
 	void _cleanGameMachine();
+
+	/**
+	 * Method to free the user actions.
+	 */
+	void _cleanUserActions();
 
 	public:
 	/**
@@ -165,6 +175,11 @@ class Game {
 	 */
 	int getScreenWidth();
 	int getScreenHeight();
+
+	/**
+	 * Set the mapping of actions of the user
+	 */
+	void _initServiceProvider();
 };
 
 #endif /* defined(__Game__) */
