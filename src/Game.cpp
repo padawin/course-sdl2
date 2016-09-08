@@ -304,6 +304,46 @@ void Game::_initServiceProvider() {
 	activateMenuButtonKeyboard.key = SDL_SCANCODE_RETURN;
 	userActions->add("ACTIVATE_MENU_BUTTON", activateMenuButtonKeyboard);
 
+	Command movePlayerUpJoystick;
+	movePlayerUpJoystick.type = CONTROLLER_STICK;
+	movePlayerUpJoystick.stickAxis = LEFT_STICK_Y;
+	movePlayerUpJoystick.stickDirection = -1;
+	userActions->add("MOVE_PLAYER_UP", movePlayerUpJoystick);
+	Command movePlayerUpKeyboard;
+	movePlayerUpKeyboard.type = KEYBOARD_KEY;
+	movePlayerUpKeyboard.key = SDL_SCANCODE_UP;
+	userActions->add("MOVE_PLAYER_UP", movePlayerUpKeyboard);
+
+	Command movePlayerDownJoystick;
+	movePlayerDownJoystick.type = CONTROLLER_STICK;
+	movePlayerDownJoystick.stickAxis = LEFT_STICK_Y;
+	movePlayerDownJoystick.stickDirection = 1;
+	userActions->add("MOVE_PLAYER_DOWN", movePlayerDownJoystick);
+	Command movePlayerDownKeyboard;
+	movePlayerDownKeyboard.type = KEYBOARD_KEY;
+	movePlayerDownKeyboard.key = SDL_SCANCODE_DOWN;
+	userActions->add("MOVE_PLAYER_DOWN", movePlayerDownKeyboard);
+
+	Command movePlayerLeftJoystick;
+	movePlayerLeftJoystick.type = CONTROLLER_STICK;
+	movePlayerLeftJoystick.stickAxis = LEFT_STICK_X;
+	movePlayerLeftJoystick.stickDirection = -1;
+	userActions->add("MOVE_PLAYER_LEFT", movePlayerLeftJoystick);
+	Command movePlayerLeftKeyboard;
+	movePlayerLeftKeyboard.type = KEYBOARD_KEY;
+	movePlayerLeftKeyboard.key = SDL_SCANCODE_LEFT;
+	userActions->add("MOVE_PLAYER_LEFT", movePlayerLeftKeyboard);
+
+	Command movePlayerRightJoystick;
+	movePlayerRightJoystick.type = CONTROLLER_STICK;
+	movePlayerRightJoystick.stickAxis = LEFT_STICK_X;
+	movePlayerRightJoystick.stickDirection = 1;
+	userActions->add("MOVE_PLAYER_RIGHT", movePlayerRightJoystick);
+	Command movePlayerRightKeyboard;
+	movePlayerRightKeyboard.type = KEYBOARD_KEY;
+	movePlayerRightKeyboard.key = SDL_SCANCODE_RIGHT;
+	userActions->add("MOVE_PLAYER_RIGHT", movePlayerRightKeyboard);
+
 	Command playerRushJoystick;
 	playerRushJoystick.type = CONTROLLER_BUTTON;
 	playerRushJoystick.buttonId = 1;
