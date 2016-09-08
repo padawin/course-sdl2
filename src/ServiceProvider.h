@@ -6,7 +6,7 @@
 class ServiceProvider {
 	public:
 	static UserActions* getUserActions();
-	static void setUserActions(UserActions* userActions);
+	static void setUserActions();
 	static void clean();
 };
 
