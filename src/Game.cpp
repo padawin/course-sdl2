@@ -44,6 +44,7 @@ Game::~Game() {
 	_cleanResources();
 	TextureManager::free();
 	_cleanGameMachine();
+	ServiceProvider::clean();
 	SDL_DestroyWindow(m_window);
 	SDL_DestroyRenderer(m_renderer);
 	SDL_Quit();
