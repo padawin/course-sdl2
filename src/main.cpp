@@ -29,6 +29,7 @@ int main(int argc, char* args[]) {
 
 	g = Game::Instance();
 	if (!g->init("My first window", 100, 100, 640, 480, fullScreen)) {
+		Game::freeGame();
 		return 1;
 	}
 
