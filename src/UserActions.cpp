@@ -143,6 +143,8 @@ int UserActions::setActionsFromFile(const char* mappingFile) {
 				c.stickAxis = (JoystickControl) value;
 				c.stickDirection = direction;
 				break;
+			default:
+				return INVALID_TYPE;
 		}
 		add(commandName, c);
 	}

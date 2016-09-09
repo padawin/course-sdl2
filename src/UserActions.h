@@ -9,6 +9,7 @@
 #define NO_FILE_FOUND 1
 #define NO_TYPE_FOUND 2
 #define NO_VALUE_FOUND 3
+#define INVALID_TYPE 4
 
 struct Command {
 	InputType type;
