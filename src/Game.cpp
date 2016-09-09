@@ -82,11 +82,13 @@ bool Game::init(
 	const bool fullScreen
 ) {
 	bool l_bReturn = false;
-	if (_initSDL(title, x, y, w, h, fullScreen) && _loadResources()) {
+	if (_initSDL(title, x, y, w, h, fullScreen)
+		&& _loadResources()
+		&& _initServiceProvider()
+	) {
 		m_iScreenWidth = w;
 		m_iScreenHeight = h;
 		_initGameMachine();
-		_initServiceProvider();
 		l_bReturn = true;
 		m_bRunning = true;
 	}
@@ -264,7 +266,15 @@ int Game::getScreenHeight() {
 	return m_iScreenHeight;
 }
 
-void Game::_initServiceProvider() {
+bool Game::_initServiceProvider() {
+	bool ret = true;
 	const char* mappingFile = "configs/playercontrolsmapping.txt";
-	ServiceProvider::setUserActions(mappingFile);
+	int userActionsParsed = ServiceProvider::setUserActions(mappingFile);
+	if (userActionsParsed != 0) {
+		std::cerr << "The parsing of the user actions failed, returned "
+			<< userActionsParsed << std::endl;
+		ret = false;
+	}
+
+	return ret;
 }

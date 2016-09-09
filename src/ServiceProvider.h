@@ -6,7 +6,7 @@
 class ServiceProvider {
 	public:
 	static UserActions* getUserActions();
-	static void setUserActions(const char* mappingFile);
+	static int setUserActions(const char* mappingFile);
 	static void clean();
 };
 

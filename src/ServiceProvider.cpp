@@ -6,10 +6,10 @@ UserActions* ServiceProvider::getUserActions() {
 	return s_userActions;
 }
 
-void ServiceProvider::setUserActions(const char* mappingFile) {
+int ServiceProvider::setUserActions(const char* mappingFile) {
 	free(s_userActions);
 	s_userActions = new UserActions();
-	s_userActions->setActionsFromFile(mappingFile);
+	return s_userActions->setActionsFromFile(mappingFile);
 }
 
 void ServiceProvider::clean() {

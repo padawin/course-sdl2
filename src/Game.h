@@ -95,7 +95,7 @@ class Game {
 	/**
 	 * Set the mapping of actions of the user
 	 */
-	void _initServiceProvider();
+	bool _initServiceProvider();
 
 
 	public:
