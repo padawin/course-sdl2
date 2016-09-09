@@ -6,6 +6,10 @@
 #include <vector>
 #include "InputHandler.h"
 
+#define NO_FILE_FOUND 1
+#define NO_TYPE_FOUND 2
+#define NO_VALUE_FOUND 3
+
 struct Command {
 	InputType type;
 	int buttonId;
@@ -23,6 +27,7 @@ class UserActions {
 	void add(std::string name, Command c);
 	int getActionState(std::string name);
 	void resetActionState(std::string name);
+	int setActionsFromFile(const char* mappingFile);
 };
 
 #endif

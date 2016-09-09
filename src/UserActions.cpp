@@ -1,4 +1,15 @@
+#define _CRT_SECURE_NO_WARNINGS
+
 #include "UserActions.h"
+#include <fstream>
+using std::ifstream;
+
+#include <cstring>
+
+const int MAX_CHAR_COMMAND = 128;
+const int MAX_CHARS_PER_LINE = 134; // 128 + 6
+const int MAX_TOKENS_PER_LINE = 4;
+const char* const DELIMITER = ";";
 
 UserActions::UserActions() : m_mMappings({}) {}
 
@@ -69,5 +80,70 @@ void UserActions::resetActionState(std::string name) {
 				handlerInstance->setKeyState(commands[c].key, false);
 				break;
 		}
+	}
+}
+
+int UserActions::setActionsFromFile(const char* mappingFile) {
+	// create a file-reading object
+	ifstream fin;
+	fin.open(mappingFile); // open a file
+	if (!fin.good()) {
+		return NO_FILE_FOUND; // exit if file not found
+	}
+
+	// read each line of the file
+	while (!fin.eof()) {
+		// read an entire line into memory
+		char buf[MAX_CHARS_PER_LINE];
+		// @check too long lines
+		fin.getline(buf, MAX_CHARS_PER_LINE);
+
+		if (buf[0] == '\0' || buf[0] == '#') {
+			continue;
+		}
+
+		char commandName[MAX_CHAR_COMMAND];
+		char* token;
+		InputType type;
+		int value, direction;
+
+		// @TODO Check buffer overflow
+		token = strtok(buf, DELIMITER);
+		strncpy(commandName, token, MAX_CHAR_COMMAND);
+
+		// @TODO check missing values
+		token = strtok(0, DELIMITER);
+		if (token == 0) {
+			return NO_TYPE_FOUND;
+		}
+
+		type = (InputType) atoi(token);
+		token = strtok(0, DELIMITER);
+		if (token == 0) {
+			return NO_VALUE_FOUND;
+		}
+
+		value = atoi(token);
+		token = strtok(0, DELIMITER);
+
+		if (token != 0) {
+			direction = atoi(token);
+		}
+
+		Command c;
+		c.type = type;
+		switch (type) {
+			case KEYBOARD_KEY:
+				c.key = (SDL_Scancode) value;
+				break;
+			case CONTROLLER_BUTTON:
+				c.buttonId = value;
+				break;
+			case CONTROLLER_STICK:
+				c.stickAxis = (JoystickControl) value;
+				c.stickDirection = direction;
+				break;
+		}
+		add(commandName, c);
 	}
 }

@@ -264,5 +264,6 @@ int Game::getScreenHeight() {
 }
 
 void Game::_initServiceProvider() {
-	ServiceProvider::setUserActions();
+	const char* mappingFile = "configs/playercontrolsmapping.txt";
+	ServiceProvider::setUserActions(mappingFile);
 }
