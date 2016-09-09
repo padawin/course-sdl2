@@ -92,6 +92,12 @@ class Game {
 	 */
 	void _cleanUserActions();
 
+	/**
+	 * Set the mapping of actions of the user
+	 */
+	bool _initServiceProvider();
+
+
 	public:
 	/**
 	 * Because of the singleton, the following construct and operator are
@@ -175,11 +181,6 @@ class Game {
 	 */
 	int getScreenWidth();
 	int getScreenHeight();
-
-	/**
-	 * Set the mapping of actions of the user
-	 */
-	void _initServiceProvider();
 };
 
 #endif /* defined(__Game__) */

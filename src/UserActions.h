@@ -6,10 +6,15 @@
 #include <vector>
 #include "InputHandler.h"
 
+#define NO_FILE_FOUND 1
+#define NO_TYPE_FOUND 2
+#define NO_VALUE_FOUND 3
+#define INVALID_TYPE 4
+
 struct Command {
 	InputType type;
 	int buttonId;
-	int stickDirection;
+	int stickDirection = 0;
 	JoystickControl stickAxis;
 	SDL_Scancode key;
 };
@@ -23,6 +28,7 @@ class UserActions {
 	void add(std::string name, Command c);
 	int getActionState(std::string name);
 	void resetActionState(std::string name);
+	int setActionsFromFile(const char* mappingFile);
 };
 
 #endif
