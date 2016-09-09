@@ -148,4 +148,6 @@ int UserActions::setActionsFromFile(const char* mappingFile) {
 		}
 		add(commandName, c);
 	}
+
+	return 0;
 }
