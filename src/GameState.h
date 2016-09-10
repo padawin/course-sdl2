@@ -2,9 +2,7 @@
 #define __GameState__
 
 #include <string>
-#include <vector>
-#include "GameObject.h"
-#include "SDLDrawable.h"
+#include "GameObjectCollection.h"
 
 /**
  * Each scene is a game state, provided in the game state machine.
@@ -16,8 +14,7 @@
  */
 class GameState {
 	protected:
-	std::vector<GameObject*> m_vGameObjects = {};
-	std::vector<SDLDrawable*> m_vRenderableObjects = {};
+	GameObjectCollection m_objects;
 
 	public:
 	virtual	~GameState() {}
