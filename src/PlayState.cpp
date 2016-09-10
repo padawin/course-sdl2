@@ -19,24 +19,23 @@ void PlayState::update() {
 		Game::Instance()->getStateMachine()->pushState(new PauseMenuState());
 	}
 
-	for (std::vector<GameObject*>::size_type i = 0; i != m_vGameObjects.size(); i++) {
-		m_vGameObjects[i]->update();
-	}
+	GameState::update();
 }
+
 void PlayState::render() {
 	m_level->render();
-	for (std::vector<GameObject*>::size_type i = 0; i != m_vRenderableObjects.size(); i++) {
-		m_vRenderableObjects[i]->render(Game::Instance()->getRenderer());
-	}
+	GameState::render();
 }
+
 bool PlayState::onEnter() {
 	LevelParser levelParser;
 	m_level = levelParser.parseLevel("configs/levels/level1.tmx");
 	_initActors("configs/levels/level1Objects.xml");
 	return true;
 }
+
 bool PlayState::onExit() {
-	_cleanActors();
+	GameState::onExit();
 	LevelParser levelParser;
 	levelParser.cleanLevel(m_level);
 	return true;
@@ -51,17 +50,7 @@ void PlayState::_initActors(const char* actorsFilePath) {
 	GameStateParser stateParser;
 	stateParser.parseState(
 		actorsFilePath,
-		&m_vGameObjects,
-		&m_vRenderableObjects
+		m_objects.getGameObjects(),
+		m_objects.getDrawables()
 	);
-}
-
-void PlayState::_cleanActors() {
-	for (std::vector<GameObject*>::size_type i = 0; i != m_vGameObjects.size(); i++) {
-		delete m_vGameObjects[i];
-		m_vGameObjects[i] = NULL;
-		m_vRenderableObjects[i] = NULL;
-	}
-
-	m_vGameObjects.clear();
 }

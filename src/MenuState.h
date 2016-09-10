@@ -22,7 +22,6 @@ class MenuState : public GameState {
 	public:
 	MenuState(const int nbButtons);
 	virtual void update();
-	virtual void render();
 	virtual bool onEnter();
 	virtual bool onExit();
 };

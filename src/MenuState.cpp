@@ -1,5 +1,4 @@
 #include "MenuState.h"
-#include "Game.h"
 #include "GameStateParser.h"
 #include "ServiceProvider.h"
 #include "PlayState.h"
@@ -39,19 +38,13 @@ void MenuState::update() {
 	}
 }
 
-void MenuState::render() {
-	for (std::vector<GameObject*>::size_type i = 0; i != m_vRenderableObjects.size(); i++) {
-		m_vRenderableObjects[i]->render(Game::Instance()->getRenderer());
-	}
-}
-
 bool MenuState::onEnter() {
 	// parse the state
 	GameStateParser stateParser;
 	bool stateParsed = stateParser.parseState(
 		"configs/menus.xml",
-		&m_vGameObjects,
-		&m_vRenderableObjects,
+		m_objects.getGameObjects(),
+		m_objects.getDrawables(),
 		getStateID().c_str()
 	);
 
@@ -59,9 +52,10 @@ bool MenuState::onEnter() {
 		return false;
 	}
 
-	for (std::vector<GameObject*>::size_type i = 0; i != m_vRenderableObjects.size(); i++) {
-		if (dynamic_cast<MenuButton*>(m_vGameObjects[i])) {
-			MenuButton* button = dynamic_cast<MenuButton*>(m_vGameObjects[i]);
+	std::vector<SDLDrawable*>* drawables = m_objects.getDrawables();
+	for (std::vector<GameObject*>::size_type i = 0; i != drawables->size(); i++) {
+		if (dynamic_cast<MenuButton*>((*drawables)[i])) {
+			MenuButton* button = dynamic_cast<MenuButton*>((*drawables)[i]);
 			m_vButtons.push_back(button);
 			button->setActive(i == 0);
 			button->setAction(s_vActions[i]);
@@ -71,11 +65,8 @@ bool MenuState::onEnter() {
 }
 
 bool MenuState::onExit() {
-	for (int i = 0; i < (int) m_vButtons.size(); ++i) {
-		delete m_vButtons[i];
-		m_vButtons[i] = NULL;
-		m_vGameObjects[i] = NULL;
-		m_vRenderableObjects[i] = NULL;
-	}
+	GameState::onExit();
+	m_vButtons.clear();
+
 	return true;
 }
