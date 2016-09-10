@@ -35,7 +35,7 @@ bool PlayState::onEnter() {
 }
 
 bool PlayState::onExit() {
-	_cleanActors();
+	GameState::onExit();
 	LevelParser levelParser;
 	levelParser.cleanLevel(m_level);
 	return true;
@@ -53,14 +53,4 @@ void PlayState::_initActors(const char* actorsFilePath) {
 		&m_vGameObjects,
 		&m_vRenderableObjects
 	);
-}
-
-void PlayState::_cleanActors() {
-	for (std::vector<GameObject*>::size_type i = 0; i != m_vGameObjects.size(); i++) {
-		delete m_vGameObjects[i];
-		m_vGameObjects[i] = NULL;
-		m_vRenderableObjects[i] = NULL;
-	}
-
-	m_vGameObjects.clear();
 }
