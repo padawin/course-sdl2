@@ -18,7 +18,11 @@ GameObjectFactory *GameObjectFactory::Instance() {
 }
 
 void GameObjectFactory::clean() {
-	for(std::map<std::string, GameObjectCreator*>::iterator itr = m_creators.begin(); itr != m_creators.end(); itr++) {
+	for (
+		std::map<std::string, GameObjectCreator*>::iterator itr = m_creators.begin();
+		itr != m_creators.end();
+		itr++
+	) {
 		delete itr->second;
 	}
 }
