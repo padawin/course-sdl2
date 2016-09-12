@@ -1,8 +1,10 @@
 #include "LevelParser.h"
 #include "TextureManager.h"
 #include "TileLayer.h"
+#include "ObjectLayer.h"
 #include "Game.h"
 #include "config.h"
+#include "objectParser.h"
 #include "vendor/base64.h"
 #include <zlib.h>
 
@@ -38,8 +40,13 @@ Level* LevelParser::parseLevel(std::string levelFilePath) {
 
 	for (TiXmlElement* e = root->FirstChildElement(); e != NULL; e = e->NextSiblingElement()) {
 		// parse any object layers
-		if (e->Value() == std::string("layer")) {
-			_parseTileLayer(e, level->getLayers(), level->getTilesets());
+		if(e->Value() == std::string("objectgroup") || e->Value() == std::string("layer")) {
+			if (e->FirstChildElement()->Value() == std::string("object")) {
+				_parseObjectLayer(e, level->getLayers());
+			}
+			else if (e->FirstChildElement()->Value() ==std::string("data")) {
+				_parseTileLayer(e, level->getLayers(), level->getTilesets());
+			}
 		}
 	}
 
@@ -141,4 +148,21 @@ void LevelParser::_parseTileLayer(
 
 	tileLayer->setTileIDs(data, m_iWidth, m_iHeight);
 	layers->push_back(tileLayer);
+}
+
+void LevelParser::_parseObjectLayer(TiXmlElement* pObjectElement, std::vector<Layer*> *layers) {
+	// create an object layer
+	ObjectLayer* pObjectLayer = new ObjectLayer();
+	for (TiXmlElement* e = pObjectElement->FirstChildElement(); e != NULL; e = e->NextSiblingElement()) {
+		if (e->Value() != std::string("object")) {
+			continue;
+		}
+
+		objectParser::parseObject(
+			e,
+			pObjectLayer->getObjects()->getGameObjects(),
+			pObjectLayer->getObjects()->getDrawables()
+		);
+	}
+	layers->push_back(pObjectLayer);
 }
