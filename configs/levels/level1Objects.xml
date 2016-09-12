@@ -1,24 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <objects>
-	<object
-		drawable="true" type="Player"
-		x="0.0" y="0.0" w="96" h="54"
-		texture="animate" textureRow="1"
-		nbFrames="6" animationSpeed="10"
-		animated="false"
-	/>
-	<object
-		drawable="true" type="Enemy"
-		x="96.0" y="54.0" w="96" h="54"
-		texture="animate" textureRow="1"
-		nbFrames="6" animationSpeed="10"
-		animated="true"
-	/>
-	<object
-		drawable="true" type="Enemy"
-		x="256.0" y="284.0" w="96" h="54"
-		texture="animate" textureRow="1"
-		nbFrames="6" animationSpeed="10"
-		animated="false"
-	/>
+	<object x="0.0" y="0.0" width="96" height="54">
+		<properties>
+			<property name="drawable" value="true" />
+			<property name="type" value="Player" />
+			<property name="texture" value="animate" />
+			<property name="textureRow" value="1" />
+			<property name="nbFrames" value="6" />
+			<property name="animationSpeed" value="10" />
+			<property name="animated" value="false" />
+		</properties>
+	</object>
+	<object x="96.0" y="54.0" width="96" height="54">
+		<properties>
+			<property name="drawable" value="true"  />
+			<property name="type" value="Enemy" />
+			<property name="texture" value="animate" />
+			<property name="textureRow" value="1" />
+			<property name="nbFrames" value="6" />
+			<property name="animationSpeed" value="10" />
+			<property name="animated" value="true" />
+		</properties>
+	</object>
+	<object x="256.0" y="284.0" width="96" height="54">
+		<properties>
+			<property name="drawable" value="true"  />
+			<property name="type" value="Enemy" />
+			<property name="texture" value="animate" />
+			<property name="textureRow" value="1" />
+			<property name="nbFrames" value="6" />
+			<property name="animationSpeed" value="10" />
+			<property name="animated" value="false" />
+		</properties>
+	</object>
 </objects>

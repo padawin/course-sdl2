@@ -14,7 +14,8 @@ bool parseObject(
 	std::vector<GameObject*> *objects,
 	std::vector<SDLDrawable*> *drawables
 );
-SDLDrawable* _parseDrawable(TiXmlElement* object, std::string type);
+SDLDrawable* _createDrawable(TiXmlElement* object, std::map<std::string, std::string> properties);
+void _parseProperties(TiXmlElement* object, std::map<std::string, std::string> *propertiesMap);
 
 }
 #endif

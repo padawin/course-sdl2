@@ -8,13 +8,19 @@ bool parseObject(
 	std::vector<GameObject*> *objects,
 	std::vector<SDLDrawable*> *drawables
 ) {
-	bool drawable;
-	const char* type;
-	drawable = object->Attribute("drawable");
-	type = object->Attribute("type");
+	std::string type;
+	std::map<std::string, std::string> properties;
+	std::map<std::string, std::string>::iterator typeIter;
 
-	if (drawable) {
-		SDLDrawable* drawableObject = _parseDrawable(object, type);
+	_parseProperties(object, &properties);
+	typeIter = properties.find("type");
+	if (typeIter == properties.end()) {
+		return false;
+	}
+
+	type = typeIter->second;
+	if (properties.find("drawable") != properties.end()) {
+		SDLDrawable* drawableObject = _createDrawable(object, properties);
 		drawables->push_back(drawableObject);
 		objects->push_back(drawableObject);
 	}
@@ -26,8 +32,9 @@ bool parseObject(
 	return true;
 }
 
-SDLDrawable* _parseDrawable(TiXmlElement* object, std::string type) {
-	const char* texture;
+SDLDrawable* _createDrawable(TiXmlElement* object, std::map<std::string, std::string> properties) {
+	std::string texture, type;
+	std::map<std::string, std::string>::iterator propertyIterator;
 	float x, y;
 	int w, h,
 		textureRow = 0,
@@ -38,13 +45,25 @@ SDLDrawable* _parseDrawable(TiXmlElement* object, std::string type) {
 	nbFrames = 1;
 	object->QueryFloatAttribute("x", &x);
 	object->QueryFloatAttribute("y", &y);
-	object->QueryIntAttribute("w", &w);
-	object->QueryIntAttribute("h", &h);
-	texture = object->Attribute("texture");
-	object->QueryIntAttribute("textureRow", &textureRow);
-	object->QueryIntAttribute("nbFrames", &nbFrames);
-	object->QueryIntAttribute("animationSpeed", &animationSpeed);
-	object->QueryBoolAttribute("animated", &animated);
+	object->QueryIntAttribute("width", &w);
+	object->QueryIntAttribute("height", &h);
+
+	texture = properties.find("texture")->second;
+	type = properties.find("type")->second;
+	textureRow = atoi(properties.find("textureRow")->second.c_str());
+
+	propertyIterator = properties.find("nbFrames");
+	if (propertyIterator != properties.end()) {
+		nbFrames = atoi(propertyIterator->second.c_str());
+	}
+
+	propertyIterator = properties.find("animationSpeed");
+	if (propertyIterator != properties.end()) {
+		animationSpeed = atoi(propertyIterator->second.c_str());
+	}
+
+	propertyIterator = properties.find("animated");
+	animated = propertyIterator != properties.end() && propertyIterator->second == "true";
 
 	SDLDrawableLoader* loader;
 	// non animated texture
@@ -67,6 +86,34 @@ SDLDrawable* _parseDrawable(TiXmlElement* object, std::string type) {
 	loader = NULL;
 
 	return gameObject;
+}
+
+void _parseProperties(TiXmlElement* object, std::map<std::string, std::string> *propertiesMap) {
+	// get the property values
+	for (
+		TiXmlElement* properties = object->FirstChildElement();
+		properties != NULL;
+		properties = properties->NextSiblingElement()
+	) {
+		if (properties->Value() != std::string("properties")) {
+			continue;
+		}
+
+		for (
+			TiXmlElement* property = properties->FirstChildElement();
+			property != NULL;
+			property = property->NextSiblingElement()
+		) {
+			if (property->Value() != std::string("property")) {
+				continue;
+			}
+
+			std::string name, value;
+			name = property->Attribute("name");
+			value = property->Attribute("value");
+			(*propertiesMap)[name] = value;
+		}
+	}
 }
 
 }
