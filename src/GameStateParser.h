@@ -15,7 +15,7 @@ class GameStateParser {
 		const char* stateFile,
 		std::vector<GameObject*> *objects,
 		std::vector<SDLDrawable*> *drawables,
-		const char* stateID = 0
+		const char* stateID
 	);
 };
 
