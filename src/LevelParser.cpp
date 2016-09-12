@@ -60,7 +60,7 @@ void LevelParser::_parseTextures(TiXmlElement* propertiesNode) {
 		}
 
 		TextureManager::Instance()->load(
-			e->Attribute("value"),
+			_joinPath(RESOURCE_PATH, e->Attribute("value")),
 			e->Attribute("name"),
 			Game::Instance()->getRenderer()
 		);
