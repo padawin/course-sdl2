@@ -30,6 +30,10 @@ Level* LevelParser::parseLevel(std::string levelFilePath) {
 		if (e->Value() == std::string("tileset")) {
 			_parseTilesets(e, level->getTilesets());
 		}
+
+		if (e->Value() == std::string("properties")) {
+			_parseTextures(e);
+		}
 	}
 
 	for (TiXmlElement* e = root->FirstChildElement(); e != NULL; e = e->NextSiblingElement()) {
@@ -40,6 +44,20 @@ Level* LevelParser::parseLevel(std::string levelFilePath) {
 	}
 
 	return level;
+}
+
+void LevelParser::_parseTextures(TiXmlElement* propertiesNode) {
+	for (TiXmlElement* e = propertiesNode->FirstChildElement(); e != NULL; e = e->NextSiblingElement()) {
+		if (e->Value() != std::string("property")) {
+			continue;
+		}
+
+		TextureManager::Instance()->load(
+			e->Attribute("value"),
+			e->Attribute("name"),
+			Game::Instance()->getRenderer()
+		);
+	}
 }
 
 void LevelParser::cleanLevel(Level* level) {
