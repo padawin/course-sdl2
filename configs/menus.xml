@@ -2,35 +2,50 @@
 <states>
 	<state id="MAINMENU">
 		<objects>
-			<object
-				drawable="true" type="MenuButton"
-				x="50.0" y="150.0" w="300" h="100"
-				texture="mainmenu" textureRow="1"
-			/>
-			<object
-				drawable="true" type="MenuButton"
-				x="50.0" y="250.0" w="300" h="100"
-				texture="mainmenu" textureRow="2"
-			/>
+			<object x="50.0" y="150.0" width="300" height="100">
+				<properties>
+					<property name="drawable" value="true" />
+					<property name="type" value="MenuButton" />
+					<property name="texture" value="mainmenu" />
+					<property name="textureRow" value="1" />
+				</properties>
+			</object>
+			<object x="50.0" y="250.0" width="300" height="100">
+				<properties>
+					<property name="drawable" value="true" />
+					<property name="type" value="MenuButton" />
+					<property name="texture" value="mainmenu" />
+					<property name="textureRow" value="2" />
+				</properties>
+			</object>
 		</objects>
 	</state>
 	<state id="PAUSEMENU">
 		<objects>
-			<object
-				drawable="true" type="MenuButton"
-				x="50.0" y="150.0" w="300" h="100"
-				texture="pausemenu" textureRow="1"
-			/>
-			<object
-				drawable="true" type="MenuButton"
-				x="50.0" y="250.0" w="300" h="100"
-				texture="pausemenu" textureRow="2"
-			/>
-			<object
-				drawable="true" type="MenuButton"
-				x="50.0" y="350.0" w="300" h="100"
-				texture="pausemenu" textureRow="3"
-			/>
+			<object x="50.0" y="150.0" width="300" height="100">
+				<properties>
+					<property name="drawable" value="true" />
+					<property name="type" value="MenuButton" />
+					<property name="texture" value="pausemenu" />
+					<property name="textureRow" value="1" />
+				</properties>
+			</object>
+			<object x="50.0" y="250.0" width="300" height="100">
+				<properties>
+					<property name="drawable" value="true" />
+					<property name="type" value="MenuButton" />
+					<property name="texture" value="pausemenu" />
+					<property name="textureRow" value="2" />
+				</properties>
+			</object>
+			<object x="50.0" y="350.0" width="300" height="100">
+				<properties>
+					<property name="drawable" value="true" />
+					<property name="type" value="MenuButton" />
+					<property name="texture" value="pausemenu" />
+					<property name="textureRow" value="3" />
+				</properties>
+			</object>
 		</objects>
 	</state>
 </states>

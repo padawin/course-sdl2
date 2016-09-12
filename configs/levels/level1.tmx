@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="80" height="15" tilewidth="32" tileheight="32" nextobjectid="1">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="80" height="15" tilewidth="32" tileheight="32" nextobjectid="2">
+ <properties>
+  <property name="animate" value="resources/char9.png"/>
+ </properties>
  <tileset firstgid="1" name="blocks1" tilewidth="32" tileheight="32" spacing="2" margin="2" tilecount="198">
   <image source="blocks1.png" width="614" height="376"/>
  </tileset>
@@ -8,4 +11,17 @@
    eJztlkkKwzAMRQ2FHCGdT5AbhNSbjuCCu8/971GFSlQIO0Pj0NaO4GNiyy/iyxlqNcfQsDg+QPU3C/nTmP0bF7N/4yKEf0fQCXQGXUBX0C0RVpd/fWowII0qcbwnwuryz7B8rdw1GLFeeuqMkdXHvwLzfT1scjLMqzw5sbL6nj/aswKtQRvQFrQD7XGtYmrrc0ysof41Y65efaCzfGDXmWrvc2ws6V8f7/l7IEd2xuYKZKfAkv4ZnJPe0x7J1oLdrC+QzVk2IOuX6nL5pxmjwL38udcix9fPKVg2ICtEXS7/lmLvQfBovlTv7xa/J53tqVjyzHzCsoFYPv8oN2ds17uBf/Mph/6NUmBx/54Rc6E+
   </data>
  </layer>
+ <objectgroup name="Object Layer 1">
+  <object id="1" x="67" y="266" width="96" height="54">
+   <properties>
+    <property name="animated" value="false"/>
+    <property name="drawable" value="true"/>
+    <property name="animationSpeed" value="10"/>
+    <property name="nbFrames" value="6"/>
+    <property name="texture" value="animate"/>
+    <property name="textureRow" value="1"/>
+    <property name="type" value="Player"/>
+   </properties>
+  </object>
+ </objectgroup>
 </map>

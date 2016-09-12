@@ -8,17 +8,6 @@
 
 class GameStateParser {
 	private:
-	SDLDrawable* _parseDrawable(TiXmlElement* object, std::string type);
-	bool _parseObjects(
-		TiXmlElement* object,
-		std::vector<GameObject*> *objects,
-		std::vector<SDLDrawable*> *drawables
-	);
-	bool _parseObject(
-		TiXmlElement* object,
-		std::vector<GameObject*> *objects,
-		std::vector<SDLDrawable*> *drawables
-	);
 	bool _getStateNode(TiXmlElement** root, const char* stateID);
 
 	public:

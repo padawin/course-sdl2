@@ -16,7 +16,6 @@ static Game* s_pInstance;
  * Game construct, Initialises the vector of resource names.
  */
 Game::Game() {
-	m_vResourceFiles.push_back(std::make_pair("animate", "resources/char9.png"));
 	m_vResourceFiles.push_back(std::make_pair("mainmenu", "resources/menu-buttons.png"));
 	m_vResourceFiles.push_back(std::make_pair("pausemenu", "resources/pause-menu-buttons.png"));
 	m_iNbFiles = (int) m_vResourceFiles.size();
