@@ -5,6 +5,8 @@
 #include <vector>
 #include "Level.h"
 
+#define RESOURCE_PATH "resources/"
+
 class LevelParser {
 	private:
 	void _parseTilesets(TiXmlElement* pTilesetRoot, std::vector<Tileset>* pTilesets);

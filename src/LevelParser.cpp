@@ -3,7 +3,6 @@
 #include "TileLayer.h"
 #include "ObjectLayer.h"
 #include "Game.h"
-#include "config.h"
 #include "objectParser.h"
 #include "vendor/base64.h"
 #include <zlib.h>
