@@ -8,7 +8,6 @@ using std::ifstream;
 
 const int MAX_CHAR_COMMAND = 128;
 const int MAX_CHARS_PER_LINE = 134; // 128 + 6
-const int MAX_TOKENS_PER_LINE = 4;
 const char* const DELIMITER = ";";
 
 UserActions::UserActions() : m_mMappings({}) {}
