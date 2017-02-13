@@ -3,7 +3,7 @@ SRCDIR := src
 BUILDDIR := build
 
 PROG   := sdl-example
-CC     := g++
+CC     := g++ -std=c++11
 INCL   :=
 CFLAGS := -g -O2 -Wall -Wmissing-declarations -Weffc++ \
 		-pedantic -pedantic-errors -Wextra -Wcast-align \
