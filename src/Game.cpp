@@ -1,35 +1,14 @@
 #include "Game.h"
 #include "InputHandler.h"
-#include "MainMenuState.h"
 #include "NoJoystickState.h"
 #include "GameObjectFactory.h"
-#include "MenuButton.h"
-#include "Player.h"
-#include "Enemy.h"
 #include "ServiceProvider.h"
 #include <iostream>
 #include <errno.h>
 
 static Game* s_pInstance;
 
-/**
- * Game construct, Initialises the vector of resource names.
- */
 Game::Game() {
-	m_vResourceFiles.push_back(std::make_pair("mainmenu", "resources/menu-buttons.png"));
-	m_vResourceFiles.push_back(std::make_pair("pausemenu", "resources/pause-menu-buttons.png"));
-	m_iNbFiles = (int) m_vResourceFiles.size();
-
-	// object types
-	GameObjectFactory::Instance()->registerType(
-		"MenuButton", new MenuButtonCreator()
-	);
-	GameObjectFactory::Instance()->registerType(
-		"Player", new PlayerCreator()
-	);
-	GameObjectFactory::Instance()->registerType(
-		"Enemy", new EnemyCreator()
-	);
 }
 
 /**
@@ -179,7 +158,6 @@ bool Game::_loadResources() {
  */
 void Game::_initGameMachine() {
 	m_gameStateMachine = new GameStateMachine();
-	m_gameStateMachine->changeState(new MainMenuState());
 }
 
 /**
