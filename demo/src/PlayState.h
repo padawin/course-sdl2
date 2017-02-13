@@ -11,7 +11,7 @@ class PlayState : public GameState {
 	private:
 	static const std::string s_menuID;
 
-	Level *m_level;
+	Level *m_level = 0;
 
 	void _initActors(const char* actorsFilePath);
 	void _cleanActors();
