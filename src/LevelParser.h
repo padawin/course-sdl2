@@ -7,6 +7,8 @@
 
 #define RESOURCE_PATH "resources/"
 
+class TiXmlElement;
+
 class LevelParser {
 	private:
 	void _parseTilesets(TiXmlElement* pTilesetRoot, std::vector<Tileset>* pTilesets);
@@ -26,6 +28,8 @@ class LevelParser {
 	public:
 	virtual Level* parseLevel(std::string levelFilePath);
 	virtual void cleanLevel(Level* level);
+	virtual ~LevelParser() {};
+	LevelParser();
 };
 
 #endif

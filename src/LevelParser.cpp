@@ -4,8 +4,14 @@
 #include "ObjectLayer.h"
 #include "Game.h"
 #include "objectParser.h"
-#include "vendor/base64.h"
+#include "base64.h"
 #include <zlib.h>
+
+LevelParser::LevelParser() :
+	m_iTileSize(0),
+	m_iWidth(0),
+	m_iHeight(0)
+{}
 
 std::string LevelParser::_joinPath(std::string pathPart1, std::string pathPart2) {
 	return pathPart1 + '/' + pathPart2;
@@ -110,7 +116,7 @@ void LevelParser::_parseTileLayer(
 	std::vector<int> layerRow(m_iWidth);
 	std::string decodedIDs;
 	uLongf numGids;
-	TiXmlElement* dataNode;
+	TiXmlElement* dataNode = 0;
 
 	for (TiXmlElement* e = tileElement->FirstChildElement(); e != NULL; e = e->NextSiblingElement()) {
 		if (e->Value() == std::string("data")) {

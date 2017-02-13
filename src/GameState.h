@@ -18,6 +18,7 @@ class GameState {
 
 	public:
 	virtual	~GameState() {}
+	GameState() : m_objects() {}
 	virtual void update();
 	virtual void render();
 	virtual bool onEnter() = 0;

@@ -35,7 +35,8 @@ bool parseObject(
 SDLDrawable* _createDrawable(TiXmlElement* object, std::map<std::string, std::string> properties) {
 	std::string texture, type;
 	std::map<std::string, std::string>::iterator propertyIterator;
-	float x, y;
+	float x = 0.0f,
+		  y = 0.0f;
 	int w, h,
 		textureRow = 0,
 		nbFrames = 1,

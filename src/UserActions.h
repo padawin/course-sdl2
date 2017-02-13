@@ -12,11 +12,11 @@
 #define INVALID_TYPE 4
 
 struct Command {
-	InputType type;
-	int buttonId;
+	InputType type = NULL_TYPE;
+	int buttonId = 0;
 	int stickDirection = 0;
-	JoystickControl stickAxis;
-	SDL_Scancode key;
+	JoystickControl stickAxis = NULL_CONTROL;
+	SDL_Scancode key = SDL_SCANCODE_INTERNATIONAL1;
 };
 
 class UserActions {

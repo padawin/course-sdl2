@@ -16,6 +16,7 @@ class GameObjectCollection {
 	virtual void clean();
 	virtual std::vector<GameObject*>* getGameObjects();
 	virtual std::vector<SDLDrawable*>* getDrawables();
+	virtual ~GameObjectCollection() {};
 };
 
 #endif

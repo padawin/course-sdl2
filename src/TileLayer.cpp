@@ -2,7 +2,15 @@
 #include "Game.h"
 
 TileLayer::TileLayer(int tileSize, const std::vector<Tileset> &tilesets) :
-	m_iTileSize(tileSize), m_vTilesets(tilesets), m_position(0, 0), m_velocity(0, 0)
+	m_iNbColumns(0),
+	m_iNbRows(0),
+	m_iLayerNbColumns(0),
+	m_iLayerNbRows(0),
+	m_iTileSize(tileSize),
+	m_position(0, 0),
+	m_velocity(0, 0),
+	m_vTilesets(tilesets),
+	m_vTileIDs()
 {
 	m_iNbColumns = Game::Instance()->getScreenWidth() / m_iTileSize + 1;
 	m_iNbRows = Game::Instance()->getScreenHeight() / m_iTileSize + 1;
@@ -33,8 +41,8 @@ void TileLayer::render() {
 	int x, y, x2, y2 = 0;
 
 	// what is the first visible tile in the layer
-	x = m_position.getX() / m_iTileSize;
-	y = m_position.getY() / m_iTileSize;
+	x = (int) m_position.getX() / m_iTileSize;
+	y = (int) m_position.getY() / m_iTileSize;
 
 	// Where is the edge of the screen in the first tile
 	x2 = int(m_position.getX()) % m_iTileSize;
@@ -61,9 +69,10 @@ void TileLayer::render() {
 }
 
 Tileset TileLayer::_getTilesetByID(int tileID) {
-	for (int i = 0; i < m_vTilesets.size(); i++) {
+	size_t sizeTilesets = m_vTilesets.size();
+	for (unsigned int i = 0; i < sizeTilesets; i++) {
 		// if we reached the last tileset, return it
-		if (i == m_vTilesets.size() - 1) {
+		if (i == sizeTilesets - 1) {
 			return m_vTilesets[i];
 		}
 

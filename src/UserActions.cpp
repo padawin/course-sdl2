@@ -49,6 +49,9 @@ int UserActions::getActionState(std::string name) {
 			case KEYBOARD_KEY:
 				ret = handlerInstance->getKeyState(commands[c].key);
 				break;
+			case NULL_TYPE:
+			default:
+				break;
 		}
 
 		if (ret != 0) {
@@ -78,6 +81,8 @@ void UserActions::resetActionState(std::string name) {
 			case KEYBOARD_KEY:
 				handlerInstance->setKeyState(commands[c].key, false);
 				break;
+			case CONTROLLER_STICK:
+			case NULL_TYPE:
 			default:
 				break;
 		}
@@ -106,7 +111,8 @@ int UserActions::setActionsFromFile(const char* mappingFile) {
 		char commandName[MAX_CHAR_COMMAND];
 		char* token;
 		InputType type;
-		int value, direction;
+		int value,
+			direction = 0;
 
 		// @TODO Check buffer overflow
 		token = strtok(buf, DELIMITER);
@@ -144,6 +150,7 @@ int UserActions::setActionsFromFile(const char* mappingFile) {
 				c.stickAxis = (JoystickControl) value;
 				c.stickDirection = direction;
 				break;
+			case NULL_TYPE:
 			default:
 				return INVALID_TYPE;
 		}

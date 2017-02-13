@@ -11,6 +11,7 @@ class ObjectLayer : public Layer {
 	GameObjectCollection m_objects;
 
 	public:
+	ObjectLayer() : m_objects() {}
 	virtual void update();
 	virtual void render();
 
