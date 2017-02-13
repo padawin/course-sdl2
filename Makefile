@@ -1,8 +1,8 @@
-BINDIR := bin
 SRCDIR := src
 BUILDDIR := build
+LIBDIR := lib
 
-PROG   := sdl-example
+PROG   := SDL_framework.so
 CC     := g++ -std=c++11
 INCL   :=
 CFLAGS := -g -O2 -Wall -Wmissing-declarations -Weffc++ \
@@ -26,8 +26,8 @@ CFLAGS := -g -O2 -Wall -Wmissing-declarations -Weffc++ \
 		-Wunused-parameter \
 		-Wvariadic-macros \
 		-Wwrite-strings
-LDFLAGS:= -I./$(SRCDIR)
-CCDYNAMICFLAGS := ${CFLAGS} ${LDFLAGS} -Ivendor/ -lSDL2 -lSDL2_image -ltinyxml -lz
+LDFLAGS:= -Ivendor/
+CCDYNAMICFLAGS := ${CFLAGS} ${LDFLAGS} -lSDL2 -lSDL2_image -ltinyxml -lz -fPIC
 
 SRC := $(shell find $(SRCDIR)/ -type f -name '*.cpp')
 OBJ := $(patsubst %.cpp,$(BUILDDIR)/%.o,$(SRC))
@@ -42,11 +42,11 @@ all: $(PROG)
 
 build/%.o: %.cpp
 	@mkdir -p $(dir $@)
-	$(CC) -c -MMD $(patsubst $(BUILDDIR)/%.o,%.cpp,$@) -o $@
+	$(CC) $(CCDYNAMICFLAGS) -c -MMD $(patsubst $(BUILDDIR)/%.o,%.cpp,$@) -o $@
 
 clean:
-	rm -rf $(BINDIR) $(BUILDDIR)
+	rm -rf $(BUILDDIR) $(LIBDIR)
 
 $(PROG): $(OBJ)
-	mkdir -p $(BINDIR)
-	$(CC) -o $(BINDIR)/$@ $^ $(CCDYNAMICFLAGS)
+	mkdir -p $(LIBDIR)
+	$(CC) -shared -o $(LIBDIR)/$@ $^
