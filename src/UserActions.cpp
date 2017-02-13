@@ -79,6 +79,8 @@ void UserActions::resetActionState(std::string name) {
 			case KEYBOARD_KEY:
 				handlerInstance->setKeyState(commands[c].key, false);
 				break;
+			default:
+				break;
 		}
 	}
 }
