@@ -37,7 +37,7 @@ class Game {
 	/**
 	 * Number of resources used by the game
 	 */
-	int m_iNbFiles = 0;
+	unsigned long m_iNbFiles = 0;
 
 	GameStateMachine* m_gameStateMachine = 0;
 

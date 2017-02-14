@@ -13,7 +13,7 @@
 
 struct Command {
 	InputType type = NULL_TYPE;
-	int buttonId = 0;
+	unsigned long buttonId = 0;
 	int stickDirection = 0;
 	JoystickControl stickAxis = NULL_CONTROL;
 	SDL_Scancode key = SDL_SCANCODE_INTERNATIONAL1;

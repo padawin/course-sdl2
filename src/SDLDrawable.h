@@ -17,8 +17,8 @@ class SDLDrawableLoader;
 class SDLDrawable : public GameObject {
 	protected:
 	std::string m_sTextureID = "";
-	int m_iNbFrames = 0;
-	int m_iAnimationSpeed = 1;
+	unsigned int m_iNbFrames = 0;
+	unsigned int m_iAnimationSpeed = 1;
 	int m_iCurrentFrame = 0;
 	int m_iCurrentRow = 0;
 
@@ -38,8 +38,8 @@ class SDLDrawable : public GameObject {
 	 * Method to load the object
 	 */
 	virtual void load(SDLDrawableLoader* loader);
-	void setTexture(const std::string textureID, const int nbFrames=1, const int animationSpeed=1);
-	virtual void setAnimationSpeed(const int animationSpeed);
+	void setTexture(const std::string textureID, const unsigned int nbFrames=1, const unsigned int animationSpeed=1);
+	virtual void setAnimationSpeed(const unsigned int animationSpeed);
 	virtual void setTextureRow(const int currentRow);
 	virtual void setVelocity(const Vector2D velocity);
 	virtual void setAcceleration(const Vector2D acceleration);
@@ -57,8 +57,8 @@ class SDLDrawableLoader : public GameObjectLoader {
 	int m_iHeight;
 	std::string m_sTextureID;
 	int m_iTextureRow;
-	int m_iNbFrames = 1;
-	int m_iAnimationSpeed = 1;
+	unsigned int m_iNbFrames = 1;
+	unsigned int m_iAnimationSpeed = 1;
 	bool m_bAnimated = false;
 
 
@@ -73,7 +73,7 @@ class SDLDrawableLoader : public GameObjectLoader {
 		const float x, const float y,
 		const int width, const int height,
 		const std::string textureID, const int textureRow,
-		const int nbFrames, const int animationSpeed,
+		const unsigned int nbFrames, const unsigned int animationSpeed,
 		const bool animated=false
 	);
 	float getX();
@@ -82,8 +82,8 @@ class SDLDrawableLoader : public GameObjectLoader {
 	int getHeight();
 	std::string getTextureID();
 	int getTextureRow();
-	int getNbFrames();
-	int getAnimationSpeed();
+	unsigned int getNbFrames();
+	unsigned int getAnimationSpeed();
 	bool isAnimated();
 };
 

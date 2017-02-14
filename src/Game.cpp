@@ -88,7 +88,7 @@ bool Game::_initSDL(
 	const bool fullScreen
 ) {
 	bool l_bReturn = true;
-	int flags = 0;
+	Uint32 flags = 0;
 
 	if (fullScreen) {
 		flags |= SDL_WINDOW_FULLSCREEN;
@@ -127,7 +127,7 @@ bool Game::_loadResources() {
 	const char errorPattern[] = "An error occured while loading the file %s";
 
 	std::cout << "Load resources \n";
-	for (int i = 0; i < m_iNbFiles; ++i) {
+	for (unsigned long i = 0; i < m_iNbFiles; ++i) {
 		char* errorMessage = (char*) calloc(
 			strlen(errorPattern) + strlen(m_vResourceFiles[i].second), sizeof(char)
 		);
@@ -212,7 +212,7 @@ void Game::_cleanGameMachine() {
  */
 void Game::_cleanResources() {
 	std::cout << "Clean resources\n";
-	for (int i = 0; i < m_iNbFiles; ++i) {
+	for (unsigned long i = 0; i < m_iNbFiles; ++i) {
 		std::cout << "Clean resource " << m_vResourceFiles[i].second << "\n";
 		TextureManager::Instance()->clearFromTextureMap(m_vResourceFiles[i].first);
 	}

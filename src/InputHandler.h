@@ -131,17 +131,17 @@ class InputHandler {
 	/**
 	 * Method to get the X or Y value of the given stick if a given joystick
 	 */
-	int stickValue(const int joy, const JoystickControl stick);
+	int stickValue(const unsigned long joy, const JoystickControl stick);
 
 	/**
 	 * Method to get the state of the given button if a given joystick
 	 */
-	bool getButtonState(const int joyIndex, const int buttonNumber);
+	bool getButtonState(const unsigned long joyIndex, const unsigned long buttonNumber);
 
 	/**
 	 * Method to set the state of the given button if a given joystick
 	 */
-	void setButtonState(const int joyIndex, const int button, const bool down);
+	void setButtonState(const unsigned long joyIndex, const unsigned long button, const bool down);
 
 	/**
 	 * Returns true if the provided key (from the keyboard) is pressed, false

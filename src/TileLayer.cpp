@@ -99,5 +99,5 @@ int TileLayer::_getTileId(int x, int y) {
 		return 0;
 	}
 
-	return m_vTileIDs[y][x];
+	return m_vTileIDs[(unsigned long) y][(unsigned long) x];
 }

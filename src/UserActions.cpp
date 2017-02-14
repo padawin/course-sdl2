@@ -144,7 +144,7 @@ int UserActions::setActionsFromFile(const char* mappingFile) {
 				c.key = (SDL_Scancode) value;
 				break;
 			case CONTROLLER_BUTTON:
-				c.buttonId = value;
+				c.buttonId = (unsigned long) value;
 				break;
 			case CONTROLLER_STICK:
 				c.stickAxis = (JoystickControl) value;

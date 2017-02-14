@@ -14,13 +14,13 @@
 class MenuState : public GameState {
 	protected:
 	std::vector<MenuButton*> m_vButtons = {};
-	int m_iNbButtons;
-	int m_iActiveButtonIndex = 0;
+	unsigned int m_iNbButtons;
+	unsigned int m_iActiveButtonIndex = 0;
 	bool m_bMenuBeingChanged = false;
 	std::vector<void (*)()> s_vActions = {};
 
 	public:
-	MenuState(const int nbButtons);
+	MenuState(const unsigned int nbButtons);
 	virtual void update();
 	virtual bool onEnter();
 	virtual bool onExit();

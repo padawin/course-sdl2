@@ -5,7 +5,7 @@ Level::Level() : m_vTilesets(), m_vLayers() {
 }
 
 Level::~Level() {
-	for (int l = 0; l < (int) m_vLayers.size(); l++) {
+	for (unsigned long l = 0; l < m_vLayers.size(); l++) {
 		delete m_vLayers[l];
 		m_vLayers[l] = 0;
 	}
