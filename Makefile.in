@@ -15,6 +15,7 @@
 
 @SET_MAKE@
 
+
 VPATH = @srcdir@
 am__make_dryrun = \
   { \
@@ -65,6 +66,13 @@ am__CONFIG_DISTCLEAN_FILES = config.status config.cache config.log \
 mkinstalldirs = $(install_sh) -d
 CONFIG_CLEAN_FILES =
 CONFIG_CLEAN_VPATH_FILES =
+LIBRARIES = $(noinst_LIBRARIES)
+ARFLAGS = cru
+libbase64_a_AR = $(AR) $(ARFLAGS)
+libbase64_a_LIBADD =
+am__dirstamp = $(am__leading_dot)dirstamp
+am_libbase64_a_OBJECTS = src/libbase64_a-base64.$(OBJEXT)
+libbase64_a_OBJECTS = $(am_libbase64_a_OBJECTS)
 am__vpath_adj_setup = srcdirstrip=`echo "$(srcdir)" | sed 's|.|.|g'`;
 am__vpath_adj = case $$p in \
     $(srcdir)/*) f=`echo "$$p" | sed "s|^$$srcdirstrip/||"`;; \
@@ -94,19 +102,35 @@ am__uninstall_files_from_dir = { \
   }
 am__installdirs = "$(DESTDIR)$(libdir)"
 LTLIBRARIES = $(lib_LTLIBRARIES)
-libSDL_framework_la_LIBADD =
-am__dirstamp = $(am__leading_dot)dirstamp
-am_libSDL_framework_la_OBJECTS = src/base64.lo src/Game.lo \
-	src/GameObjectCollection.lo src/GameObjectFactory.lo \
-	src/GameState.lo src/GameStateMachine.lo \
-	src/GameStateParser.lo src/InputHandler.lo src/Level.lo \
-	src/LevelParser.lo src/MenuButton.lo src/MenuState.lo \
-	src/NoJoystickState.lo src/ObjectLayer.lo src/objectParser.lo \
-	src/SDLDrawable.lo src/ServiceProvider.lo \
-	src/TextureManager.lo src/TileLayer.lo src/tinystr.lo \
-	src/tinyxml.lo src/tinyxmlparser.lo src/UserActions.lo \
-	src/Vector2D.lo
+libSDL_framework_la_DEPENDENCIES = libbase64.a
+am_libSDL_framework_la_OBJECTS = src/libSDL_framework_la-Game.lo \
+	src/libSDL_framework_la-GameObjectCollection.lo \
+	src/libSDL_framework_la-GameObjectFactory.lo \
+	src/libSDL_framework_la-GameState.lo \
+	src/libSDL_framework_la-GameStateMachine.lo \
+	src/libSDL_framework_la-GameStateParser.lo \
+	src/libSDL_framework_la-InputHandler.lo \
+	src/libSDL_framework_la-Level.lo \
+	src/libSDL_framework_la-LevelParser.lo \
+	src/libSDL_framework_la-MenuButton.lo \
+	src/libSDL_framework_la-MenuState.lo \
+	src/libSDL_framework_la-NoJoystickState.lo \
+	src/libSDL_framework_la-ObjectLayer.lo \
+	src/libSDL_framework_la-objectParser.lo \
+	src/libSDL_framework_la-SDLDrawable.lo \
+	src/libSDL_framework_la-ServiceProvider.lo \
+	src/libSDL_framework_la-TextureManager.lo \
+	src/libSDL_framework_la-TileLayer.lo \
+	src/libSDL_framework_la-tinystr.lo \
+	src/libSDL_framework_la-tinyxml.lo \
+	src/libSDL_framework_la-tinyxmlparser.lo \
+	src/libSDL_framework_la-UserActions.lo \
+	src/libSDL_framework_la-Vector2D.lo
 libSDL_framework_la_OBJECTS = $(am_libSDL_framework_la_OBJECTS)
+libSDL_framework_la_LINK = $(LIBTOOL) --tag=CXX $(AM_LIBTOOLFLAGS) \
+	$(LIBTOOLFLAGS) --mode=link $(CXXLD) \
+	$(libSDL_framework_la_CXXFLAGS) $(CXXFLAGS) $(AM_LDFLAGS) \
+	$(LDFLAGS) -o $@
 DEFAULT_INCLUDES = -I.@am__isrc@
 depcomp = $(SHELL) $(top_srcdir)/depcomp
 am__depfiles_maybe = depfiles
@@ -120,8 +144,8 @@ CXXLD = $(CXX)
 CXXLINK = $(LIBTOOL) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) \
 	--mode=link $(CXXLD) $(AM_CXXFLAGS) $(CXXFLAGS) $(AM_LDFLAGS) \
 	$(LDFLAGS) -o $@
-SOURCES = $(libSDL_framework_la_SOURCES)
-DIST_SOURCES = $(libSDL_framework_la_SOURCES)
+SOURCES = $(libbase64_a_SOURCES) $(libSDL_framework_la_SOURCES)
+DIST_SOURCES = $(libbase64_a_SOURCES) $(libSDL_framework_la_SOURCES)
 am__can_run_installinfo = \
   case $$AM_UPDATE_INFO_DIR in \
     n|no|NO) false;; \
@@ -265,7 +289,7 @@ top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 AUTOMAKE_OPTIONS = gnu
-libSDL_framework_la_CFLAGS = -O2 -Wmissing-declarations -Weffc++ \
+libSDL_framework_la_CXXFLAGS = -O2 -Wmissing-declarations -Weffc++ \
 		-Wall -I/usr/local/include \
 		-pedantic -pedantic-errors -Wextra -Wcast-align \
 		-Wcast-qual -Wconversion \
@@ -291,7 +315,11 @@ libSDL_framework_la_CFLAGS = -O2 -Wmissing-declarations -Weffc++ \
 
 AM_LDFLAGS = -L/usr/local/lib -lSDL2 -lSDL2_image -ltinyxml -lz
 lib_LTLIBRARIES = libSDL_framework.la
-libSDL_framework_la_SOURCES = src/base64.cpp src/Game.cpp src/GameObjectCollection.cpp src/GameObjectFactory.cpp src/GameState.cpp src/GameStateMachine.cpp src/GameStateParser.cpp src/InputHandler.cpp src/Level.cpp src/LevelParser.cpp src/MenuButton.cpp src/MenuState.cpp src/NoJoystickState.cpp src/ObjectLayer.cpp src/objectParser.cpp src/SDLDrawable.cpp src/ServiceProvider.cpp src/TextureManager.cpp src/TileLayer.cpp src/tinystr.cpp src/tinyxml.cpp src/tinyxmlparser.cpp src/UserActions.cpp src/Vector2D.cpp
+libSDL_framework_la_SOURCES = src/Game.cpp src/GameObjectCollection.cpp src/GameObjectFactory.cpp src/GameState.cpp src/GameStateMachine.cpp src/GameStateParser.cpp src/InputHandler.cpp src/Level.cpp src/LevelParser.cpp src/MenuButton.cpp src/MenuState.cpp src/NoJoystickState.cpp src/ObjectLayer.cpp src/objectParser.cpp src/SDLDrawable.cpp src/ServiceProvider.cpp src/TextureManager.cpp src/TileLayer.cpp src/tinystr.cpp src/tinyxml.cpp src/tinyxmlparser.cpp src/UserActions.cpp src/Vector2D.cpp
+libSDL_framework_la_LIBADD = libbase64.a
+noinst_LIBRARIES = libbase64.a
+libbase64_a_SOURCES = src/base64.cpp
+libbase64_a_CXXFLAGS = $(CXXFLAGS)
 all: all-am
 
 .SUFFIXES:
@@ -330,6 +358,21 @@ $(top_srcdir)/configure:  $(am__configure_deps)
 $(ACLOCAL_M4):  $(am__aclocal_m4_deps)
 	$(am__cd) $(srcdir) && $(ACLOCAL) $(ACLOCAL_AMFLAGS)
 $(am__aclocal_m4_deps):
+
+clean-noinstLIBRARIES:
+	-test -z "$(noinst_LIBRARIES)" || rm -f $(noinst_LIBRARIES)
+src/$(am__dirstamp):
+	@$(MKDIR_P) src
+	@: > src/$(am__dirstamp)
+src/$(DEPDIR)/$(am__dirstamp):
+	@$(MKDIR_P) src/$(DEPDIR)
+	@: > src/$(DEPDIR)/$(am__dirstamp)
+src/libbase64_a-base64.$(OBJEXT): src/$(am__dirstamp) \
+	src/$(DEPDIR)/$(am__dirstamp)
+libbase64.a: $(libbase64_a_OBJECTS) $(libbase64_a_DEPENDENCIES) $(EXTRA_libbase64_a_DEPENDENCIES) 
+	-rm -f libbase64.a
+	$(libbase64_a_AR) libbase64.a $(libbase64_a_OBJECTS) $(libbase64_a_LIBADD)
+	$(RANLIB) libbase64.a
 install-libLTLIBRARIES: $(lib_LTLIBRARIES)
 	@$(NORMAL_INSTALL)
 	@list='$(lib_LTLIBRARIES)'; test -n "$(libdir)" || list=; \
@@ -362,125 +405,132 @@ clean-libLTLIBRARIES:
 	  echo "rm -f \"$${dir}/so_locations\""; \
 	  rm -f "$${dir}/so_locations"; \
 	done
-src/$(am__dirstamp):
-	@$(MKDIR_P) src
-	@: > src/$(am__dirstamp)
-src/$(DEPDIR)/$(am__dirstamp):
-	@$(MKDIR_P) src/$(DEPDIR)
-	@: > src/$(DEPDIR)/$(am__dirstamp)
-src/base64.lo: src/$(am__dirstamp) src/$(DEPDIR)/$(am__dirstamp)
-src/Game.lo: src/$(am__dirstamp) src/$(DEPDIR)/$(am__dirstamp)
-src/GameObjectCollection.lo: src/$(am__dirstamp) \
+src/libSDL_framework_la-Game.lo: src/$(am__dirstamp) \
 	src/$(DEPDIR)/$(am__dirstamp)
-src/GameObjectFactory.lo: src/$(am__dirstamp) \
+src/libSDL_framework_la-GameObjectCollection.lo: src/$(am__dirstamp) \
 	src/$(DEPDIR)/$(am__dirstamp)
-src/GameState.lo: src/$(am__dirstamp) src/$(DEPDIR)/$(am__dirstamp)
-src/GameStateMachine.lo: src/$(am__dirstamp) \
+src/libSDL_framework_la-GameObjectFactory.lo: src/$(am__dirstamp) \
 	src/$(DEPDIR)/$(am__dirstamp)
-src/GameStateParser.lo: src/$(am__dirstamp) \
+src/libSDL_framework_la-GameState.lo: src/$(am__dirstamp) \
 	src/$(DEPDIR)/$(am__dirstamp)
-src/InputHandler.lo: src/$(am__dirstamp) src/$(DEPDIR)/$(am__dirstamp)
-src/Level.lo: src/$(am__dirstamp) src/$(DEPDIR)/$(am__dirstamp)
-src/LevelParser.lo: src/$(am__dirstamp) src/$(DEPDIR)/$(am__dirstamp)
-src/MenuButton.lo: src/$(am__dirstamp) src/$(DEPDIR)/$(am__dirstamp)
-src/MenuState.lo: src/$(am__dirstamp) src/$(DEPDIR)/$(am__dirstamp)
-src/NoJoystickState.lo: src/$(am__dirstamp) \
+src/libSDL_framework_la-GameStateMachine.lo: src/$(am__dirstamp) \
 	src/$(DEPDIR)/$(am__dirstamp)
-src/ObjectLayer.lo: src/$(am__dirstamp) src/$(DEPDIR)/$(am__dirstamp)
-src/objectParser.lo: src/$(am__dirstamp) src/$(DEPDIR)/$(am__dirstamp)
-src/SDLDrawable.lo: src/$(am__dirstamp) src/$(DEPDIR)/$(am__dirstamp)
-src/ServiceProvider.lo: src/$(am__dirstamp) \
+src/libSDL_framework_la-GameStateParser.lo: src/$(am__dirstamp) \
 	src/$(DEPDIR)/$(am__dirstamp)
-src/TextureManager.lo: src/$(am__dirstamp) \
+src/libSDL_framework_la-InputHandler.lo: src/$(am__dirstamp) \
 	src/$(DEPDIR)/$(am__dirstamp)
-src/TileLayer.lo: src/$(am__dirstamp) src/$(DEPDIR)/$(am__dirstamp)
-src/tinystr.lo: src/$(am__dirstamp) src/$(DEPDIR)/$(am__dirstamp)
-src/tinyxml.lo: src/$(am__dirstamp) src/$(DEPDIR)/$(am__dirstamp)
-src/tinyxmlparser.lo: src/$(am__dirstamp) \
+src/libSDL_framework_la-Level.lo: src/$(am__dirstamp) \
 	src/$(DEPDIR)/$(am__dirstamp)
-src/UserActions.lo: src/$(am__dirstamp) src/$(DEPDIR)/$(am__dirstamp)
-src/Vector2D.lo: src/$(am__dirstamp) src/$(DEPDIR)/$(am__dirstamp)
+src/libSDL_framework_la-LevelParser.lo: src/$(am__dirstamp) \
+	src/$(DEPDIR)/$(am__dirstamp)
+src/libSDL_framework_la-MenuButton.lo: src/$(am__dirstamp) \
+	src/$(DEPDIR)/$(am__dirstamp)
+src/libSDL_framework_la-MenuState.lo: src/$(am__dirstamp) \
+	src/$(DEPDIR)/$(am__dirstamp)
+src/libSDL_framework_la-NoJoystickState.lo: src/$(am__dirstamp) \
+	src/$(DEPDIR)/$(am__dirstamp)
+src/libSDL_framework_la-ObjectLayer.lo: src/$(am__dirstamp) \
+	src/$(DEPDIR)/$(am__dirstamp)
+src/libSDL_framework_la-objectParser.lo: src/$(am__dirstamp) \
+	src/$(DEPDIR)/$(am__dirstamp)
+src/libSDL_framework_la-SDLDrawable.lo: src/$(am__dirstamp) \
+	src/$(DEPDIR)/$(am__dirstamp)
+src/libSDL_framework_la-ServiceProvider.lo: src/$(am__dirstamp) \
+	src/$(DEPDIR)/$(am__dirstamp)
+src/libSDL_framework_la-TextureManager.lo: src/$(am__dirstamp) \
+	src/$(DEPDIR)/$(am__dirstamp)
+src/libSDL_framework_la-TileLayer.lo: src/$(am__dirstamp) \
+	src/$(DEPDIR)/$(am__dirstamp)
+src/libSDL_framework_la-tinystr.lo: src/$(am__dirstamp) \
+	src/$(DEPDIR)/$(am__dirstamp)
+src/libSDL_framework_la-tinyxml.lo: src/$(am__dirstamp) \
+	src/$(DEPDIR)/$(am__dirstamp)
+src/libSDL_framework_la-tinyxmlparser.lo: src/$(am__dirstamp) \
+	src/$(DEPDIR)/$(am__dirstamp)
+src/libSDL_framework_la-UserActions.lo: src/$(am__dirstamp) \
+	src/$(DEPDIR)/$(am__dirstamp)
+src/libSDL_framework_la-Vector2D.lo: src/$(am__dirstamp) \
+	src/$(DEPDIR)/$(am__dirstamp)
 libSDL_framework.la: $(libSDL_framework_la_OBJECTS) $(libSDL_framework_la_DEPENDENCIES) $(EXTRA_libSDL_framework_la_DEPENDENCIES) 
-	$(CXXLINK) -rpath $(libdir) $(libSDL_framework_la_OBJECTS) $(libSDL_framework_la_LIBADD) $(LIBS)
+	$(libSDL_framework_la_LINK) -rpath $(libdir) $(libSDL_framework_la_OBJECTS) $(libSDL_framework_la_LIBADD) $(LIBS)
 
 mostlyclean-compile:
 	-rm -f *.$(OBJEXT)
-	-rm -f src/Game.$(OBJEXT)
-	-rm -f src/Game.lo
-	-rm -f src/GameObjectCollection.$(OBJEXT)
-	-rm -f src/GameObjectCollection.lo
-	-rm -f src/GameObjectFactory.$(OBJEXT)
-	-rm -f src/GameObjectFactory.lo
-	-rm -f src/GameState.$(OBJEXT)
-	-rm -f src/GameState.lo
-	-rm -f src/GameStateMachine.$(OBJEXT)
-	-rm -f src/GameStateMachine.lo
-	-rm -f src/GameStateParser.$(OBJEXT)
-	-rm -f src/GameStateParser.lo
-	-rm -f src/InputHandler.$(OBJEXT)
-	-rm -f src/InputHandler.lo
-	-rm -f src/Level.$(OBJEXT)
-	-rm -f src/Level.lo
-	-rm -f src/LevelParser.$(OBJEXT)
-	-rm -f src/LevelParser.lo
-	-rm -f src/MenuButton.$(OBJEXT)
-	-rm -f src/MenuButton.lo
-	-rm -f src/MenuState.$(OBJEXT)
-	-rm -f src/MenuState.lo
-	-rm -f src/NoJoystickState.$(OBJEXT)
-	-rm -f src/NoJoystickState.lo
-	-rm -f src/ObjectLayer.$(OBJEXT)
-	-rm -f src/ObjectLayer.lo
-	-rm -f src/SDLDrawable.$(OBJEXT)
-	-rm -f src/SDLDrawable.lo
-	-rm -f src/ServiceProvider.$(OBJEXT)
-	-rm -f src/ServiceProvider.lo
-	-rm -f src/TextureManager.$(OBJEXT)
-	-rm -f src/TextureManager.lo
-	-rm -f src/TileLayer.$(OBJEXT)
-	-rm -f src/TileLayer.lo
-	-rm -f src/UserActions.$(OBJEXT)
-	-rm -f src/UserActions.lo
-	-rm -f src/Vector2D.$(OBJEXT)
-	-rm -f src/Vector2D.lo
-	-rm -f src/base64.$(OBJEXT)
-	-rm -f src/base64.lo
-	-rm -f src/objectParser.$(OBJEXT)
-	-rm -f src/objectParser.lo
-	-rm -f src/tinystr.$(OBJEXT)
-	-rm -f src/tinystr.lo
-	-rm -f src/tinyxml.$(OBJEXT)
-	-rm -f src/tinyxml.lo
-	-rm -f src/tinyxmlparser.$(OBJEXT)
-	-rm -f src/tinyxmlparser.lo
+	-rm -f src/libSDL_framework_la-Game.$(OBJEXT)
+	-rm -f src/libSDL_framework_la-Game.lo
+	-rm -f src/libSDL_framework_la-GameObjectCollection.$(OBJEXT)
+	-rm -f src/libSDL_framework_la-GameObjectCollection.lo
+	-rm -f src/libSDL_framework_la-GameObjectFactory.$(OBJEXT)
+	-rm -f src/libSDL_framework_la-GameObjectFactory.lo
+	-rm -f src/libSDL_framework_la-GameState.$(OBJEXT)
+	-rm -f src/libSDL_framework_la-GameState.lo
+	-rm -f src/libSDL_framework_la-GameStateMachine.$(OBJEXT)
+	-rm -f src/libSDL_framework_la-GameStateMachine.lo
+	-rm -f src/libSDL_framework_la-GameStateParser.$(OBJEXT)
+	-rm -f src/libSDL_framework_la-GameStateParser.lo
+	-rm -f src/libSDL_framework_la-InputHandler.$(OBJEXT)
+	-rm -f src/libSDL_framework_la-InputHandler.lo
+	-rm -f src/libSDL_framework_la-Level.$(OBJEXT)
+	-rm -f src/libSDL_framework_la-Level.lo
+	-rm -f src/libSDL_framework_la-LevelParser.$(OBJEXT)
+	-rm -f src/libSDL_framework_la-LevelParser.lo
+	-rm -f src/libSDL_framework_la-MenuButton.$(OBJEXT)
+	-rm -f src/libSDL_framework_la-MenuButton.lo
+	-rm -f src/libSDL_framework_la-MenuState.$(OBJEXT)
+	-rm -f src/libSDL_framework_la-MenuState.lo
+	-rm -f src/libSDL_framework_la-NoJoystickState.$(OBJEXT)
+	-rm -f src/libSDL_framework_la-NoJoystickState.lo
+	-rm -f src/libSDL_framework_la-ObjectLayer.$(OBJEXT)
+	-rm -f src/libSDL_framework_la-ObjectLayer.lo
+	-rm -f src/libSDL_framework_la-SDLDrawable.$(OBJEXT)
+	-rm -f src/libSDL_framework_la-SDLDrawable.lo
+	-rm -f src/libSDL_framework_la-ServiceProvider.$(OBJEXT)
+	-rm -f src/libSDL_framework_la-ServiceProvider.lo
+	-rm -f src/libSDL_framework_la-TextureManager.$(OBJEXT)
+	-rm -f src/libSDL_framework_la-TextureManager.lo
+	-rm -f src/libSDL_framework_la-TileLayer.$(OBJEXT)
+	-rm -f src/libSDL_framework_la-TileLayer.lo
+	-rm -f src/libSDL_framework_la-UserActions.$(OBJEXT)
+	-rm -f src/libSDL_framework_la-UserActions.lo
+	-rm -f src/libSDL_framework_la-Vector2D.$(OBJEXT)
+	-rm -f src/libSDL_framework_la-Vector2D.lo
+	-rm -f src/libSDL_framework_la-objectParser.$(OBJEXT)
+	-rm -f src/libSDL_framework_la-objectParser.lo
+	-rm -f src/libSDL_framework_la-tinystr.$(OBJEXT)
+	-rm -f src/libSDL_framework_la-tinystr.lo
+	-rm -f src/libSDL_framework_la-tinyxml.$(OBJEXT)
+	-rm -f src/libSDL_framework_la-tinyxml.lo
+	-rm -f src/libSDL_framework_la-tinyxmlparser.$(OBJEXT)
+	-rm -f src/libSDL_framework_la-tinyxmlparser.lo
+	-rm -f src/libbase64_a-base64.$(OBJEXT)
 
 distclean-compile:
 	-rm -f *.tab.c
 
-@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/Game.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/GameObjectCollection.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/GameObjectFactory.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/GameState.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/GameStateMachine.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/GameStateParser.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/InputHandler.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/Level.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/LevelParser.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/MenuButton.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/MenuState.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/NoJoystickState.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/ObjectLayer.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/SDLDrawable.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/ServiceProvider.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/TextureManager.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/TileLayer.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/UserActions.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/Vector2D.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/base64.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/objectParser.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/tinystr.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/tinyxml.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/tinyxmlparser.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/libSDL_framework_la-Game.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/libSDL_framework_la-GameObjectCollection.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/libSDL_framework_la-GameObjectFactory.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/libSDL_framework_la-GameState.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/libSDL_framework_la-GameStateMachine.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/libSDL_framework_la-GameStateParser.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/libSDL_framework_la-InputHandler.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/libSDL_framework_la-Level.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/libSDL_framework_la-LevelParser.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/libSDL_framework_la-MenuButton.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/libSDL_framework_la-MenuState.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/libSDL_framework_la-NoJoystickState.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/libSDL_framework_la-ObjectLayer.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/libSDL_framework_la-SDLDrawable.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/libSDL_framework_la-ServiceProvider.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/libSDL_framework_la-TextureManager.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/libSDL_framework_la-TileLayer.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/libSDL_framework_la-UserActions.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/libSDL_framework_la-Vector2D.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/libSDL_framework_la-objectParser.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/libSDL_framework_la-tinystr.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/libSDL_framework_la-tinyxml.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/libSDL_framework_la-tinyxmlparser.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/libbase64_a-base64.Po@am__quote@
 
 .cpp.o:
 @am__fastdepCXX_TRUE@	depbase=`echo $@ | sed 's|[^/]*$$|$(DEPDIR)/&|;s|\.o$$||'`;\
@@ -505,6 +555,181 @@ distclean-compile:
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='$<' object='$@' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCXX_FALSE@	$(LTCXXCOMPILE) -c -o $@ $<
+
+src/libbase64_a-base64.o: src/base64.cpp
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libbase64_a_CXXFLAGS) $(CXXFLAGS) -MT src/libbase64_a-base64.o -MD -MP -MF src/$(DEPDIR)/libbase64_a-base64.Tpo -c -o src/libbase64_a-base64.o `test -f 'src/base64.cpp' || echo '$(srcdir)/'`src/base64.cpp
+@am__fastdepCXX_TRUE@	$(am__mv) src/$(DEPDIR)/libbase64_a-base64.Tpo src/$(DEPDIR)/libbase64_a-base64.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/base64.cpp' object='src/libbase64_a-base64.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libbase64_a_CXXFLAGS) $(CXXFLAGS) -c -o src/libbase64_a-base64.o `test -f 'src/base64.cpp' || echo '$(srcdir)/'`src/base64.cpp
+
+src/libbase64_a-base64.obj: src/base64.cpp
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libbase64_a_CXXFLAGS) $(CXXFLAGS) -MT src/libbase64_a-base64.obj -MD -MP -MF src/$(DEPDIR)/libbase64_a-base64.Tpo -c -o src/libbase64_a-base64.obj `if test -f 'src/base64.cpp'; then $(CYGPATH_W) 'src/base64.cpp'; else $(CYGPATH_W) '$(srcdir)/src/base64.cpp'; fi`
+@am__fastdepCXX_TRUE@	$(am__mv) src/$(DEPDIR)/libbase64_a-base64.Tpo src/$(DEPDIR)/libbase64_a-base64.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/base64.cpp' object='src/libbase64_a-base64.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libbase64_a_CXXFLAGS) $(CXXFLAGS) -c -o src/libbase64_a-base64.obj `if test -f 'src/base64.cpp'; then $(CYGPATH_W) 'src/base64.cpp'; else $(CYGPATH_W) '$(srcdir)/src/base64.cpp'; fi`
+
+src/libSDL_framework_la-Game.lo: src/Game.cpp
+@am__fastdepCXX_TRUE@	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libSDL_framework_la_CXXFLAGS) $(CXXFLAGS) -MT src/libSDL_framework_la-Game.lo -MD -MP -MF src/$(DEPDIR)/libSDL_framework_la-Game.Tpo -c -o src/libSDL_framework_la-Game.lo `test -f 'src/Game.cpp' || echo '$(srcdir)/'`src/Game.cpp
+@am__fastdepCXX_TRUE@	$(am__mv) src/$(DEPDIR)/libSDL_framework_la-Game.Tpo src/$(DEPDIR)/libSDL_framework_la-Game.Plo
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/Game.cpp' object='src/libSDL_framework_la-Game.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libSDL_framework_la_CXXFLAGS) $(CXXFLAGS) -c -o src/libSDL_framework_la-Game.lo `test -f 'src/Game.cpp' || echo '$(srcdir)/'`src/Game.cpp
+
+src/libSDL_framework_la-GameObjectCollection.lo: src/GameObjectCollection.cpp
+@am__fastdepCXX_TRUE@	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libSDL_framework_la_CXXFLAGS) $(CXXFLAGS) -MT src/libSDL_framework_la-GameObjectCollection.lo -MD -MP -MF src/$(DEPDIR)/libSDL_framework_la-GameObjectCollection.Tpo -c -o src/libSDL_framework_la-GameObjectCollection.lo `test -f 'src/GameObjectCollection.cpp' || echo '$(srcdir)/'`src/GameObjectCollection.cpp
+@am__fastdepCXX_TRUE@	$(am__mv) src/$(DEPDIR)/libSDL_framework_la-GameObjectCollection.Tpo src/$(DEPDIR)/libSDL_framework_la-GameObjectCollection.Plo
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/GameObjectCollection.cpp' object='src/libSDL_framework_la-GameObjectCollection.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libSDL_framework_la_CXXFLAGS) $(CXXFLAGS) -c -o src/libSDL_framework_la-GameObjectCollection.lo `test -f 'src/GameObjectCollection.cpp' || echo '$(srcdir)/'`src/GameObjectCollection.cpp
+
+src/libSDL_framework_la-GameObjectFactory.lo: src/GameObjectFactory.cpp
+@am__fastdepCXX_TRUE@	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libSDL_framework_la_CXXFLAGS) $(CXXFLAGS) -MT src/libSDL_framework_la-GameObjectFactory.lo -MD -MP -MF src/$(DEPDIR)/libSDL_framework_la-GameObjectFactory.Tpo -c -o src/libSDL_framework_la-GameObjectFactory.lo `test -f 'src/GameObjectFactory.cpp' || echo '$(srcdir)/'`src/GameObjectFactory.cpp
+@am__fastdepCXX_TRUE@	$(am__mv) src/$(DEPDIR)/libSDL_framework_la-GameObjectFactory.Tpo src/$(DEPDIR)/libSDL_framework_la-GameObjectFactory.Plo
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/GameObjectFactory.cpp' object='src/libSDL_framework_la-GameObjectFactory.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libSDL_framework_la_CXXFLAGS) $(CXXFLAGS) -c -o src/libSDL_framework_la-GameObjectFactory.lo `test -f 'src/GameObjectFactory.cpp' || echo '$(srcdir)/'`src/GameObjectFactory.cpp
+
+src/libSDL_framework_la-GameState.lo: src/GameState.cpp
+@am__fastdepCXX_TRUE@	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libSDL_framework_la_CXXFLAGS) $(CXXFLAGS) -MT src/libSDL_framework_la-GameState.lo -MD -MP -MF src/$(DEPDIR)/libSDL_framework_la-GameState.Tpo -c -o src/libSDL_framework_la-GameState.lo `test -f 'src/GameState.cpp' || echo '$(srcdir)/'`src/GameState.cpp
+@am__fastdepCXX_TRUE@	$(am__mv) src/$(DEPDIR)/libSDL_framework_la-GameState.Tpo src/$(DEPDIR)/libSDL_framework_la-GameState.Plo
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/GameState.cpp' object='src/libSDL_framework_la-GameState.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libSDL_framework_la_CXXFLAGS) $(CXXFLAGS) -c -o src/libSDL_framework_la-GameState.lo `test -f 'src/GameState.cpp' || echo '$(srcdir)/'`src/GameState.cpp
+
+src/libSDL_framework_la-GameStateMachine.lo: src/GameStateMachine.cpp
+@am__fastdepCXX_TRUE@	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libSDL_framework_la_CXXFLAGS) $(CXXFLAGS) -MT src/libSDL_framework_la-GameStateMachine.lo -MD -MP -MF src/$(DEPDIR)/libSDL_framework_la-GameStateMachine.Tpo -c -o src/libSDL_framework_la-GameStateMachine.lo `test -f 'src/GameStateMachine.cpp' || echo '$(srcdir)/'`src/GameStateMachine.cpp
+@am__fastdepCXX_TRUE@	$(am__mv) src/$(DEPDIR)/libSDL_framework_la-GameStateMachine.Tpo src/$(DEPDIR)/libSDL_framework_la-GameStateMachine.Plo
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/GameStateMachine.cpp' object='src/libSDL_framework_la-GameStateMachine.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libSDL_framework_la_CXXFLAGS) $(CXXFLAGS) -c -o src/libSDL_framework_la-GameStateMachine.lo `test -f 'src/GameStateMachine.cpp' || echo '$(srcdir)/'`src/GameStateMachine.cpp
+
+src/libSDL_framework_la-GameStateParser.lo: src/GameStateParser.cpp
+@am__fastdepCXX_TRUE@	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libSDL_framework_la_CXXFLAGS) $(CXXFLAGS) -MT src/libSDL_framework_la-GameStateParser.lo -MD -MP -MF src/$(DEPDIR)/libSDL_framework_la-GameStateParser.Tpo -c -o src/libSDL_framework_la-GameStateParser.lo `test -f 'src/GameStateParser.cpp' || echo '$(srcdir)/'`src/GameStateParser.cpp
+@am__fastdepCXX_TRUE@	$(am__mv) src/$(DEPDIR)/libSDL_framework_la-GameStateParser.Tpo src/$(DEPDIR)/libSDL_framework_la-GameStateParser.Plo
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/GameStateParser.cpp' object='src/libSDL_framework_la-GameStateParser.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libSDL_framework_la_CXXFLAGS) $(CXXFLAGS) -c -o src/libSDL_framework_la-GameStateParser.lo `test -f 'src/GameStateParser.cpp' || echo '$(srcdir)/'`src/GameStateParser.cpp
+
+src/libSDL_framework_la-InputHandler.lo: src/InputHandler.cpp
+@am__fastdepCXX_TRUE@	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libSDL_framework_la_CXXFLAGS) $(CXXFLAGS) -MT src/libSDL_framework_la-InputHandler.lo -MD -MP -MF src/$(DEPDIR)/libSDL_framework_la-InputHandler.Tpo -c -o src/libSDL_framework_la-InputHandler.lo `test -f 'src/InputHandler.cpp' || echo '$(srcdir)/'`src/InputHandler.cpp
+@am__fastdepCXX_TRUE@	$(am__mv) src/$(DEPDIR)/libSDL_framework_la-InputHandler.Tpo src/$(DEPDIR)/libSDL_framework_la-InputHandler.Plo
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/InputHandler.cpp' object='src/libSDL_framework_la-InputHandler.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libSDL_framework_la_CXXFLAGS) $(CXXFLAGS) -c -o src/libSDL_framework_la-InputHandler.lo `test -f 'src/InputHandler.cpp' || echo '$(srcdir)/'`src/InputHandler.cpp
+
+src/libSDL_framework_la-Level.lo: src/Level.cpp
+@am__fastdepCXX_TRUE@	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libSDL_framework_la_CXXFLAGS) $(CXXFLAGS) -MT src/libSDL_framework_la-Level.lo -MD -MP -MF src/$(DEPDIR)/libSDL_framework_la-Level.Tpo -c -o src/libSDL_framework_la-Level.lo `test -f 'src/Level.cpp' || echo '$(srcdir)/'`src/Level.cpp
+@am__fastdepCXX_TRUE@	$(am__mv) src/$(DEPDIR)/libSDL_framework_la-Level.Tpo src/$(DEPDIR)/libSDL_framework_la-Level.Plo
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/Level.cpp' object='src/libSDL_framework_la-Level.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libSDL_framework_la_CXXFLAGS) $(CXXFLAGS) -c -o src/libSDL_framework_la-Level.lo `test -f 'src/Level.cpp' || echo '$(srcdir)/'`src/Level.cpp
+
+src/libSDL_framework_la-LevelParser.lo: src/LevelParser.cpp
+@am__fastdepCXX_TRUE@	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libSDL_framework_la_CXXFLAGS) $(CXXFLAGS) -MT src/libSDL_framework_la-LevelParser.lo -MD -MP -MF src/$(DEPDIR)/libSDL_framework_la-LevelParser.Tpo -c -o src/libSDL_framework_la-LevelParser.lo `test -f 'src/LevelParser.cpp' || echo '$(srcdir)/'`src/LevelParser.cpp
+@am__fastdepCXX_TRUE@	$(am__mv) src/$(DEPDIR)/libSDL_framework_la-LevelParser.Tpo src/$(DEPDIR)/libSDL_framework_la-LevelParser.Plo
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/LevelParser.cpp' object='src/libSDL_framework_la-LevelParser.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libSDL_framework_la_CXXFLAGS) $(CXXFLAGS) -c -o src/libSDL_framework_la-LevelParser.lo `test -f 'src/LevelParser.cpp' || echo '$(srcdir)/'`src/LevelParser.cpp
+
+src/libSDL_framework_la-MenuButton.lo: src/MenuButton.cpp
+@am__fastdepCXX_TRUE@	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libSDL_framework_la_CXXFLAGS) $(CXXFLAGS) -MT src/libSDL_framework_la-MenuButton.lo -MD -MP -MF src/$(DEPDIR)/libSDL_framework_la-MenuButton.Tpo -c -o src/libSDL_framework_la-MenuButton.lo `test -f 'src/MenuButton.cpp' || echo '$(srcdir)/'`src/MenuButton.cpp
+@am__fastdepCXX_TRUE@	$(am__mv) src/$(DEPDIR)/libSDL_framework_la-MenuButton.Tpo src/$(DEPDIR)/libSDL_framework_la-MenuButton.Plo
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/MenuButton.cpp' object='src/libSDL_framework_la-MenuButton.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libSDL_framework_la_CXXFLAGS) $(CXXFLAGS) -c -o src/libSDL_framework_la-MenuButton.lo `test -f 'src/MenuButton.cpp' || echo '$(srcdir)/'`src/MenuButton.cpp
+
+src/libSDL_framework_la-MenuState.lo: src/MenuState.cpp
+@am__fastdepCXX_TRUE@	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libSDL_framework_la_CXXFLAGS) $(CXXFLAGS) -MT src/libSDL_framework_la-MenuState.lo -MD -MP -MF src/$(DEPDIR)/libSDL_framework_la-MenuState.Tpo -c -o src/libSDL_framework_la-MenuState.lo `test -f 'src/MenuState.cpp' || echo '$(srcdir)/'`src/MenuState.cpp
+@am__fastdepCXX_TRUE@	$(am__mv) src/$(DEPDIR)/libSDL_framework_la-MenuState.Tpo src/$(DEPDIR)/libSDL_framework_la-MenuState.Plo
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/MenuState.cpp' object='src/libSDL_framework_la-MenuState.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libSDL_framework_la_CXXFLAGS) $(CXXFLAGS) -c -o src/libSDL_framework_la-MenuState.lo `test -f 'src/MenuState.cpp' || echo '$(srcdir)/'`src/MenuState.cpp
+
+src/libSDL_framework_la-NoJoystickState.lo: src/NoJoystickState.cpp
+@am__fastdepCXX_TRUE@	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libSDL_framework_la_CXXFLAGS) $(CXXFLAGS) -MT src/libSDL_framework_la-NoJoystickState.lo -MD -MP -MF src/$(DEPDIR)/libSDL_framework_la-NoJoystickState.Tpo -c -o src/libSDL_framework_la-NoJoystickState.lo `test -f 'src/NoJoystickState.cpp' || echo '$(srcdir)/'`src/NoJoystickState.cpp
+@am__fastdepCXX_TRUE@	$(am__mv) src/$(DEPDIR)/libSDL_framework_la-NoJoystickState.Tpo src/$(DEPDIR)/libSDL_framework_la-NoJoystickState.Plo
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/NoJoystickState.cpp' object='src/libSDL_framework_la-NoJoystickState.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libSDL_framework_la_CXXFLAGS) $(CXXFLAGS) -c -o src/libSDL_framework_la-NoJoystickState.lo `test -f 'src/NoJoystickState.cpp' || echo '$(srcdir)/'`src/NoJoystickState.cpp
+
+src/libSDL_framework_la-ObjectLayer.lo: src/ObjectLayer.cpp
+@am__fastdepCXX_TRUE@	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libSDL_framework_la_CXXFLAGS) $(CXXFLAGS) -MT src/libSDL_framework_la-ObjectLayer.lo -MD -MP -MF src/$(DEPDIR)/libSDL_framework_la-ObjectLayer.Tpo -c -o src/libSDL_framework_la-ObjectLayer.lo `test -f 'src/ObjectLayer.cpp' || echo '$(srcdir)/'`src/ObjectLayer.cpp
+@am__fastdepCXX_TRUE@	$(am__mv) src/$(DEPDIR)/libSDL_framework_la-ObjectLayer.Tpo src/$(DEPDIR)/libSDL_framework_la-ObjectLayer.Plo
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/ObjectLayer.cpp' object='src/libSDL_framework_la-ObjectLayer.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libSDL_framework_la_CXXFLAGS) $(CXXFLAGS) -c -o src/libSDL_framework_la-ObjectLayer.lo `test -f 'src/ObjectLayer.cpp' || echo '$(srcdir)/'`src/ObjectLayer.cpp
+
+src/libSDL_framework_la-objectParser.lo: src/objectParser.cpp
+@am__fastdepCXX_TRUE@	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libSDL_framework_la_CXXFLAGS) $(CXXFLAGS) -MT src/libSDL_framework_la-objectParser.lo -MD -MP -MF src/$(DEPDIR)/libSDL_framework_la-objectParser.Tpo -c -o src/libSDL_framework_la-objectParser.lo `test -f 'src/objectParser.cpp' || echo '$(srcdir)/'`src/objectParser.cpp
+@am__fastdepCXX_TRUE@	$(am__mv) src/$(DEPDIR)/libSDL_framework_la-objectParser.Tpo src/$(DEPDIR)/libSDL_framework_la-objectParser.Plo
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/objectParser.cpp' object='src/libSDL_framework_la-objectParser.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libSDL_framework_la_CXXFLAGS) $(CXXFLAGS) -c -o src/libSDL_framework_la-objectParser.lo `test -f 'src/objectParser.cpp' || echo '$(srcdir)/'`src/objectParser.cpp
+
+src/libSDL_framework_la-SDLDrawable.lo: src/SDLDrawable.cpp
+@am__fastdepCXX_TRUE@	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libSDL_framework_la_CXXFLAGS) $(CXXFLAGS) -MT src/libSDL_framework_la-SDLDrawable.lo -MD -MP -MF src/$(DEPDIR)/libSDL_framework_la-SDLDrawable.Tpo -c -o src/libSDL_framework_la-SDLDrawable.lo `test -f 'src/SDLDrawable.cpp' || echo '$(srcdir)/'`src/SDLDrawable.cpp
+@am__fastdepCXX_TRUE@	$(am__mv) src/$(DEPDIR)/libSDL_framework_la-SDLDrawable.Tpo src/$(DEPDIR)/libSDL_framework_la-SDLDrawable.Plo
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/SDLDrawable.cpp' object='src/libSDL_framework_la-SDLDrawable.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libSDL_framework_la_CXXFLAGS) $(CXXFLAGS) -c -o src/libSDL_framework_la-SDLDrawable.lo `test -f 'src/SDLDrawable.cpp' || echo '$(srcdir)/'`src/SDLDrawable.cpp
+
+src/libSDL_framework_la-ServiceProvider.lo: src/ServiceProvider.cpp
+@am__fastdepCXX_TRUE@	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libSDL_framework_la_CXXFLAGS) $(CXXFLAGS) -MT src/libSDL_framework_la-ServiceProvider.lo -MD -MP -MF src/$(DEPDIR)/libSDL_framework_la-ServiceProvider.Tpo -c -o src/libSDL_framework_la-ServiceProvider.lo `test -f 'src/ServiceProvider.cpp' || echo '$(srcdir)/'`src/ServiceProvider.cpp
+@am__fastdepCXX_TRUE@	$(am__mv) src/$(DEPDIR)/libSDL_framework_la-ServiceProvider.Tpo src/$(DEPDIR)/libSDL_framework_la-ServiceProvider.Plo
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/ServiceProvider.cpp' object='src/libSDL_framework_la-ServiceProvider.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libSDL_framework_la_CXXFLAGS) $(CXXFLAGS) -c -o src/libSDL_framework_la-ServiceProvider.lo `test -f 'src/ServiceProvider.cpp' || echo '$(srcdir)/'`src/ServiceProvider.cpp
+
+src/libSDL_framework_la-TextureManager.lo: src/TextureManager.cpp
+@am__fastdepCXX_TRUE@	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libSDL_framework_la_CXXFLAGS) $(CXXFLAGS) -MT src/libSDL_framework_la-TextureManager.lo -MD -MP -MF src/$(DEPDIR)/libSDL_framework_la-TextureManager.Tpo -c -o src/libSDL_framework_la-TextureManager.lo `test -f 'src/TextureManager.cpp' || echo '$(srcdir)/'`src/TextureManager.cpp
+@am__fastdepCXX_TRUE@	$(am__mv) src/$(DEPDIR)/libSDL_framework_la-TextureManager.Tpo src/$(DEPDIR)/libSDL_framework_la-TextureManager.Plo
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/TextureManager.cpp' object='src/libSDL_framework_la-TextureManager.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libSDL_framework_la_CXXFLAGS) $(CXXFLAGS) -c -o src/libSDL_framework_la-TextureManager.lo `test -f 'src/TextureManager.cpp' || echo '$(srcdir)/'`src/TextureManager.cpp
+
+src/libSDL_framework_la-TileLayer.lo: src/TileLayer.cpp
+@am__fastdepCXX_TRUE@	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libSDL_framework_la_CXXFLAGS) $(CXXFLAGS) -MT src/libSDL_framework_la-TileLayer.lo -MD -MP -MF src/$(DEPDIR)/libSDL_framework_la-TileLayer.Tpo -c -o src/libSDL_framework_la-TileLayer.lo `test -f 'src/TileLayer.cpp' || echo '$(srcdir)/'`src/TileLayer.cpp
+@am__fastdepCXX_TRUE@	$(am__mv) src/$(DEPDIR)/libSDL_framework_la-TileLayer.Tpo src/$(DEPDIR)/libSDL_framework_la-TileLayer.Plo
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/TileLayer.cpp' object='src/libSDL_framework_la-TileLayer.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libSDL_framework_la_CXXFLAGS) $(CXXFLAGS) -c -o src/libSDL_framework_la-TileLayer.lo `test -f 'src/TileLayer.cpp' || echo '$(srcdir)/'`src/TileLayer.cpp
+
+src/libSDL_framework_la-tinystr.lo: src/tinystr.cpp
+@am__fastdepCXX_TRUE@	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libSDL_framework_la_CXXFLAGS) $(CXXFLAGS) -MT src/libSDL_framework_la-tinystr.lo -MD -MP -MF src/$(DEPDIR)/libSDL_framework_la-tinystr.Tpo -c -o src/libSDL_framework_la-tinystr.lo `test -f 'src/tinystr.cpp' || echo '$(srcdir)/'`src/tinystr.cpp
+@am__fastdepCXX_TRUE@	$(am__mv) src/$(DEPDIR)/libSDL_framework_la-tinystr.Tpo src/$(DEPDIR)/libSDL_framework_la-tinystr.Plo
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/tinystr.cpp' object='src/libSDL_framework_la-tinystr.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libSDL_framework_la_CXXFLAGS) $(CXXFLAGS) -c -o src/libSDL_framework_la-tinystr.lo `test -f 'src/tinystr.cpp' || echo '$(srcdir)/'`src/tinystr.cpp
+
+src/libSDL_framework_la-tinyxml.lo: src/tinyxml.cpp
+@am__fastdepCXX_TRUE@	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libSDL_framework_la_CXXFLAGS) $(CXXFLAGS) -MT src/libSDL_framework_la-tinyxml.lo -MD -MP -MF src/$(DEPDIR)/libSDL_framework_la-tinyxml.Tpo -c -o src/libSDL_framework_la-tinyxml.lo `test -f 'src/tinyxml.cpp' || echo '$(srcdir)/'`src/tinyxml.cpp
+@am__fastdepCXX_TRUE@	$(am__mv) src/$(DEPDIR)/libSDL_framework_la-tinyxml.Tpo src/$(DEPDIR)/libSDL_framework_la-tinyxml.Plo
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/tinyxml.cpp' object='src/libSDL_framework_la-tinyxml.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libSDL_framework_la_CXXFLAGS) $(CXXFLAGS) -c -o src/libSDL_framework_la-tinyxml.lo `test -f 'src/tinyxml.cpp' || echo '$(srcdir)/'`src/tinyxml.cpp
+
+src/libSDL_framework_la-tinyxmlparser.lo: src/tinyxmlparser.cpp
+@am__fastdepCXX_TRUE@	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libSDL_framework_la_CXXFLAGS) $(CXXFLAGS) -MT src/libSDL_framework_la-tinyxmlparser.lo -MD -MP -MF src/$(DEPDIR)/libSDL_framework_la-tinyxmlparser.Tpo -c -o src/libSDL_framework_la-tinyxmlparser.lo `test -f 'src/tinyxmlparser.cpp' || echo '$(srcdir)/'`src/tinyxmlparser.cpp
+@am__fastdepCXX_TRUE@	$(am__mv) src/$(DEPDIR)/libSDL_framework_la-tinyxmlparser.Tpo src/$(DEPDIR)/libSDL_framework_la-tinyxmlparser.Plo
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/tinyxmlparser.cpp' object='src/libSDL_framework_la-tinyxmlparser.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libSDL_framework_la_CXXFLAGS) $(CXXFLAGS) -c -o src/libSDL_framework_la-tinyxmlparser.lo `test -f 'src/tinyxmlparser.cpp' || echo '$(srcdir)/'`src/tinyxmlparser.cpp
+
+src/libSDL_framework_la-UserActions.lo: src/UserActions.cpp
+@am__fastdepCXX_TRUE@	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libSDL_framework_la_CXXFLAGS) $(CXXFLAGS) -MT src/libSDL_framework_la-UserActions.lo -MD -MP -MF src/$(DEPDIR)/libSDL_framework_la-UserActions.Tpo -c -o src/libSDL_framework_la-UserActions.lo `test -f 'src/UserActions.cpp' || echo '$(srcdir)/'`src/UserActions.cpp
+@am__fastdepCXX_TRUE@	$(am__mv) src/$(DEPDIR)/libSDL_framework_la-UserActions.Tpo src/$(DEPDIR)/libSDL_framework_la-UserActions.Plo
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/UserActions.cpp' object='src/libSDL_framework_la-UserActions.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libSDL_framework_la_CXXFLAGS) $(CXXFLAGS) -c -o src/libSDL_framework_la-UserActions.lo `test -f 'src/UserActions.cpp' || echo '$(srcdir)/'`src/UserActions.cpp
+
+src/libSDL_framework_la-Vector2D.lo: src/Vector2D.cpp
+@am__fastdepCXX_TRUE@	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libSDL_framework_la_CXXFLAGS) $(CXXFLAGS) -MT src/libSDL_framework_la-Vector2D.lo -MD -MP -MF src/$(DEPDIR)/libSDL_framework_la-Vector2D.Tpo -c -o src/libSDL_framework_la-Vector2D.lo `test -f 'src/Vector2D.cpp' || echo '$(srcdir)/'`src/Vector2D.cpp
+@am__fastdepCXX_TRUE@	$(am__mv) src/$(DEPDIR)/libSDL_framework_la-Vector2D.Tpo src/$(DEPDIR)/libSDL_framework_la-Vector2D.Plo
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/Vector2D.cpp' object='src/libSDL_framework_la-Vector2D.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libSDL_framework_la_CXXFLAGS) $(CXXFLAGS) -c -o src/libSDL_framework_la-Vector2D.lo `test -f 'src/Vector2D.cpp' || echo '$(srcdir)/'`src/Vector2D.cpp
 
 mostlyclean-libtool:
 	-rm -f *.lo
@@ -732,7 +957,7 @@ distcleancheck: distclean
 	       exit 1; } >&2
 check-am: all-am
 check: check-am
-all-am: Makefile $(LTLIBRARIES)
+all-am: Makefile $(LIBRARIES) $(LTLIBRARIES)
 installdirs:
 	for dir in "$(DESTDIR)$(libdir)"; do \
 	  test -z "$$dir" || $(MKDIR_P) "$$dir"; \
@@ -772,7 +997,7 @@ maintainer-clean-generic:
 clean: clean-am
 
 clean-am: clean-generic clean-libLTLIBRARIES clean-libtool \
-	mostlyclean-am
+	clean-noinstLIBRARIES mostlyclean-am
 
 distclean: distclean-am
 	-rm -f $(am__CONFIG_DISTCLEAN_FILES)
@@ -846,21 +1071,21 @@ uninstall-am: uninstall-libLTLIBRARIES
 .MAKE: install-am install-strip
 
 .PHONY: CTAGS GTAGS all all-am am--refresh check check-am clean \
-	clean-generic clean-libLTLIBRARIES clean-libtool ctags dist \
-	dist-all dist-bzip2 dist-gzip dist-lzip dist-lzma dist-shar \
-	dist-tarZ dist-xz dist-zip distcheck distclean \
-	distclean-compile distclean-generic distclean-libtool \
-	distclean-tags distcleancheck distdir distuninstallcheck dvi \
-	dvi-am html html-am info info-am install install-am \
-	install-data install-data-am install-dvi install-dvi-am \
-	install-exec install-exec-am install-html install-html-am \
-	install-info install-info-am install-libLTLIBRARIES \
-	install-man install-pdf install-pdf-am install-ps \
-	install-ps-am install-strip installcheck installcheck-am \
-	installdirs maintainer-clean maintainer-clean-generic \
-	mostlyclean mostlyclean-compile mostlyclean-generic \
-	mostlyclean-libtool pdf pdf-am ps ps-am tags uninstall \
-	uninstall-am uninstall-libLTLIBRARIES
+	clean-generic clean-libLTLIBRARIES clean-libtool \
+	clean-noinstLIBRARIES ctags dist dist-all dist-bzip2 dist-gzip \
+	dist-lzip dist-lzma dist-shar dist-tarZ dist-xz dist-zip \
+	distcheck distclean distclean-compile distclean-generic \
+	distclean-libtool distclean-tags distcleancheck distdir \
+	distuninstallcheck dvi dvi-am html html-am info info-am \
+	install install-am install-data install-data-am install-dvi \
+	install-dvi-am install-exec install-exec-am install-html \
+	install-html-am install-info install-info-am \
+	install-libLTLIBRARIES install-man install-pdf install-pdf-am \
+	install-ps install-ps-am install-strip installcheck \
+	installcheck-am installdirs maintainer-clean \
+	maintainer-clean-generic mostlyclean mostlyclean-compile \
+	mostlyclean-generic mostlyclean-libtool pdf pdf-am ps ps-am \
+	tags uninstall uninstall-am uninstall-libLTLIBRARIES
 
 
 # Tell versions [3.59,3.63) of GNU make to not export all variables.

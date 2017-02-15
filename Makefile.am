@@ -26,4 +26,9 @@ libSDL_framework_la_CXXFLAGS=-std=c++11 -O2 -Wmissing-declarations -Weffc++ \
 AM_LDFLAGS=-L/usr/local/lib -lSDL2 -lSDL2_image -ltinyxml -lz
 
 lib_LTLIBRARIES = libSDL_framework.la
-libSDL_framework_la_SOURCES=src/base64.cpp src/Game.cpp src/GameObjectCollection.cpp src/GameObjectFactory.cpp src/GameState.cpp src/GameStateMachine.cpp src/GameStateParser.cpp src/InputHandler.cpp src/Level.cpp src/LevelParser.cpp src/MenuButton.cpp src/MenuState.cpp src/NoJoystickState.cpp src/ObjectLayer.cpp src/objectParser.cpp src/SDLDrawable.cpp src/ServiceProvider.cpp src/TextureManager.cpp src/TileLayer.cpp src/tinystr.cpp src/tinyxml.cpp src/tinyxmlparser.cpp src/UserActions.cpp src/Vector2D.cpp
+libSDL_framework_la_SOURCES=src/Game.cpp src/GameObjectCollection.cpp src/GameObjectFactory.cpp src/GameState.cpp src/GameStateMachine.cpp src/GameStateParser.cpp src/InputHandler.cpp src/Level.cpp src/LevelParser.cpp src/MenuButton.cpp src/MenuState.cpp src/NoJoystickState.cpp src/ObjectLayer.cpp src/objectParser.cpp src/SDLDrawable.cpp src/ServiceProvider.cpp src/TextureManager.cpp src/TileLayer.cpp src/tinystr.cpp src/tinyxml.cpp src/tinyxmlparser.cpp src/UserActions.cpp src/Vector2D.cpp
+
+libSDL_framework_la_LIBADD = libbase64.a
+noinst_LIBRARIES = libbase64.a
+libbase64_a_SOURCES = src/base64.cpp
+libbase64_a_CXXFLAGS = $(CXXFLAGS)
