@@ -2,7 +2,7 @@
 # Process this file with autoconf to produce a configure script.
 
 AC_PREREQ([2.69])
-AC_INIT([SDL_framework], [0.1], [ghislain.rodrigues@gmail.com])
+AC_INIT([SDL2_framework], [0.1], [ghislain.rodrigues@gmail.com])
 LT_INIT
 AC_CONFIG_SRCDIR([src/Game.cpp])
 
