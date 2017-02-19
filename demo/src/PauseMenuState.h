@@ -1,8 +1,8 @@
 #ifndef __PauseMenuState__
 #define __PauseMenuState__
 
-#include "MenuState.h"
-#include "MenuButton.h"
+#include "SDL2_framework/MenuState.h"
+#include "SDL2_framework/MenuButton.h"
 
 /**
  * State for the pause menu

@@ -1,8 +1,8 @@
 #ifndef __Player__
 #define __Player__
 
-#include "SDLDrawable.h"
-#include "GameObjectCreator.h"
+#include "SDL2_framework/SDLDrawable.h"
+#include "SDL2_framework/GameObjectCreator.h"
 
 class Player : public SDLDrawable {
 	private:

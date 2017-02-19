@@ -1,8 +1,8 @@
 #include "PlayState.h"
 #include "PauseMenuState.h"
-#include "Game.h"
-#include "LevelParser.h"
-#include "ServiceProvider.h"
+#include "SDL2_framework/Game.h"
+#include "SDL2_framework/LevelParser.h"
+#include "SDL2_framework/ServiceProvider.h"
 
 const std::string PlayState::s_menuID = "PLAY";
 

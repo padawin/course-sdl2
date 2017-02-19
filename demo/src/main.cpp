@@ -1,6 +1,6 @@
 #include <SDL2/SDL.h>
 #include <unistd.h>
-#include "Game.h"
+#include "SDL2_framework/Game.h"
 
 const int FPS = 60;
 const int DELAY_TIME = 1000 / FPS;

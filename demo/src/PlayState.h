@@ -1,8 +1,8 @@
 #ifndef __PlayState__
 #define __PlayState__
 
-#include "GameState.h"
-#include "Level.h"
+#include "SDL2_framework/GameState.h"
+#include "SDL2_framework/Level.h"
 
 /**
  * State for the in game screen. Contains a player and a list of enemies

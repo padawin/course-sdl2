@@ -1,5 +1,5 @@
 #include "PauseMenuState.h"
-#include "Game.h"
+#include "SDL2_framework/Game.h"
 #include "MainMenuState.h"
 
 const std::string PauseMenuState::s_menuID = "PAUSEMENU";
