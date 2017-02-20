@@ -1,6 +1,7 @@
 #include <SDL2/SDL.h>
 #include <unistd.h>
 #include "SDL2_framework/Game.h"
+#include <libgen.h>
 
 const int FPS = 60;
 const int DELAY_TIME = 1000 / FPS;
@@ -28,6 +29,7 @@ int main(int argc, char* args[]) {
 	parseArguments(argc, args, &fullScreen);
 
 	g = Game::Instance();
+	g->setBinaryPath(dirname(args[0]));
 	if (!g->init("My first window", 100, 100, 640, 480, fullScreen)) {
 		Game::freeGame();
 		return 1;
