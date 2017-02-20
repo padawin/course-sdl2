@@ -1,12 +1,19 @@
 #include <SDL2/SDL.h>
 #include <unistd.h>
 #include "SDL2_framework/Game.h"
+#include "SDL2_framework/GameObjectFactory.h"
+#include "SDL2_framework/MenuButton.h"
+#include "Player.h"
+#include "Enemy.h"
+#include "MainMenuState.h"
 #include <libgen.h>
 
 const int FPS = 60;
 const int DELAY_TIME = 1000 / FPS;
 
 void parseArguments(int argc, char* args[], bool *fullScreen);
+void initResources(Game* game);
+void initObjectTypes();
 
 void parseArguments(int argc, char* args[], bool *fullScreen) {
 	int c;
@@ -29,12 +36,15 @@ int main(int argc, char* args[]) {
 	parseArguments(argc, args, &fullScreen);
 
 	g = Game::Instance();
+	initResources(g);
+	initObjectTypes();
 	g->setBinaryPath(dirname(args[0]));
 	if (!g->init("My first window", 100, 100, 640, 480, fullScreen)) {
 		Game::freeGame();
 		return 1;
 	}
 
+	g->getStateMachine()->changeState(new MainMenuState());
 	while (g->isRunning()) {
 		frameStart = SDL_GetTicks();
 		g->handleEvents();
@@ -51,4 +61,22 @@ int main(int argc, char* args[]) {
 	Game::freeGame();
 
 	return 0;
+}
+
+void initResources(Game* game) {
+	game->addResource("mainmenu", "resources/menu-buttons.png");
+	game->addResource("pausemenu", "resources/pause-menu-buttons.png");
+}
+
+void initObjectTypes() {
+	// object types
+	GameObjectFactory::Instance()->registerType(
+	   "MenuButton", new MenuButtonCreator()
+	);
+	GameObjectFactory::Instance()->registerType(
+	   "Player", new PlayerCreator()
+	);
+	GameObjectFactory::Instance()->registerType(
+	   "Enemy", new EnemyCreator()
+	);
 }
