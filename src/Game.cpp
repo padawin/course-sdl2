@@ -251,8 +251,8 @@ int Game::getScreenHeight() {
 
 bool Game::_initServiceProvider() {
 	bool ret = true;
-	const char* mappingFile = "configs/playercontrolsmapping.txt";
-	int userActionsParsed = ServiceProvider::setUserActions(mappingFile);
+	std::string mappingFile = m_sBinaryPath + "/../configs/playercontrolsmapping.txt";
+	int userActionsParsed = ServiceProvider::setUserActions(mappingFile.c_str());
 	if (userActionsParsed != 0) {
 		std::cerr << "The parsing of the user actions failed, returned "
 			<< userActionsParsed << std::endl;
