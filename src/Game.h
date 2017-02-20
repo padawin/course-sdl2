@@ -197,6 +197,8 @@ class Game {
 	 */
 	int getScreenWidth();
 	int getScreenHeight();
+
+	void addResource(const char *resourceName, const char *resourcePath);
 };
 
 #endif /* defined(__Game__) */
