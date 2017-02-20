@@ -41,6 +41,10 @@ Game *Game::Instance() {
 	return s_pInstance;
 }
 
+void Game::setBinaryPath(std::string binaryPath) {
+	m_sBinaryPath = binaryPath;
+}
+
 /**
  * Deletes the game instance.
  */

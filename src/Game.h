@@ -5,9 +5,15 @@
 #include <vector>
 #include "GameStateMachine.h"
 #include "TextureManager.h"
+#include <string>
 
 class Game {
 	private:
+	/**
+	 * Path to the game binary
+	 */
+	std::string m_sBinaryPath = "";
+
 	/**
 	 * flag to know if the game is running
 	 */
@@ -110,6 +116,11 @@ class Game {
 	 * Method to get the game instance.
 	 */
 	static Game* Instance();
+
+	/**
+	 * Method to set the path to the game binary
+	 */
+	void setBinaryPath(std::string binaryPath);
 
 	/**
 	 * Method used to clean the memory used by the game before quitting the
