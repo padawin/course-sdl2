@@ -8,7 +8,6 @@ using std::ifstream;
 
 const int MAX_CHAR_COMMAND = 128;
 const int MAX_CHARS_PER_LINE = 134; // 128 + 6
-const int MAX_TOKENS_PER_LINE = 4;
 const char* const DELIMITER = ";";
 
 UserActions::UserActions() : m_mMappings({}) {}
@@ -50,6 +49,9 @@ int UserActions::getActionState(std::string name) {
 			case KEYBOARD_KEY:
 				ret = handlerInstance->getKeyState(commands[c].key);
 				break;
+			case NULL_TYPE:
+			default:
+				break;
 		}
 
 		if (ret != 0) {
@@ -79,6 +81,8 @@ void UserActions::resetActionState(std::string name) {
 			case KEYBOARD_KEY:
 				handlerInstance->setKeyState(commands[c].key, false);
 				break;
+			case CONTROLLER_STICK:
+			case NULL_TYPE:
 			default:
 				break;
 		}
@@ -107,7 +111,8 @@ int UserActions::setActionsFromFile(const char* mappingFile) {
 		char commandName[MAX_CHAR_COMMAND];
 		char* token;
 		InputType type;
-		int value, direction;
+		int value,
+			direction = 0;
 
 		// @TODO Check buffer overflow
 		token = strtok(buf, DELIMITER);
@@ -139,12 +144,13 @@ int UserActions::setActionsFromFile(const char* mappingFile) {
 				c.key = (SDL_Scancode) value;
 				break;
 			case CONTROLLER_BUTTON:
-				c.buttonId = value;
+				c.buttonId = (unsigned long) value;
 				break;
 			case CONTROLLER_STICK:
 				c.stickAxis = (JoystickControl) value;
 				c.stickDirection = direction;
 				break;
+			case NULL_TYPE:
 			default:
 				return INVALID_TYPE;
 		}

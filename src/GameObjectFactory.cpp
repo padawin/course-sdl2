@@ -3,7 +3,7 @@
 
 static GameObjectFactory* s_pInstance;
 
-GameObjectFactory::GameObjectFactory() {}
+GameObjectFactory::GameObjectFactory() : m_creators() {}
 GameObjectFactory::~GameObjectFactory() {}
 
 /**

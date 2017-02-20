@@ -1,11 +1,11 @@
 #include "Level.h"
 
-Level::Level() {
+Level::Level() : m_vTilesets(), m_vLayers() {
 
 }
 
 Level::~Level() {
-	for (int l = 0; l < (int) m_vLayers.size(); l++) {
+	for (unsigned long l = 0; l < m_vLayers.size(); l++) {
 		delete m_vLayers[l];
 		m_vLayers[l] = 0;
 	}
@@ -20,13 +20,15 @@ std::vector<Layer*>* Level::getLayers() {
 }
 
 void Level::render() {
-	for (int i = 0; i < m_vLayers.size(); i++) {
+	size_t sizeLayers = m_vLayers.size();
+	for (unsigned int i = 0; i < sizeLayers; i++) {
 		m_vLayers[i]->render();
 	}
 }
 
 void Level::update() {
-	for (int i = 0; i < m_vLayers.size(); i++) {
+	size_t sizeLayers = m_vLayers.size();
+	for (unsigned int i = 0; i < sizeLayers; i++) {
 		m_vLayers[i]->update();
 	}
 }

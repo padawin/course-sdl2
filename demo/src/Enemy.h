@@ -1,8 +1,8 @@
 #ifndef __Enemy__
 #define __Enemy__
 
-#include "SDLDrawable.h"
-#include "GameObjectCreator.h"
+#include "SDL2_framework/SDLDrawable.h"
+#include "SDL2_framework/GameObjectCreator.h"
 
 class Enemy : public SDLDrawable {
 };

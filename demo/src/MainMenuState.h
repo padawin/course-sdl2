@@ -1,8 +1,8 @@
 #ifndef __MainMenuState__
 #define __MainMenuState__
 
-#include "MenuState.h"
-#include "MenuButton.h"
+#include "SDL2_framework/MenuState.h"
+#include "SDL2_framework/MenuButton.h"
 
 /**
  * State to display the main menu.

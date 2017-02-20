@@ -1,35 +1,14 @@
 #include "Game.h"
 #include "InputHandler.h"
-#include "MainMenuState.h"
 #include "NoJoystickState.h"
 #include "GameObjectFactory.h"
-#include "MenuButton.h"
-#include "Player.h"
-#include "Enemy.h"
 #include "ServiceProvider.h"
 #include <iostream>
 #include <errno.h>
 
 static Game* s_pInstance;
 
-/**
- * Game construct, Initialises the vector of resource names.
- */
 Game::Game() {
-	m_vResourceFiles.push_back(std::make_pair("mainmenu", "resources/menu-buttons.png"));
-	m_vResourceFiles.push_back(std::make_pair("pausemenu", "resources/pause-menu-buttons.png"));
-	m_iNbFiles = (int) m_vResourceFiles.size();
-
-	// object types
-	GameObjectFactory::Instance()->registerType(
-		"MenuButton", new MenuButtonCreator()
-	);
-	GameObjectFactory::Instance()->registerType(
-		"Player", new PlayerCreator()
-	);
-	GameObjectFactory::Instance()->registerType(
-		"Enemy", new EnemyCreator()
-	);
 }
 
 /**
@@ -109,7 +88,7 @@ bool Game::_initSDL(
 	const bool fullScreen
 ) {
 	bool l_bReturn = true;
-	int flags = 0;
+	Uint32 flags = 0;
 
 	if (fullScreen) {
 		flags |= SDL_WINDOW_FULLSCREEN;
@@ -148,7 +127,7 @@ bool Game::_loadResources() {
 	const char errorPattern[] = "An error occured while loading the file %s";
 
 	std::cout << "Load resources \n";
-	for (int i = 0; i < m_iNbFiles; ++i) {
+	for (unsigned long i = 0; i < m_iNbFiles; ++i) {
 		char* errorMessage = (char*) calloc(
 			strlen(errorPattern) + strlen(m_vResourceFiles[i].second), sizeof(char)
 		);
@@ -179,7 +158,6 @@ bool Game::_loadResources() {
  */
 void Game::_initGameMachine() {
 	m_gameStateMachine = new GameStateMachine();
-	m_gameStateMachine->changeState(new MainMenuState());
 }
 
 /**
@@ -234,7 +212,7 @@ void Game::_cleanGameMachine() {
  */
 void Game::_cleanResources() {
 	std::cout << "Clean resources\n";
-	for (int i = 0; i < m_iNbFiles; ++i) {
+	for (unsigned long i = 0; i < m_iNbFiles; ++i) {
 		std::cout << "Clean resource " << m_vResourceFiles[i].second << "\n";
 		TextureManager::Instance()->clearFromTextureMap(m_vResourceFiles[i].first);
 	}

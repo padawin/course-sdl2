@@ -161,8 +161,8 @@ void InputHandler::_initialiseJoystick(const int indexJoystick) {
  */
 void InputHandler::clean() {
 	if (m_bJoysticksInitialised) {
-		int nbJoysticks = (int) m_vJoysticks.size();
-		for (int i = 0; i < nbJoysticks; i++){
+		unsigned long nbJoysticks = m_vJoysticks.size();
+		for (unsigned long i = 0; i < nbJoysticks; i++){
 			SDL_JoystickClose(m_vJoysticks[i].second);
 			m_vJoysticks[i].second = NULL;
 		}
@@ -188,7 +188,7 @@ void InputHandler::free() {
 /**
  * Gets the Y value of the required stick
  */
-int InputHandler::stickValue(const int joyIndex, const JoystickControl stick) {
+int InputHandler::stickValue(const unsigned long joyIndex, const JoystickControl stick) {
 	int value = 0;
 	if (m_mJoystickAxisValues.size() > 0) {
 		if (stick == LEFT_STICK_X) {
@@ -207,11 +207,11 @@ int InputHandler::stickValue(const int joyIndex, const JoystickControl stick) {
 	return value;
 }
 
-bool InputHandler::getButtonState(const int joystickIndex, const int buttonNumber) {
+bool InputHandler::getButtonState(const unsigned long joystickIndex, const unsigned long buttonNumber) {
 	return m_mButtonStates[m_vJoysticks[joystickIndex].first][buttonNumber];
 }
 
-void InputHandler::setButtonState(const int joystickIndex, const int button, const bool down) {
+void InputHandler::setButtonState(const unsigned long joystickIndex, const unsigned long button, const bool down) {
 	m_mButtonStates[m_vJoysticks[joystickIndex].first][button] = down;
 }
 

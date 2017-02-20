@@ -1,5 +1,5 @@
 #include "MainMenuState.h"
-#include "Game.h"
+#include "SDL2_framework/Game.h"
 #include "PlayState.h"
 
 const std::string MainMenuState::s_menuID = "MAINMENU";

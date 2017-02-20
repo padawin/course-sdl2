@@ -1,5 +1,4 @@
 #include "GameState.h"
-#include "Game.h"
 
 void GameState::update() {
 	m_objects.update();

@@ -20,7 +20,7 @@ void SDLDrawable::load(SDLDrawableLoader* loader) {
 	setAnimated(loader->isAnimated());
 }
 
-void SDLDrawable::setTexture(const std::string textureID, const int nbFrames, const int animationSpeed) {
+void SDLDrawable::setTexture(const std::string textureID, const unsigned int nbFrames, const unsigned int animationSpeed) {
 	m_iCurrentRow = 1;
 	m_iCurrentFrame = 1;
 	setAnimationSpeed(animationSpeed);
@@ -29,7 +29,7 @@ void SDLDrawable::setTexture(const std::string textureID, const int nbFrames, co
 	m_sTextureID = textureID;
 }
 
-void SDLDrawable::setAnimationSpeed(const int animationSpeed) {
+void SDLDrawable::setAnimationSpeed(const unsigned int animationSpeed) {
 	m_iAnimationSpeed = animationSpeed;
 }
 
@@ -54,7 +54,7 @@ void SDLDrawable::setAcceleration(const Vector2D acceleration) {
 
 void SDLDrawable::update() {
 	if (m_bAnimated) {
-		int timePerFrame = 1000 / m_iAnimationSpeed;
+		unsigned int timePerFrame = 1000 / m_iAnimationSpeed;
 		m_iCurrentFrame = int(((SDL_GetTicks() / timePerFrame) % m_iNbFrames));
 	}
 	m_velocity += m_acceleration;
@@ -90,7 +90,7 @@ SDLDrawableLoader::SDLDrawableLoader(
 	const float x, const float y,
 	const int width, const int height,
 	const std::string textureID, const int textureRow,
-	const int nbFrames, const int animationSpeed,
+	const unsigned int nbFrames, const unsigned int animationSpeed,
 	const bool animated
 ) : SDLDrawableLoader(x, y, width, height, textureID, textureRow) {
 	m_iNbFrames = nbFrames;
@@ -122,11 +122,11 @@ int SDLDrawableLoader::getTextureRow() {
 	return m_iTextureRow;
 }
 
-int SDLDrawableLoader::getNbFrames() {
+unsigned int SDLDrawableLoader::getNbFrames() {
 	return m_iNbFrames;
 }
 
-int SDLDrawableLoader::getAnimationSpeed() {
+unsigned int SDLDrawableLoader::getAnimationSpeed() {
 	return m_iAnimationSpeed;
 }
 

@@ -4,8 +4,14 @@
 #include "ObjectLayer.h"
 #include "Game.h"
 #include "objectParser.h"
-#include "vendor/base64.h"
+#include "base64.h"
 #include <zlib.h>
+
+LevelParser::LevelParser() :
+	m_iTileSize(0),
+	m_iWidth(0),
+	m_iHeight(0)
+{}
 
 std::string LevelParser::_joinPath(std::string pathPart1, std::string pathPart2) {
 	return pathPart1 + '/' + pathPart2;
@@ -107,10 +113,10 @@ void LevelParser::_parseTileLayer(
 
 	// tile data
 	std::vector<std::vector<int>> data;
-	std::vector<int> layerRow(m_iWidth);
+	std::vector<int> layerRow((size_t) m_iWidth);
 	std::string decodedIDs;
 	uLongf numGids;
-	TiXmlElement* dataNode;
+	TiXmlElement* dataNode = 0;
 
 	for (TiXmlElement* e = tileElement->FirstChildElement(); e != NULL; e = e->NextSiblingElement()) {
 		if (e->Value() == std::string("data")) {
@@ -125,7 +131,7 @@ void LevelParser::_parseTileLayer(
 	}
 
 	// uncompress zlib compression
-	numGids = m_iWidth * m_iHeight * sizeof(int);
+	numGids = (uLongf) (m_iWidth * m_iHeight * (int) sizeof(int));
 	std::vector<unsigned> gids(numGids);
 
 	uncompress(
@@ -139,9 +145,12 @@ void LevelParser::_parseTileLayer(
 		data.push_back(layerRow);
 	}
 
-	for (int rows = 0; rows < m_iHeight; rows++) {
-		for (int cols = 0; cols < m_iWidth; cols++) {
-			data[rows][cols] = gids[rows * m_iWidth + cols];
+	unsigned long rows, cols,
+		height = (unsigned long) m_iHeight,
+		width = (unsigned long) m_iWidth;
+	for (rows = 0; rows < height; rows++) {
+		for (cols = 0; cols < width; cols++) {
+			data[rows][cols] = (int) gids[rows * width + cols];
 		}
 	}
 

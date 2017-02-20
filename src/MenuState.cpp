@@ -1,9 +1,8 @@
 #include "MenuState.h"
 #include "GameStateParser.h"
 #include "ServiceProvider.h"
-#include "PlayState.h"
 
-MenuState::MenuState(const int nbButtons) : m_iNbButtons(nbButtons) {}
+MenuState::MenuState(const unsigned int nbButtons) : m_iNbButtons(nbButtons) {}
 
 void MenuState::update() {
 	UserActions* userActions = ServiceProvider::getUserActions();

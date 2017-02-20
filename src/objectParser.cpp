@@ -35,12 +35,13 @@ bool parseObject(
 SDLDrawable* _createDrawable(TiXmlElement* object, std::map<std::string, std::string> properties) {
 	std::string texture, type;
 	std::map<std::string, std::string>::iterator propertyIterator;
-	float x, y;
+	float x = 0.0f,
+		  y = 0.0f;
 	int w, h,
-		textureRow = 0,
-		nbFrames = 1,
-		animationSpeed = 1;
+		textureRow = 0;
 	bool animated = false;
+	unsigned int nbFrames = 1,
+		 animationSpeed = 1;
 
 	nbFrames = 1;
 	object->QueryFloatAttribute("x", &x);
@@ -54,12 +55,12 @@ SDLDrawable* _createDrawable(TiXmlElement* object, std::map<std::string, std::st
 
 	propertyIterator = properties.find("nbFrames");
 	if (propertyIterator != properties.end()) {
-		nbFrames = atoi(propertyIterator->second.c_str());
+		nbFrames = (unsigned) atoi(propertyIterator->second.c_str());
 	}
 
 	propertyIterator = properties.find("animationSpeed");
 	if (propertyIterator != properties.end()) {
-		animationSpeed = atoi(propertyIterator->second.c_str());
+		animationSpeed = (unsigned) atoi(propertyIterator->second.c_str());
 	}
 
 	propertyIterator = properties.find("animated");
