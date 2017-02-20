@@ -123,6 +123,11 @@ class Game {
 	void setBinaryPath(std::string binaryPath);
 
 	/**
+	 * Method to set the path to the game binary
+	 */
+	std::string getBinaryPath();
+
+	/**
 	 * Method used to clean the memory used by the game before quitting the
 	 * game.
 	 */

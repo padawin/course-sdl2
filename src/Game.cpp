@@ -45,6 +45,10 @@ void Game::setBinaryPath(std::string binaryPath) {
 	m_sBinaryPath = binaryPath;
 }
 
+std::string Game::getBinaryPath() {
+	return m_sBinaryPath;
+}
+
 /**
  * Deletes the game instance.
  */
