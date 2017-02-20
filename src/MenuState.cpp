@@ -1,6 +1,7 @@
 #include "MenuState.h"
 #include "GameStateParser.h"
 #include "ServiceProvider.h"
+#include "Game.h"
 
 MenuState::MenuState(const unsigned int nbButtons) : m_iNbButtons(nbButtons) {}
 
@@ -40,8 +41,9 @@ void MenuState::update() {
 bool MenuState::onEnter() {
 	// parse the state
 	GameStateParser stateParser;
+	std::string config = Game::Instance()->getBinaryPath() + "/../" + m_sConfigFile;
 	bool stateParsed = stateParser.parseState(
-		"configs/menus.xml",
+		config.c_str(),
 		m_objects.getGameObjects(),
 		m_objects.getDrawables(),
 		getStateID().c_str()

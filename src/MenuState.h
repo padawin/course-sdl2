@@ -13,6 +13,7 @@
  */
 class MenuState : public GameState {
 	protected:
+	std::string m_sConfigFile = "";
 	std::vector<MenuButton*> m_vButtons = {};
 	unsigned int m_iNbButtons;
 	unsigned int m_iActiveButtonIndex = 0;
