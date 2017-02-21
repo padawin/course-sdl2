@@ -5,6 +5,7 @@
 const std::string PauseMenuState::s_menuID = "PAUSEMENU";
 
 PauseMenuState::PauseMenuState() : MenuState::MenuState(3) {
+	m_sConfigFile = "configs/menus.xml",
 	s_vActions.push_back(PauseMenuState::resumeGame);
 	s_vActions.push_back(PauseMenuState::goToMainMenu);
 	s_vActions.push_back(PauseMenuState::quitGame);

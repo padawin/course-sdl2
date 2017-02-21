@@ -27,7 +27,7 @@ CFLAGS := -g -O2 -Wall -Wmissing-declarations -Weffc++ \
 		-Wvariadic-macros \
 		-Wwrite-strings
 LDFLAGS:= -L/home/ghislain/.self/lib/
-CCDYNAMICFLAGS := ${CFLAGS} ${LDFLAGS} -lSDL_framework -ltinyxml -lSDL2 -lSDL2_image -ltinyxml -lz
+CCDYNAMICFLAGS := ${CFLAGS} ${LDFLAGS} -lSDL2_framework -ltinyxml -lSDL2 -lSDL2_image -ltinyxml -lz
 
 SRC := $(shell find $(SRCDIR)/ -type f -name '*.cpp')
 OBJ := $(patsubst %.cpp,$(BUILDDIR)/%.o,$(SRC))

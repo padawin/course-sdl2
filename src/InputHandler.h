@@ -7,9 +7,9 @@
 #include <map>
 #include "Vector2D.h"
 
-enum JoystickControl {NULL_CONTROL, LEFT_STICK_X, LEFT_STICK_Y, RIGHT_STICK_X, RIGHT_STICK_Y};
+enum JoystickControl {LEFT_STICK_X, LEFT_STICK_Y, RIGHT_STICK_X, RIGHT_STICK_Y, NULL_CONTROL};
 
-enum InputType {NULL_TYPE, KEYBOARD_KEY, CONTROLLER_BUTTON, CONTROLLER_STICK};
+enum InputType {KEYBOARD_KEY, CONTROLLER_BUTTON, CONTROLLER_STICK, NULL_TYPE};
 
 class InputHandler {
 	private:

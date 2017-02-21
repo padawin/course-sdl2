@@ -5,9 +5,15 @@
 #include <vector>
 #include "GameStateMachine.h"
 #include "TextureManager.h"
+#include <string>
 
 class Game {
 	private:
+	/**
+	 * Path to the game binary
+	 */
+	std::string m_sBinaryPath = "";
+
 	/**
 	 * flag to know if the game is running
 	 */
@@ -32,7 +38,7 @@ class Game {
 	 * List of files to use as graphic resources, each file is a pair composed
 	 * of a resource name and of the file path.
 	 */
-	std::vector<std::pair<const char*, const char*>> m_vResourceFiles = {};
+	std::vector<std::pair<std::string, std::string>> m_vResourceFiles = {};
 
 	/**
 	 * Number of resources used by the game
@@ -112,6 +118,16 @@ class Game {
 	static Game* Instance();
 
 	/**
+	 * Method to set the path to the game binary
+	 */
+	void setBinaryPath(std::string binaryPath);
+
+	/**
+	 * Method to set the path to the game binary
+	 */
+	std::string getBinaryPath();
+
+	/**
 	 * Method used to clean the memory used by the game before quitting the
 	 * game.
 	 */
@@ -181,6 +197,8 @@ class Game {
 	 */
 	int getScreenWidth();
 	int getScreenHeight();
+
+	void addResource(std::string resourceName, std::string resourcePath);
 };
 
 #endif /* defined(__Game__) */

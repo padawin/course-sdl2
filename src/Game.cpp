@@ -41,6 +41,14 @@ Game *Game::Instance() {
 	return s_pInstance;
 }
 
+void Game::setBinaryPath(std::string binaryPath) {
+	m_sBinaryPath = binaryPath;
+}
+
+std::string Game::getBinaryPath() {
+	return m_sBinaryPath;
+}
+
 /**
  * Deletes the game instance.
  */
@@ -129,7 +137,7 @@ bool Game::_loadResources() {
 	std::cout << "Load resources \n";
 	for (unsigned long i = 0; i < m_iNbFiles; ++i) {
 		char* errorMessage = (char*) calloc(
-			strlen(errorPattern) + strlen(m_vResourceFiles[i].second), sizeof(char)
+			strlen(errorPattern) + m_vResourceFiles[i].second.length(), sizeof(char)
 		);
 		std::cout << "Load resource " << m_vResourceFiles[i].second << "\n";
 		bool textureLoaded = TextureManager::Instance()->load(
@@ -139,7 +147,7 @@ bool Game::_loadResources() {
 		);
 
 		if (!textureLoaded) {
-			sprintf(errorMessage, errorPattern, m_vResourceFiles[i].second);
+			sprintf(errorMessage, errorPattern, m_vResourceFiles[i].second.c_str());
 			std::cout << errorMessage << "\n";
 			std::cout << strerror(errno) << "\n";
 			return false;
@@ -214,7 +222,7 @@ void Game::_cleanResources() {
 	std::cout << "Clean resources\n";
 	for (unsigned long i = 0; i < m_iNbFiles; ++i) {
 		std::cout << "Clean resource " << m_vResourceFiles[i].second << "\n";
-		TextureManager::Instance()->clearFromTextureMap(m_vResourceFiles[i].first);
+		TextureManager::Instance()->clearFromTextureMap(m_vResourceFiles[i].first.c_str());
 	}
 }
 
@@ -247,8 +255,8 @@ int Game::getScreenHeight() {
 
 bool Game::_initServiceProvider() {
 	bool ret = true;
-	const char* mappingFile = "configs/playercontrolsmapping.txt";
-	int userActionsParsed = ServiceProvider::setUserActions(mappingFile);
+	std::string mappingFile = m_sBinaryPath + "/../configs/playercontrolsmapping.txt";
+	int userActionsParsed = ServiceProvider::setUserActions(mappingFile.c_str());
 	if (userActionsParsed != 0) {
 		std::cerr << "The parsing of the user actions failed, returned "
 			<< userActionsParsed << std::endl;
@@ -256,4 +264,9 @@ bool Game::_initServiceProvider() {
 	}
 
 	return ret;
+}
+
+void Game::addResource(std::string resourceName, std::string resourcePath) {
+	m_vResourceFiles.push_back(std::make_pair(resourceName, resourcePath));
+	m_iNbFiles = (int) m_vResourceFiles.size();
 }

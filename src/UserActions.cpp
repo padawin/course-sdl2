@@ -151,6 +151,7 @@ int UserActions::setActionsFromFile(const char* mappingFile) {
 				c.stickDirection = direction;
 				break;
 			case NULL_TYPE:
+				break;
 			default:
 				return INVALID_TYPE;
 		}

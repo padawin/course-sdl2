@@ -5,6 +5,7 @@
 const std::string MainMenuState::s_menuID = "MAINMENU";
 
 MainMenuState::MainMenuState() : MenuState::MenuState(2) {
+	m_sConfigFile = "configs/menus.xml",
 	s_vActions.push_back(MainMenuState::startGame);
 	s_vActions.push_back(MainMenuState::quitGame);
 }
