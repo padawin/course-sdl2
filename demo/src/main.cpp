@@ -1,5 +1,6 @@
 #include <SDL2/SDL.h>
 #include <unistd.h>
+#include <stdlib.h>
 #include "SDL2_framework/Game.h"
 #include "SDL2_framework/GameObjectFactory.h"
 #include "SDL2_framework/MenuButton.h"
@@ -31,14 +32,18 @@ void parseArguments(int argc, char* args[], bool *fullScreen) {
 int main(int argc, char* args[]) {
 	Game* g;
 	bool fullScreen;
+	char buffer[1024];
+	std::string binaryPath;
 	Uint32 frameStart, frameTime;
 
 	parseArguments(argc, args, &fullScreen);
 
+	realpath(dirname(args[0]), buffer);
+	binaryPath = buffer;
 	g = Game::Instance();
 	initResources(g);
 	initObjectTypes();
-	g->setBinaryPath(dirname(args[0]));
+	g->setBinaryPath(binaryPath);
 	if (!g->init("My first window", 100, 100, 640, 480, fullScreen)) {
 		Game::freeGame();
 		return 1;
