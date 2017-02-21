@@ -38,7 +38,7 @@ class Game {
 	 * List of files to use as graphic resources, each file is a pair composed
 	 * of a resource name and of the file path.
 	 */
-	std::vector<std::pair<const char*, const char*>> m_vResourceFiles = {};
+	std::vector<std::pair<std::string, std::string>> m_vResourceFiles = {};
 
 	/**
 	 * Number of resources used by the game
@@ -198,7 +198,7 @@ class Game {
 	int getScreenWidth();
 	int getScreenHeight();
 
-	void addResource(const char *resourceName, const char *resourcePath);
+	void addResource(std::string resourceName, std::string resourcePath);
 };
 
 #endif /* defined(__Game__) */
