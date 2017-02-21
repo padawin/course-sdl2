@@ -8,12 +8,13 @@
 #include "Enemy.h"
 #include "MainMenuState.h"
 #include <libgen.h>
+#include <iostream>
 
 const int FPS = 60;
 const int DELAY_TIME = 1000 / FPS;
 
 void parseArguments(int argc, char* args[], bool *fullScreen);
-void initResources(Game* game);
+void initResources(std::string binaryPath, Game* game);
 void initObjectTypes();
 
 void parseArguments(int argc, char* args[], bool *fullScreen) {
@@ -41,7 +42,7 @@ int main(int argc, char* args[]) {
 	realpath(dirname(args[0]), buffer);
 	binaryPath = buffer;
 	g = Game::Instance();
-	initResources(g);
+	initResources(binaryPath, g);
 	initObjectTypes();
 	g->setBinaryPath(binaryPath);
 	if (!g->init("My first window", 100, 100, 640, 480, fullScreen)) {
@@ -68,9 +69,11 @@ int main(int argc, char* args[]) {
 	return 0;
 }
 
-void initResources(Game* game) {
-	game->addResource("mainmenu", "resources/menu-buttons.png");
-	game->addResource("pausemenu", "resources/pause-menu-buttons.png");
+void initResources(std::string binaryPath, Game* game) {
+	std::string menuButtons = binaryPath + "/../resources/menu-buttons.png";
+	std::string pauseMenuButtons = binaryPath + "/../resources/pause-menu-buttons.png";
+	game->addResource("mainmenu", menuButtons);
+	game->addResource("pausemenu", pauseMenuButtons);
 }
 
 void initObjectTypes() {
