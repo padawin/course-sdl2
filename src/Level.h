@@ -22,12 +22,9 @@ class Level {
 	std::vector<Tileset> m_vTilesets;
 	std::vector<Layer*> m_vLayers;
 
-	// Only a level parser can create a level
-	friend class LevelParser;
-	Level();
 
 	public:
-	// @TODO Must free the layers
+	Level();
 	~Level();
 	void update();
 	void render();
