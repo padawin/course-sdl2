@@ -27,7 +27,6 @@ class Level {
 	Level();
 
 	public:
-	// @TODO Must free the layers
 	~Level();
 	void update();
 	void render();
