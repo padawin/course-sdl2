@@ -94,6 +94,7 @@ int UserActions::setActionsFromFile(const char* mappingFile) {
 	ifstream fin;
 	fin.open(mappingFile); // open a file
 	if (!fin.good()) {
+		fin.close();
 		return NO_FILE_FOUND; // exit if file not found
 	}
 
@@ -158,5 +159,6 @@ int UserActions::setActionsFromFile(const char* mappingFile) {
 		add(commandName, c);
 	}
 
+	fin.close();
 	return 0;
 }
