@@ -11,7 +11,7 @@
 #define NO_VALUE_FOUND 3
 #define INVALID_TYPE 4
 
-struct Command {
+struct S_Command {
 	InputType type = NULL_TYPE;
 	unsigned long buttonId = 0;
 	int stickDirection = 0;
@@ -21,11 +21,11 @@ struct Command {
 
 class UserActions {
 	protected:
-	std::map<std::string, std::vector<Command>> m_mMappings;
+	std::map<std::string, std::vector<S_Command>> m_mMappings;
 
 	public:
 	UserActions();
-	void add(std::string name, Command c);
+	void add(std::string name, S_Command c);
 	int getActionState(std::string name);
 	void resetActionState(std::string name);
 	int setActionsFromFile(const char* mappingFile);
