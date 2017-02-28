@@ -12,9 +12,9 @@ const char* const DELIMITER = ";";
 
 UserActions::UserActions() : m_mMappings({}) {}
 
-void UserActions::add(std::string name, Command c) {
+void UserActions::add(std::string name, S_Command c) {
 	if (!m_mMappings.count(name)) {
-		std::vector<Command> tempCommands;
+		std::vector<S_Command> tempCommands;
 		m_mMappings[name] = tempCommands;
 	}
 
@@ -26,7 +26,7 @@ int UserActions::getActionState(std::string name) {
 		return 0;
 	}
 
-	std::vector<Command> commands = m_mMappings[name];
+	std::vector<S_Command> commands = m_mMappings[name];
 	int ret = 0;
 	InputHandler* handlerInstance = InputHandler::Instance();
 	for (unsigned int c = 0; c < commands.size(); c++) {
@@ -67,7 +67,7 @@ void UserActions::resetActionState(std::string name) {
 		return;
 	}
 
-	std::vector<Command> commands = m_mMappings[name];
+	std::vector<S_Command> commands = m_mMappings[name];
 	InputHandler* handlerInstance = InputHandler::Instance();
 	for (unsigned int c = 0; c < commands.size(); c++) {
 		switch (commands[c].type) {
@@ -138,7 +138,7 @@ int UserActions::setActionsFromFile(const char* mappingFile) {
 			direction = atoi(token);
 		}
 
-		Command c;
+		S_Command c;
 		c.type = type;
 		switch (type) {
 			case KEYBOARD_KEY:
