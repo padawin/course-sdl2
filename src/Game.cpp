@@ -21,9 +21,7 @@ Game::~Game() {
 	GameObjectFactory::free();
 	_cleanResources();
 	TextureManager::free();
-	if (m_bRunning) {
-		_cleanGameMachine();
-	}
+	_cleanGameMachine();
 	ServiceProvider::clean();
 	SDL_DestroyWindow(m_window);
 	SDL_DestroyRenderer(m_renderer);
