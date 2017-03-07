@@ -7,7 +7,7 @@ UserActions* ServiceProvider::getUserActions() {
 }
 
 int ServiceProvider::setUserActions(const char* mappingFile) {
-	free(s_userActions);
+	delete s_userActions;
 	s_userActions = new UserActions();
 	return s_userActions->setActionsFromFile(mappingFile);
 }
