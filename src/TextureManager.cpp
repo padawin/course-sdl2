@@ -4,6 +4,14 @@ static TextureManager* s_pInstance;
 
 TextureManager::TextureManager() {}
 
+TextureManager::~TextureManager() {
+	for (auto it : m_textureMap) {
+		if (it.second != 0) {
+			SDL_DestroyTexture(it.second);
+		}
+	}
+}
+
 bool TextureManager::load(
 	std::string fileName, std::string id, SDL_Renderer* pRenderer
 ) {

@@ -17,6 +17,7 @@ class TextureManager {
 	 * Private constructor for singleton
 	 */
 	TextureManager();
+	~TextureManager();
 
 	public:
 	/**
