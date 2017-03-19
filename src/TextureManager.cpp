@@ -6,8 +6,8 @@ TextureManager::TextureManager() {}
 
 TextureManager::~TextureManager() {
 	for (auto it : m_textureMap) {
-		if (it.second != 0) {
-			SDL_DestroyTexture(it.second);
+		if (it.second.texture != 0) {
+			SDL_DestroyTexture(it.second.texture);
 		}
 	}
 }
@@ -20,15 +20,18 @@ bool TextureManager::load(
 		return false;
 	}
 
-	SDL_Texture* pTexture =	SDL_CreateTextureFromSurface(
+	S_Texture texture;
+	texture.fileName = fileName;
+	texture.loaded = true;
+	texture.texture = SDL_CreateTextureFromSurface(
 		pRenderer,
 		pTempSurface
 	);
 
 	SDL_FreeSurface(pTempSurface);
 	// everything went ok, add the texture to our list
-	if (pTexture != 0) {
-		m_textureMap[id] = pTexture;
+	if (texture.texture != 0) {
+		m_textureMap[id] = texture;
 		return true;
 	}
 
@@ -66,7 +69,7 @@ void TextureManager::drawTile(
 	destRect.y = y;
 	SDL_RenderCopyEx(
 		pRenderer,
-		m_textureMap[id],
+		m_textureMap[id].texture,
 		&srcRect,
 		&destRect,
 		0, 0,
@@ -96,7 +99,7 @@ void TextureManager::drawFrame(
 	destRect.y = y;
 	SDL_RenderCopyEx(
 		pRenderer,
-		m_textureMap[id],
+		m_textureMap[id].texture,
 		&srcRect, &destRect,
 		0, 0,
 		flip

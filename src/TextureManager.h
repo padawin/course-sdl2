@@ -6,6 +6,12 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 
+struct S_Texture {
+	SDL_Texture* texture = 0;
+	std::string fileName = "";
+	bool loaded = false;
+};
+
 class TextureManager {
 	private:
 	/**
