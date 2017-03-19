@@ -33,6 +33,12 @@ class TextureManager {
 	void operator=(TextureManager const&) = delete;
 
 	/**
+	 * Adds a texture to be loaded later on.
+	 */
+	bool addTexture(std::string fileName, std::string id);
+	bool load(std::string id, SDL_Renderer* pRenderer);
+
+	/**
 	 * Method to load a texture, takes in arguments the file name, the texture
 	 * id and the renderer to use to render the texture.
 	 */
