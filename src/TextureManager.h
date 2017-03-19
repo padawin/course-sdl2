@@ -1,7 +1,7 @@
 #ifndef __TextureManager__
 #define __TextureManager__
 
-#include <map>
+#include <unordered_map>
 #include <string>
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
@@ -11,7 +11,7 @@ class TextureManager {
 	/**
 	 * All the textures are stored in this map.
 	 */
-	std::map<std::string, SDL_Texture*> m_textureMap = {};
+	std::unordered_map<std::string, S_Texture> m_textureMap = {};
 
 	/**
 	 * Private constructor for singleton
