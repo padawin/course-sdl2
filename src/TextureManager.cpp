@@ -4,28 +4,60 @@ static TextureManager* s_pInstance;
 
 TextureManager::TextureManager() {}
 
-bool TextureManager::load(
-	std::string fileName, std::string id, SDL_Renderer* pRenderer
-) {
-	SDL_Surface* pTempSurface = IMG_Load(fileName.c_str());
+TextureManager::~TextureManager() {
+	for (auto it : m_textureMap) {
+		if (it.second.texture != 0) {
+			SDL_DestroyTexture(it.second.texture);
+		}
+	}
+}
+
+bool TextureManager::addTexture(std::string fileName, std::string id) {
+	// a texture with this id already exists
+	if (m_textureMap.find(id) != m_textureMap.end()) {
+		return false;
+	}
+
+	S_Texture texture;
+	texture.fileName = fileName;
+	texture.loaded = false;
+	m_textureMap[id] = texture;
+	return true;
+}
+
+bool TextureManager::load(std::string id, SDL_Renderer* pRenderer) {
+	auto textureIterator = m_textureMap.find(id);
+	if (textureIterator == m_textureMap.end() || textureIterator->second.loaded) {
+		return false;
+	}
+
+	SDL_Surface* pTempSurface = IMG_Load(
+		textureIterator->second.fileName.c_str()
+	);
 	if (pTempSurface == 0) {
 		return false;
 	}
 
-	SDL_Texture* pTexture =	SDL_CreateTextureFromSurface(
+	textureIterator->second.texture = SDL_CreateTextureFromSurface(
 		pRenderer,
 		pTempSurface
 	);
 
 	SDL_FreeSurface(pTempSurface);
 	// everything went ok, add the texture to our list
-	if (pTexture != 0) {
-		m_textureMap[id] = pTexture;
+	if (textureIterator->second.texture != 0) {
+		textureIterator->second.loaded = true;
 		return true;
 	}
 
 	// reaching here means something went wrong
 	return false;
+}
+
+bool TextureManager::load(
+	std::string fileName, std::string id, SDL_Renderer* pRenderer
+) {
+	return addTexture(fileName, id) && load(id, pRenderer);
 }
 
 /**
@@ -58,7 +90,7 @@ void TextureManager::drawTile(
 	destRect.y = y;
 	SDL_RenderCopyEx(
 		pRenderer,
-		m_textureMap[id],
+		m_textureMap[id].texture,
 		&srcRect,
 		&destRect,
 		0, 0,
@@ -88,7 +120,7 @@ void TextureManager::drawFrame(
 	destRect.y = y;
 	SDL_RenderCopyEx(
 		pRenderer,
-		m_textureMap[id],
+		m_textureMap[id].texture,
 		&srcRect, &destRect,
 		0, 0,
 		flip
