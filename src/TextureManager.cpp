@@ -78,7 +78,8 @@ void TextureManager::drawTile(
 	int x, int y,
 	int width, int height,
 	int currentRow, int currentFrame,
-	SDL_Renderer *pRenderer
+	SDL_Renderer *pRenderer,
+	SDL_RendererFlip flip
 ) {
 	SDL_Rect srcRect;
 	SDL_Rect destRect;
@@ -94,7 +95,7 @@ void TextureManager::drawTile(
 		&srcRect,
 		&destRect,
 		0, 0,
-		SDL_FLIP_NONE
+		flip
 	);
 }
 
